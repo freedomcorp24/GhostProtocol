@@ -1,8 +1,8 @@
 /*
- * Copyright 2024 GhostProtocol
+ * Copyright 2013-2021 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.websocket;
+package org.whispersystems.websocket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,15 +25,15 @@ import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.ghostprotocol.websocket.auth.AuthenticationException;
-import org.ghostprotocol.websocket.auth.PrincipalSupplier;
-import org.ghostprotocol.websocket.auth.WebSocketAuthenticator;
-import org.ghostprotocol.websocket.configuration.WebSocketConfiguration;
-import org.ghostprotocol.websocket.setup.WebSocketEnvironment;
+import org.whispersystems.websocket.auth.AuthenticationException;
+import org.whispersystems.websocket.auth.PrincipalSupplier;
+import org.whispersystems.websocket.auth.WebSocketAuthenticator;
+import org.whispersystems.websocket.configuration.WebSocketConfiguration;
+import org.whispersystems.websocket.setup.WebSocketEnvironment;
 
 public class WebSocketResourceProviderFactoryTest {
 
-  private static final String REMOTE_ADDRESS_PROPERTY_NAME = "org.ghostprotocol.websocket.test.remoteAddress";
+  private static final String REMOTE_ADDRESS_PROPERTY_NAME = "org.whispersystems.websocket.test.remoteAddress";
 
   private ResourceConfig jerseyEnvironment;
   private WebSocketEnvironment<Account> environment;

@@ -1,8 +1,8 @@
 /*
- * Copyright 2024 GhostProtocol
+ * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.websocket;
+package org.whispersystems.websocket;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
@@ -59,19 +59,19 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.stubbing.Answer;
-import org.ghostprotocol.websocket.auth.PrincipalSupplier;
-import org.ghostprotocol.websocket.auth.WebsocketAuthValueFactoryProvider;
-import org.ghostprotocol.websocket.logging.WebsocketRequestLog;
-import org.ghostprotocol.websocket.messages.protobuf.ProtobufWebSocketMessageFactory;
-import org.ghostprotocol.websocket.messages.protobuf.SubProtocol;
-import org.ghostprotocol.websocket.session.WebSocketSession;
-import org.ghostprotocol.websocket.session.WebSocketSessionContext;
-import org.ghostprotocol.websocket.session.WebSocketSessionContextValueFactoryProvider;
-import org.ghostprotocol.websocket.setup.WebSocketConnectListener;
+import org.whispersystems.websocket.auth.PrincipalSupplier;
+import org.whispersystems.websocket.auth.WebsocketAuthValueFactoryProvider;
+import org.whispersystems.websocket.logging.WebsocketRequestLog;
+import org.whispersystems.websocket.messages.protobuf.ProtobufWebSocketMessageFactory;
+import org.whispersystems.websocket.messages.protobuf.SubProtocol;
+import org.whispersystems.websocket.session.WebSocketSession;
+import org.whispersystems.websocket.session.WebSocketSessionContext;
+import org.whispersystems.websocket.session.WebSocketSessionContextValueFactoryProvider;
+import org.whispersystems.websocket.setup.WebSocketConnectListener;
 
 class WebSocketResourceProviderTest {
 
-  private static final String REMOTE_ADDRESS_PROPERTY_NAME = "org.ghostprotocol.websocket.test.remoteAddress";
+  private static final String REMOTE_ADDRESS_PROPERTY_NAME = "org.whispersystems.weboscket.test.remoteAddress";
 
   @Test
   void testOnConnect() {

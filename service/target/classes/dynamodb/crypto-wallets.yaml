@@ -1,0 +1,32 @@
+TableName: ${DYNAMODB_PREFIX}crypto_wallets
+BillingMode: PAY_PER_REQUEST
+AttributeDefinitions:
+  - AttributeName: wallet_id
+    AttributeType: S
+  - AttributeName: currency
+    AttributeType: S
+  - AttributeName: address
+    AttributeType: S
+  - AttributeName: account_id
+    AttributeType: S
+KeySchema:
+  - AttributeName: wallet_id
+    KeyType: HASH
+GlobalSecondaryIndexes:
+  - IndexName: currency_address_index
+    KeySchema:
+      - AttributeName: currency
+        KeyType: HASH
+      - AttributeName: address
+        KeyType: RANGE
+    Projection:
+      ProjectionType: ALL
+  - IndexName: account_id_index
+    KeySchema:
+      - AttributeName: account_id
+        KeyType: HASH
+    Projection:
+      ProjectionType: ALL
+TimeToLiveSpecification:
+  AttributeName: expires_at
+  Enabled: true

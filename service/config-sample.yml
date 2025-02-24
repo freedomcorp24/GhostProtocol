@@ -1,0 +1,38 @@
+# Crypto Payment Configuration
+cryptoPayments:
+  hotWallet:
+    btcAddress: "${BTC_HOT_WALLET}"
+    xmrAddress: "${XMR_HOT_WALLET}"
+    ethAddress: "${ETH_HOT_WALLET}"
+    maxBalanceBtc: 10.0
+    maxBalanceXmr: 100.0
+    maxBalanceUsdt: 10000.0
+
+  coldWallet:
+    btcAddress: "${BTC_COLD_WALLET}"
+    xmrAddress: "${XMR_COLD_WALLET}"
+    ethAddress: "${ETH_COLD_WALLET}"
+    sweepThresholdBtc: 5.0
+    sweepThresholdXmr: 50.0
+    sweepThresholdUsdt: 5000.0
+
+  cryptoNode:
+    btcNodeUrl: "http://localhost:8332"
+    btcRpcUser: "${BTC_RPC_USER}"
+    btcRpcPassword: "${BTC_RPC_PASSWORD}"
+    xmrNodeUrl: "http://localhost:18081"
+    xmrRpcUser: "${XMR_RPC_USER}"
+    xmrRpcPassword: "${XMR_RPC_PASSWORD}"
+    ethNodeUrl: "http://localhost:8545"
+    usdtContractAddress: "${USDT_CONTRACT_ADDRESS}"
+    minConfirmations: 3
+    paymentTimeout: PT2H
+    maxRetries: 3
+    retryDelay: PT5M
+
+# Database Configuration
+dynamoDb:
+  region: us-west-2
+  tables:
+    cryptoWallets: ghost_protocol_crypto_wallets
+    cryptoTransactions: ghost_protocol_crypto_transactions

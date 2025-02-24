@@ -1,13 +1,13 @@
 /*
- * Copyright 2024 GhostProtocol
+ * Copyright 2023 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.openapi;
+package org.signal.openapi;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
-import static org.ghostprotocol.openapi.OpenApiExtension.AUTHENTICATED_ACCOUNT;
-import static org.ghostprotocol.openapi.OpenApiExtension.OPTIONAL_AUTHENTICATED_ACCOUNT;
+import static org.signal.openapi.OpenApiExtension.AUTHENTICATED_ACCOUNT;
+import static org.signal.openapi.OpenApiExtension.OPTIONAL_AUTHENTICATED_ACCOUNT;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.ImmutableList;
