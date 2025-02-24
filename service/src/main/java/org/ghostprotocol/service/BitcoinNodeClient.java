@@ -82,6 +82,32 @@ public class BitcoinNodeClient {
           throw new RuntimeException("Failed to verify Bitcoin transaction", e);
         });
   }
+  
+  public CompletableFuture<String> sendToAddress(String fromAddress, String toAddress, BigDecimal amount) {
+    if (toAddress == null || toAddress.isBlank()) {
+      throw new IllegalArgumentException("Destination address cannot be null or empty");
+    }
+    if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IllegalArgumentException("Amount must be positive");
+    }
+
+    logger.debug("Sending {} BTC to {}", amount, toAddress);
+    
+    // Format parameters for the RPC call
+    String params = String.format("\"%s\", %s", toAddress, amount.toPlainString());
+    
+    // For Bitcoin, we don't need the fromAddress as the wallet manages the source
+    // If specific source address is needed, we would use the "sendfrom" RPC call instead
+    return makeRpcCall("sendtoaddress", params)
+        .thenApply(response -> {
+          logger.debug("Bitcoin transaction sent: {}", response.result);
+          return response.result; // This is the transaction hash
+        })
+        .exceptionally(e -> {
+          logger.error("Failed to send Bitcoin", e);
+          throw new RuntimeException("Failed to send Bitcoin", e);
+        });
+  }
 
   private CompletableFuture<RpcResponse> makeRpcCall(String method, String params) {
     String jsonRequest = String.format(
