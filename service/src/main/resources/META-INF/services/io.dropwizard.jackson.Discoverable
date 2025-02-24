@@ -1,0 +1,9 @@
+org.ghostprotocol.service.configuration.AwsCredentialsProviderFactory
+org.ghostprotocol.service.configuration.DatadogConfiguration
+org.ghostprotocol.service.configuration.DynamoDbClientFactory
+org.ghostprotocol.service.configuration.FaultTolerantRedisClusterFactory
+org.ghostprotocol.service.configuration.FaultTolerantRedisClientFactory
+org.ghostprotocol.service.configuration.PaymentsServiceClientsFactory
+org.ghostprotocol.service.configuration.PubSubPublisherFactory
+org.ghostprotocol.service.configuration.RegistrationServiceClientFactory
+org.ghostprotocol.service.configuration.S3ObjectMonitorFactory

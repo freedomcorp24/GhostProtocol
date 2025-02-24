@@ -1,0 +1,14 @@
+/*
+ * Copyright 2024 GhostProtocol
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.ghostprotocol.configuration.secrets;
+
+import org.apache.commons.lang3.Validate;
+
+public class SecretString extends Secret<String> {
+  public SecretString(final String value) {
+    super(Validate.notBlank(value, "SecretString value must not be blank"));
+  }
+}

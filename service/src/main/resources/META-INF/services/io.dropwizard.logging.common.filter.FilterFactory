@@ -1,0 +1,2 @@
+org.ghostprotocol.service.util.logging.RequestLogEnabledFilterFactory
+org.ghostprotocol.service.util.logging.UnknownKeepaliveOptionFilterFactory
