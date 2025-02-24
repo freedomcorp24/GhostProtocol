@@ -10,9 +10,9 @@ openAPI:
       name: AGPL-3.0-only
       url: https://www.gnu.org/licenses/agpl-3.0.txt
   servers:
-    - url: https://chat.signal.org
+    - url: https://chat.ghostprotocol.org
       description: Production service
-    - url: https://chat.staging.signal.org
+    - url: https://chat.staging.ghostprotocol.org
       description: Staging service
   components:
     securitySchemes:
