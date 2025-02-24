@@ -39,6 +39,15 @@ public class TwoFactorAuthenticationService {
         device.setTwoFactorAuthSalt(salt);
     }
 
+    public void setUsernameAuth(Account account, Device device, String username) {
+        validateUsername(username);
+        String salt = generateSalt();
+        String hashedCredential = hashCredential(username, salt);
+        device.setTwoFactorAuthType(TwoFactorAuthType.USERNAME);
+        device.setTwoFactorAuthHash(hashedCredential);
+        device.setTwoFactorAuthSalt(salt);
+    }
+
     public boolean verifyTwoFactorAuth(Device device, String credential) {
         if (device.getTwoFactorAuthType() == null || 
             device.getTwoFactorAuthHash() == null || 
@@ -69,6 +78,16 @@ public class TwoFactorAuthenticationService {
             throw new IllegalArgumentException("Password must contain uppercase, lowercase, and numbers");
         }
     }
+    
+    private void validateUsername(String username) {
+        if (username == null || username.length() < 3 || username.length() > 32) {
+            throw new IllegalArgumentException("Invalid username length");
+        }
+        // Username format: alphanumeric with underscore and hyphen
+        if (!username.matches("^[a-zA-Z0-9_-]{3,32}$")) {
+            throw new IllegalArgumentException("Invalid username format");
+        }
+    }
 
     private String generateSalt() {
         byte[] salt = new byte[16];
@@ -82,6 +101,7 @@ public class TwoFactorAuthenticationService {
 
     public enum TwoFactorAuthType {
         PATTERN,
-        PASSWORD
+        PASSWORD,
+        USERNAME
     }
 }

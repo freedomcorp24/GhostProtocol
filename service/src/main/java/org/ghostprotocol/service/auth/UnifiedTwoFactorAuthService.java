@@ -45,6 +45,12 @@ public class UnifiedTwoFactorAuthService {
         account.setTwoFactorAuthEnabled(true);
         account.setTwoFactorAuthType(TwoFactorAuthType.BIOMETRIC);
     }
+    
+    public void setupUsername(Account account, Device device, String username) {
+        patternPasswordAuth.setUsernameAuth(account, device, username);
+        account.setTwoFactorAuthEnabled(true);
+        account.setTwoFactorAuthType(TwoFactorAuthType.USERNAME);
+    }
 
     public boolean verify(Account account, Device device, String credential) {
         if (!account.isTwoFactorAuthEnabled()) {
@@ -78,6 +84,7 @@ public class UnifiedTwoFactorAuthService {
         TOTP,
         PATTERN,
         PASSWORD,
-        BIOMETRIC
+        BIOMETRIC,
+        USERNAME
     }
 }

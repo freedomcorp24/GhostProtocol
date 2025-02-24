@@ -56,6 +56,16 @@ public class TwoFactorAuthController {
     }
 
     @POST
+    @Path("/setup/username")
+    public Response setupUsername(
+            @Auth Account account,
+            @Auth Device device,
+            @FormParam("username") String username) {
+        twoFactorAuthService.setupUsername(account, device, username);
+        return Response.ok().build();
+    }
+
+    @POST
     @Path("/verify")
     public Response verify(
             @Auth Account account,
