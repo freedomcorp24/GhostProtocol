@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -18,8 +18,8 @@ import org.ghostprotocol.chat.profile.GetUnversionedProfileResponse;
 import org.ghostprotocol.chat.profile.GetVersionedProfileAnonymousRequest;
 import org.ghostprotocol.chat.profile.GetVersionedProfileResponse;
 import org.ghostprotocol.chat.profile.ReactorProfileAnonymousGrpc;
-import org.signal.libsignal.zkgroup.ServerSecretParams;
-import org.signal.libsignal.zkgroup.profiles.ServerZkProfileOperations;
+import org.ghostprotocol.libghost.zkgroup.ServerSecretParams;
+import org.ghostprotocol.libghost.zkgroup.profiles.ServerZkProfileOperations;
 import org.ghostprotocol.service.auth.UnidentifiedAccessUtil;
 import org.ghostprotocol.service.badges.ProfileBadgeConverter;
 import org.ghostprotocol.service.identity.IdentityType;

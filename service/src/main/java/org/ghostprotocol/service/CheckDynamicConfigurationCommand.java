@@ -1,9 +1,9 @@
 /*
- * Copyright 2013-2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import io.dropwizard.core.cli.Command;
 import io.dropwizard.core.setup.Bootstrap;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.configuration.dynamic.DynamicConfiguration;
-import org.ghostprotocol.textsecuregcm.storage.DynamicConfigurationManager;
+import org.ghostprotocol.service.configuration.dynamic.DynamicConfiguration;
+import org.ghostprotocol.service.storage.DynamicConfigurationManager;
 
 public class CheckDynamicConfigurationCommand extends Command {
 

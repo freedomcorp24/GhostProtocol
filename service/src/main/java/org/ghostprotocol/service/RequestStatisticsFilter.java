@@ -1,9 +1,9 @@
 /*
- * Copyright 2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.filters;
+package org.ghostprotocol.service.filters;
 
 import static com.codahale.metrics.MetricRegistry.name;
 import static java.util.Objects.requireNonNull;
@@ -19,8 +19,8 @@ import java.net.InetAddress;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.metrics.TrafficSource;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.metrics.TrafficSource;
 
 public class RequestStatisticsFilter implements ContainerRequestFilter {
 

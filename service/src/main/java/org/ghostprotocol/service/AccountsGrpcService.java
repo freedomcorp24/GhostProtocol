@@ -39,7 +39,7 @@ import org.ghostprotocol.chat.account.SetRegistrationRecoveryPasswordResponse;
 import org.ghostprotocol.chat.account.SetUsernameLinkRequest;
 import org.ghostprotocol.chat.account.SetUsernameLinkResponse;
 import org.ghostprotocol.chat.common.AccountIdentifiers;
-import org.signal.libsignal.usernames.BaseUsernameException;
+import org.ghostprotocol.usernames.BaseUsernameException;
 import org.ghostprotocol.service.auth.SaltedTokenHash;
 import org.ghostprotocol.service.auth.UnidentifiedAccessUtil;
 import org.ghostprotocol.service.auth.grpc.AuthenticatedDevice;

@@ -1,9 +1,9 @@
 /*
- * Copyright 2022 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.entities;
+package org.ghostprotocol.service.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -12,9 +12,9 @@ import javax.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.ghostprotocol.textsecuregcm.identity.ServiceIdentifier;
-import org.ghostprotocol.textsecuregcm.util.ExactlySize;
-import org.ghostprotocol.textsecuregcm.util.ServiceIdentifierAdapter;
+import org.ghostprotocol.service.identity.ServiceIdentifier;
+import org.ghostprotocol.service.util.ExactlySize;
+import org.ghostprotocol.service.util.ServiceIdentifierAdapter;
 
 public record BatchIdentityCheckRequest(@Valid @NotNull @Size(max = 1000) List<Element> elements) {
 

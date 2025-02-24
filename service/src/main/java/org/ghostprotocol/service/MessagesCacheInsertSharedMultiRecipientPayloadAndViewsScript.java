@@ -1,9 +1,9 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.storage;
+package org.ghostprotocol.service.storage;
 
 import io.lettuce.core.ScriptOutputType;
 import java.io.IOException;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
-import org.ghostprotocol.ghostprotocol.redis.ClusterLuaScript;
-import org.ghostprotocol.ghostprotocol.redis.FaultTolerantRedisClusterClient;
-import org.ghostprotocol.ghostprotocol.util.Util;
+import org.ghostprotocol.service.redis.ClusterLuaScript;
+import org.ghostprotocol.service.redis.FaultTolerantRedisClusterClient;
+import org.ghostprotocol.service.util.Util;
 
 /**
  * Inserts the shared multi-recipient message payload into the cache. The list of recipients and views will be set as

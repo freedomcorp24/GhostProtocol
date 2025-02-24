@@ -381,11 +381,11 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationHeader.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
     if (account.isPresent()) {
       throw new BadRequestException("must not use authenticated connection for anonymous operations");
     }
@@ -467,7 +467,7 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
     if (account.isPresent()) {
       throw new BadRequestException("must not use authenticated connection for anonymous operations");
     }
@@ -503,7 +503,7 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
     if (account.isPresent()) {
       throw new BadRequestException("must not use authenticated connection for anonymous operations");
     }
@@ -719,11 +719,11 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationHeader.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
     if (account.isPresent()) {
       throw new BadRequestException("must not use authenticated connection for anonymous operations");
     }
@@ -785,11 +785,11 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationHeader.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature,
 
       @Parameter(description = "A cursor returned by a previous call")
       @QueryParam("cursor") final Optional<String> cursor,
@@ -840,11 +840,11 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationHeader.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature,
 
       @Valid @NotNull DeleteMedia deleteMedia) {
     if (account.isPresent()) {
@@ -876,11 +876,11 @@ public class ArchiveController {
 
       @Parameter(description = BackupAuthCredentialPresentationHeader.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH) final BackupAuthCredentialPresentationHeader presentation,
 
       @Parameter(description = BackupAuthCredentialPresentationSignature.DESCRIPTION, schema = @Schema(implementation = String.class))
       @NotNull
-      @HeaderParam(X_SIGNAL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
+      @HeaderParam(X_GHOST_PROTOCOL_ZK_AUTH_SIGNATURE) final BackupAuthCredentialPresentationSignature signature) {
     if (account.isPresent()) {
       throw new BadRequestException("must not use authenticated connection for anonymous operations");
     }

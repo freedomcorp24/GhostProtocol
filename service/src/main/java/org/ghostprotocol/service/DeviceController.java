@@ -299,20 +299,20 @@ public class DeviceController {
       throw new WebApplicationException(Response.status(409).build());
     }
 
-    final String signalAgent;
+    final String ghostAgent;
 
     if (deviceActivationRequest.apnToken().isPresent()) {
-      signalAgent = "OWP";
+      ghostAgent = "OWP";
     } else if (deviceActivationRequest.gcmToken().isPresent()) {
-      signalAgent = "OWA";
+      ghostAgent = "OWA";
     } else {
-      signalAgent = "OWD";
+      ghostAgent = "OWD";
     }
 
     try {
       return accounts.addDevice(account, new DeviceSpec(accountAttributes.getName(),
                   authorizationHeader.getPassword(),
-                  signalAgent,
+                  ghostAgent,
                   capabilities,
                   accountAttributes.getRegistrationId(),
                   accountAttributes.getPhoneNumberIdentityRegistrationId(),
@@ -458,9 +458,9 @@ public class DeviceController {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/restore_account/{token}")
   @Operation(
-      summary = "Signals that a new device is requesting restoration of account data by some method",
+      summary = "Indicates that a new device is requesting restoration of account data by some method",
       description = """
-          Signals that a new device is requesting restoration of account data by some method. Devices waiting via the
+          Indicates that a new device is requesting restoration of account data by some method. Devices waiting via the
           "wait for 'restore account' request" endpoint will be notified that the request has been issued.
           """)
   @ApiResponse(responseCode = "204", description = "Success")
@@ -522,12 +522,12 @@ public class DeviceController {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/transfer_archive")
   @Operation(
-      summary = "Signals that a transfer archive has been uploaded for a specific linked device",
+      summary = "Indicates that a transfer archive has been uploaded for a specific linked device",
       description = """
-          Signals that a transfer archive has been uploaded or failed for a specific linked device. Devices waiting via
+          Indicates that a transfer archive has been uploaded or failed for a specific linked device. Devices waiting via
           the "wait for transfer archive" endpoint will be notified that the new archive is available.
 
-          If the uploader cannot upload the transfer archive, they must signal an error.
+          If the uploader cannot upload the transfer archive, they must indicate an error.
           """)
   @ApiResponse(responseCode = "204", description = "Success")
   @ApiResponse(responseCode = "422", description = "The request object could not be parsed or was otherwise invalid")

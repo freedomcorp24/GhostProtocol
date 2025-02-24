@@ -193,7 +193,7 @@ public class MessageController {
   static final int MAX_MESSAGE_SIZE = (int) DataSize.kibibytes(256).toBytes();
   private static final long LARGE_MESSAGE_SIZE = DataSize.kibibytes(8).toBytes();
 
-  // The Signal desktop client (really, JavaScript in general) can handle message timestamps at most 100,000,000 days
+  // The desktop client (really, JavaScript in general) can handle message timestamps at most 100,000,000 days
   // past the epoch; please see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#the_epoch_timestamps_and_invalid_date
   // for additional details.
   public static final long MAX_TIMESTAMP = 86_400_000L * 100_000_000L;
@@ -256,7 +256,7 @@ public class MessageController {
       description="The message is not a story and the authorization, unauthorized access key, or group send endorsement token is missing or incorrect")
   @ApiResponse(
       responseCode="404",
-      description="The message is not a story and some the recipient service ID does not correspond to a registered Signal user")
+      description="The message is not a story and some the recipient service ID does not correspond to a registered GhostProtocol user")
   @ApiResponse(
       responseCode = "409", description = "Incorrect set of devices supplied for recipient",
       content = @Content(schema = @Schema(implementation = MismatchedDevices.class)))
@@ -482,7 +482,7 @@ public class MessageController {
       description="The message is not a story and the unauthorized access key or group send endorsement token is missing or incorrect")
   @ApiResponse(
       responseCode="404",
-      description="The message is not a story and some of the recipient service IDs do not correspond to registered Signal users")
+      description="The message is not a story and some of the recipient service IDs do not correspond to registered GhostProtocol users")
   @ApiResponse(
       responseCode = "409", description = "Incorrect set of devices supplied for some recipients",
       content = @Content(schema = @Schema(implementation = AccountMismatchedDevices[].class)))
@@ -569,7 +569,7 @@ public class MessageController {
     }
 
     // At this point, the caller has at least superficially provided the information needed to send a multi-recipient
-    // message. Attempt to resolve the destination service identifiers to Signal accounts.
+    // message. Attempt to resolve the destination service identifiers to GhostProtocol accounts.
     final Map<SealedSenderMultiRecipientMessage.Recipient, Account> resolvedRecipients =
         Flux.fromIterable(multiRecipientMessage.getRecipients().entrySet())
             .flatMap(serviceIdAndRecipient -> {
@@ -764,7 +764,7 @@ public class MessageController {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public CompletableFuture<OutgoingMessageEntityList> getPendingMessages(@ReadOnly @Auth AuthenticatedDevice auth,
-      @HeaderParam(WebsocketHeaders.X_SIGNAL_RECEIVE_STORIES) String receiveStoriesHeader,
+      @HeaderParam(WebsocketHeaders.X_GHOST_RECEIVE_STORIES) String receiveStoriesHeader,
       @HeaderParam(HttpHeaders.USER_AGENT) String userAgent) {
 
     boolean shouldReceiveStories = WebsocketHeaders.parseReceiveStoriesHeader(receiveStoriesHeader);

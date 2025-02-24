@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Environment;
@@ -11,11 +11,11 @@ import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.Metrics;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.signal.libsignal.zkgroup.backups.BackupLevel;
+import org.ghostprotocol.libghost.zkgroup.backups.BackupLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.backup.BackupManager;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.backup.BackupManager;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Clock;
@@ -23,7 +23,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 public class BackupMetricsCommand extends AbstractCommandWithDependencies {
 

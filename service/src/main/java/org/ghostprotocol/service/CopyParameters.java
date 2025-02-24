@@ -1,8 +1,8 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 /**
  * Descriptor for a single copy-and-encrypt operation

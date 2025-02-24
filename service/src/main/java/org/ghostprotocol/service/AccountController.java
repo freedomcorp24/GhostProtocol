@@ -35,7 +35,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-import org.signal.libsignal.usernames.BaseUsernameException;
+import org.ghostprotocol.service.usernames.BaseUsernameException;
 import org.ghostprotocol.service.auth.AuthenticatedDevice;
 import org.ghostprotocol.service.auth.SaltedTokenHash;
 import org.ghostprotocol.service.entities.AccountAttributes;
@@ -222,7 +222,7 @@ public class AccountController {
   @Produces(MediaType.APPLICATION_JSON)
   public void setAccountAttributes(
       @Mutable @Auth AuthenticatedDevice auth,
-      @HeaderParam(HeaderUtils.X_SIGNAL_AGENT) String userAgent,
+      @HeaderParam(HeaderUtils.X_GHOST_AGENT) String userAgent,
       @NotNull @Valid AccountAttributes attributes) {
     final Account account = auth.getAccount();
     final byte deviceId = auth.getAuthenticatedDevice().getId();

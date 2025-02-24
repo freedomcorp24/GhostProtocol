@@ -81,7 +81,7 @@ public class MetricsRequestEventListener implements RequestEventListener {
           userAgent = userAgentValues != null && !userAgentValues.isEmpty() ? userAgentValues.get(0) : null;
         }
 
-        tags.addAll(UserAgentTagUtil.getLibsignalAndPlatformTags(userAgent));
+        tags.addAll(UserAgentTagUtil.getGhostProtocolAndPlatformTags(userAgent));
 
         meterRegistry.counter(REQUEST_COUNTER_NAME, tags).increment();
 

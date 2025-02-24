@@ -1,9 +1,9 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import io.dropwizard.servlets.tasks.Task;
 import org.ghostprotocol.textsecuregcm.util.logging.RequestLogManager;

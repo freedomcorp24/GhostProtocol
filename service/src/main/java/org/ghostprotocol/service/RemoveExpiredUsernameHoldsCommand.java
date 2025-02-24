@@ -1,9 +1,9 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.micrometer.core.instrument.Counter;
@@ -11,9 +11,9 @@ import io.micrometer.core.instrument.Metrics;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
-import org.ghostprotocol.textsecuregcm.util.Util;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.AccountsManager;
+import org.ghostprotocol.service.util.Util;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import java.time.Clock;
@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 public class RemoveExpiredUsernameHoldsCommand extends AbstractSinglePassCrawlAccountsCommand {
 

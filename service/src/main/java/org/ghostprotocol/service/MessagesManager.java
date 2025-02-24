@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nullable;
 import org.reactivestreams.Publisher;
-import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
+import org.ghostprotocol.protocol.SealedSenderMultiRecipientMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.entities.MessageProtos;
@@ -114,11 +114,11 @@ public class MessagesManager {
    *
    * @param multiRecipientMessage the multi-recipient message to insert into destination queues
    * @param resolvedRecipients    a map of multi-recipient message {@code Recipient} entities to their corresponding
-   *                              Signal accounts; messages will not be delivered to unresolved recipients
+   *                              GhostProtocol accounts; messages will not be delivered to unresolved recipients
    * @param clientTimestamp       the timestamp for the message as reported by the sending party
    * @param isStory               {@code true} if the given message is a story or {@code false} otherwise
    * @param isEphemeral           {@code true} if the given message should only be delivered to devices with active
-   *                              connections to a Signal server or {@code false} otherwise
+   *                              connections to a GhostProtocol server or {@code false} otherwise
    * @param isUrgent              {@code true} if the given message is urgent or {@code false} otherwise
    *
    * @return a map of accounts to maps of device IDs to a device's presence state (i.e. if the device has an active
