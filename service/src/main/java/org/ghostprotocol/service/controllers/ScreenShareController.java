@@ -49,11 +49,11 @@ public class ScreenShareController {
 
     @Timed
     @POST
-    @Path("/signal/{sessionId}")
+    @Path("/ghost/{sessionId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response handleSignaling(@Auth AuthenticatedDevice auth,
                                   @PathParam("sessionId") String sessionId,
-                                  SignalingMessage message) {
+                                  GhostMessage message) {
         switch (message.type) {
             case "ice_candidate":
                 screenShareService.handleIceCandidate(sessionId, message.payload);
@@ -78,7 +78,7 @@ public class ScreenShareController {
         }
     }
 
-    private static class SignalingMessage {
+    private static class GhostMessage {
         public String type;
         public String payload;
     }

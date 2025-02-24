@@ -7,7 +7,7 @@ package org.ghostprotocol.service.entities;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.libsignal.protocol.IdentityKey;
 import org.ghostprotocol.service.metrics.MetricsUtil;
 import org.ghostprotocol.service.metrics.UserAgentTagUtil;
 

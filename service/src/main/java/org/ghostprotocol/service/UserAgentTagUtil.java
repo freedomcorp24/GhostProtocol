@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -20,7 +20,7 @@ public class UserAgentTagUtil {
 
   public static final String PLATFORM_TAG = "platform";
   public static final String VERSION_TAG = "clientVersion";
-  public static final String LIBSIGNAL_TAG = "libsignal";
+  public static final String LIBSIGNAL_TAG = "ghostprotocol";
 
   private UserAgentTagUtil() {
   }
@@ -50,22 +50,22 @@ public class UserAgentTagUtil {
     return Optional.empty();
   }
 
-  public static List<Tag> getLibsignalAndPlatformTags(final String userAgentString) {
+  public static List<Tag> getGhostProtocolAndPlatformTags(final String userAgentString) {
     String platform;
-    boolean libsignal;
+    boolean ghostprotocol;
 
     try {
       final UserAgent userAgent = UserAgentUtil.parseUserAgentString(userAgentString);
       platform = userAgent.getPlatform().name().toLowerCase();
-      libsignal = userAgent.getAdditionalSpecifiers()
-          .map(additionalSpecifiers -> additionalSpecifiers.contains("libsignal"))
+      ghostprotocol = userAgent.getAdditionalSpecifiers()
+          .map(additionalSpecifiers -> additionalSpecifiers.contains("ghostprotocol"))
           .orElse(false);
     } catch (final UnrecognizedUserAgentException e) {
       platform = "unrecognized";
-      libsignal = false;
+      ghostprotocol = false;
     }
 
-    return List.of(Tag.of(PLATFORM_TAG, platform), Tag.of(LIBSIGNAL_TAG, String.valueOf(libsignal)));
+    return List.of(Tag.of(PLATFORM_TAG, platform), Tag.of(LIBSIGNAL_TAG, String.valueOf(ghostprotocol)));
   }
 
 }

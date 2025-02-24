@@ -17,7 +17,7 @@ import java.security.MessageDigest;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.service.storage.ClientPublicKeysManager;

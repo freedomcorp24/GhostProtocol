@@ -30,9 +30,9 @@ public final class HeaderUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(HeaderUtils.class);
 
-  public static final String X_SIGNAL_AGENT = "X-Ghost-Agent";
+  public static final String X_GHOST_AGENT = "X-Ghost-Agent";
 
-  public static final String X_SIGNAL_KEY = "X-Ghost-Key";
+  public static final String X_GHOST_KEY = "X-Ghost-Key";
 
   public static final String TIMESTAMP_HEADER = "X-Ghost-Timestamp";
 

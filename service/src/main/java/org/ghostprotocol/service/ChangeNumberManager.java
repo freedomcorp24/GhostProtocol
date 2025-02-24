@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.libghost.protocol.IdentityKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.ghostprotocol.controllers.MismatchedDevicesException;

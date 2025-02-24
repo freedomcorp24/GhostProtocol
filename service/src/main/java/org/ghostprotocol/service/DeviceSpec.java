@@ -15,7 +15,7 @@ import org.ghostprotocol.service.util.Util;
 public record DeviceSpec(
     byte[] deviceNameCiphertext,
     String password,
-    String signalAgent,
+    String ghostAgent,
     Set<DeviceCapability> capabilities,
     int aciRegistrationId,
     int pniRegistrationId,
@@ -38,7 +38,7 @@ public record DeviceSpec(
     device.setCapabilities(capabilities());
     device.setCreated(clock.millis());
     device.setLastSeen(Util.todayInMillis());
-    device.setUserAgent(signalAgent());
+    device.setUserAgent(ghostAgent());
 
     apnRegistrationId().ifPresent(apnRegistrationId -> device.setApnId(apnRegistrationId.apnRegistrationId()));
     gcmRegistrationId().ifPresent(gcmRegistrationId -> device.setGcmId(gcmRegistrationId.gcmRegistrationId()));
@@ -63,7 +63,7 @@ public record DeviceSpec(
         && fetchesMessages == that.fetchesMessages
         && Arrays.equals(deviceNameCiphertext, that.deviceNameCiphertext)
         && Objects.equals(password, that.password)
-        && Objects.equals(signalAgent, that.signalAgent)
+        && Objects.equals(ghostAgent, that.ghostAgent)
         && Objects.equals(capabilities, that.capabilities)
         && Objects.equals(apnRegistrationId, that.apnRegistrationId)
         && Objects.equals(gcmRegistrationId, that.gcmRegistrationId)
@@ -75,7 +75,7 @@ public record DeviceSpec(
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(password, signalAgent, capabilities, aciRegistrationId, pniRegistrationId,
+    int result = Objects.hash(password, ghostAgent, capabilities, aciRegistrationId, pniRegistrationId,
         fetchesMessages, apnRegistrationId, gcmRegistrationId, aciSignedPreKey, pniSignedPreKey, aciPqLastResortPreKey,
         pniPqLastResortPreKey);
     result = 31 * result + Arrays.hashCode(deviceNameCiphertext);

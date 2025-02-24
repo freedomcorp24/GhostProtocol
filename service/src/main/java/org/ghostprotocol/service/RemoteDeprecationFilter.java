@@ -1,9 +1,9 @@
 /*
- * Copyright 2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.filters;
+package org.ghostprotocol.service.filters;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -25,15 +25,15 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
-import org.ghostprotocol.textsecuregcm.configuration.dynamic.DynamicConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.dynamic.DynamicRemoteDeprecationConfiguration;
-import org.ghostprotocol.textsecuregcm.grpc.RequestAttributesUtil;
-import org.ghostprotocol.textsecuregcm.grpc.StatusConstants;
-import org.ghostprotocol.textsecuregcm.storage.DynamicConfigurationManager;
-import org.ghostprotocol.textsecuregcm.util.ua.ClientPlatform;
-import org.ghostprotocol.textsecuregcm.util.ua.UnrecognizedUserAgentException;
-import org.ghostprotocol.textsecuregcm.util.ua.UserAgent;
-import org.ghostprotocol.textsecuregcm.util.ua.UserAgentUtil;
+import org.ghostprotocol.service.configuration.dynamic.DynamicConfiguration;
+import org.ghostprotocol.service.configuration.dynamic.DynamicRemoteDeprecationConfiguration;
+import org.ghostprotocol.service.grpc.RequestAttributesUtil;
+import org.ghostprotocol.service.grpc.StatusConstants;
+import org.ghostprotocol.service.storage.DynamicConfigurationManager;
+import org.ghostprotocol.service.util.ua.ClientPlatform;
+import org.ghostprotocol.service.util.ua.UnrecognizedUserAgentException;
+import org.ghostprotocol.service.util.ua.UserAgent;
+import org.ghostprotocol.service.util.ua.UserAgentUtil;
 
 /**
  * The remote deprecation filter rejects traffic from clients older than a configured minimum

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.protocol.IdentityKey;
 import org.ghostprotocol.service.util.ByteArrayAdapter;
 import org.ghostprotocol.service.util.IdentityKeyAdapter;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -239,9 +239,9 @@ public class WebSocketConnection implements WebSocketConnectionEventListener {
     bytesSentCounter.increment(body.map(bytes -> bytes.length).orElse(0));
     messageMetrics.measureAccountEnvelopeUuidMismatches(auth.getAccount(), message);
 
-    // X-Signal-Key: false must be sent until Android stops assuming it missing means true
+    // X-Ghost-Key: false must be sent until Android stops assuming it missing means true
     return client.sendRequest("PUT", "/api/v1/message",
-            List.of(HeaderUtils.X_SIGNAL_KEY + ": false", HeaderUtils.getTimestampHeader()), body)
+            List.of(HeaderUtils.X_GHOST_KEY + ": false", HeaderUtils.getTimestampHeader()), body)
         .whenComplete((ignored, throwable) -> {
           if (throwable != null) {
             sendFailuresCounter.increment();

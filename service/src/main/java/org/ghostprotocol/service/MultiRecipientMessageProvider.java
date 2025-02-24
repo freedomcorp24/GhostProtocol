@@ -30,7 +30,7 @@ import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
 @Consumes(MultiRecipientMessageProvider.MEDIA_TYPE)
 public class MultiRecipientMessageProvider implements MessageBodyReader<SealedSenderMultiRecipientMessage> {
 
-  public static final String MEDIA_TYPE = "application/vnd.signal-messenger.mrm";
+  public static final String MEDIA_TYPE = "application/vnd.ghost-protocol.mrm";
   public static final int MAX_RECIPIENT_COUNT = 5000;
   public static final int MAX_MESSAGE_SIZE = Math.toIntExact(32 + DataSizeUnit.KIBIBYTES.toBytes(256));
 
