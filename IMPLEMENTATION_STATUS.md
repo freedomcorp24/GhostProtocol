@@ -13,7 +13,7 @@ Current completion: ~75%
 - [x] Group chat functionality
 - [x] Two-factor authentication
 - [ ] QR code contact sharing (partial)
-- [ ] Hashtag support (partial)
+- [x] Hashtag support
 - [ ] Screen sharing (partial)
 - [ ] Private notes (partial)
 
@@ -47,7 +47,7 @@ Current completion: ~75%
 - [x] Media sharing
 - [ ] Screen sharing (partial)
 - [ ] QR code scanning (partial)
-- [ ] Hashtag support (partial)
+- [x] Hashtag support
 - [ ] Private notes UI (partial)
 
 #### iOS
@@ -70,11 +70,9 @@ Status: Integration in progress
 ## Remaining Tasks
 
 ### High Priority
-1. Finish QR Code Contact Sharing
-2. Complete Hashtag Support
-3. Enhance Monitoring System
-4. Complete Screen Sharing
-5. Finish Private Notes Implementation
+1. Enhance Monitoring System
+2. Complete Screen Sharing
+3. Finish Private Notes Implementation
 
 ### Medium Priority
 1. Improve Admin Dashboard
