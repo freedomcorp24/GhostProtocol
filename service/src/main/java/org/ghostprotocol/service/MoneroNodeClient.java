@@ -80,6 +80,35 @@ public class MoneroNodeClient {
           throw new RuntimeException("Failed to verify Monero transaction", e);
         });
   }
+  
+  public CompletableFuture<String> sendToAddress(String fromAddress, String toAddress, BigDecimal amount) {
+    if (toAddress == null || toAddress.isBlank()) {
+      throw new IllegalArgumentException("Destination address cannot be null or empty");
+    }
+    if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IllegalArgumentException("Amount must be positive");
+    }
+
+    logger.debug("Sending {} XMR to {}", amount, toAddress);
+    
+    // Convert amount to atomic units (1 XMR = 1e12 atomic units)
+    BigDecimal atomicAmount = amount.multiply(BigDecimal.valueOf(1_000_000_000_000L));
+    
+    // Format parameters for the RPC call
+    String params = String.format(
+        "{\"destinations\":[{\"amount\":%s,\"address\":\"%s\"}],\"account_index\":0,\"priority\":1,\"ring_size\":11}",
+        atomicAmount.toBigInteger().toString(), toAddress);
+    
+    return makeRpcCall("transfer", params)
+        .thenApply(response -> {
+          logger.debug("Monero transaction sent: {}", response.result);
+          return response.result; // This is the transaction hash
+        })
+        .exceptionally(e -> {
+          logger.error("Failed to send Monero", e);
+          throw new RuntimeException("Failed to send Monero", e);
+        });
+  }
 
   private CompletableFuture<RpcResponse> makeRpcCall(String method, String params) {
     String jsonRequest = String.format(
