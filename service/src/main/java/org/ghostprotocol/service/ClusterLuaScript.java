@@ -1,9 +1,9 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.redis;
+package org.ghostprotocol.service.redis;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.lettuce.core.RedisException;

@@ -1,10 +1,10 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
-import org.ghostprotocol.textsecuregcm.util.ExceptionUtils;
+import org.ghostprotocol.service.util.ExceptionUtils;
 
 import javax.annotation.Nullable;
 import java.util.Optional;

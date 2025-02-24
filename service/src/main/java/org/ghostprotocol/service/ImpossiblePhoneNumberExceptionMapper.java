@@ -1,17 +1,17 @@
 /*
- * Copyright 2013-2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.mappers;
+package org.ghostprotocol.service.mappers;
 
-import static org.ghostprotocol.ghostprotocol.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
-import org.ghostprotocol.ghostprotocol.util.ImpossiblePhoneNumberException;
+import org.ghostprotocol.service.util.ImpossiblePhoneNumberException;
 
 public class ImpossiblePhoneNumberExceptionMapper implements ExceptionMapper<ImpossiblePhoneNumberException> {
 

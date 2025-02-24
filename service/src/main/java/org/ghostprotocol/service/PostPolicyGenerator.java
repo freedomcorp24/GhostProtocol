@@ -1,9 +1,9 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.s3;
+package org.ghostprotocol.service.s3;
 
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 package org.ghostprotocol.messaging.push;
@@ -11,7 +11,7 @@ import com.google.common.annotations.VisibleForTesting;
 import io.micrometer.core.instrument.Metrics;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
+import org.ghostprotocol.protocol.SealedSenderMultiRecipientMessage;
 import org.ghostprotocol.messaging.identity.IdentityType;
 import org.ghostprotocol.messaging.storage.Account;
 import org.ghostprotocol.messaging.storage.Device;
@@ -19,13 +19,13 @@ import org.ghostprotocol.messaging.storage.MessagesManager;
 import org.ghostprotocol.messaging.util.Util;
 
 /**
- * A MessageSender sends Signal messages to destination devices. Messages may be "normal" user-to-user messages,
+ * A MessageSender sends GhostProtocol messages to destination devices. Messages may be "normal" user-to-user messages,
  * ephemeral ("online") messages like typing indicators, or delivery receipts.
  * <p/>
- * If a client is not actively connected to a Signal server to receive a message as soon as it is sent, the
+ * If a client is not actively connected to a GhostProtocol server to receive a message as soon as it is sent, the
  * MessageSender will send a push notification to the destination device if possible. Some messages may be designated
  * for "online" delivery only and will not be delivered (and clients will not be notified) if the destination device
- * isn't actively connected to a Signal server.
+ * isn't actively connected to a GhostProtocol server.
  *
  * @see ReceiptSender
  */
@@ -49,7 +49,7 @@ public class MessageSender {
 
   /**
    * Sends messages to devices associated with the given destination account. If a destination device has a valid push
-   * notification token and does not have an active connection to a Signal server, then this method will also send a
+   * notification token and does not have an active connection to a GhostProtocol server, then this method will also send a
    * push notification to that device to announce the availability of new messages.
    *
    * @param account the account to which to send messages
@@ -80,11 +80,11 @@ public class MessageSender {
 
   /**
    * Sends messages to a group of recipients. If a destination device has a valid push notification token and does not
-   * have an active connection to a Signal server, then this method will also send a push notification to that device to
+   * have an active connection to a GhostProtocol server, then this method will also send a push notification to that device to
    * announce the availability of new messages.
    *
    * @param multiRecipientMessage the multi-recipient message to send to the given recipients
-   * @param resolvedRecipients a map of recipients to resolved Signal accounts
+   * @param resolvedRecipients a map of recipients to resolved GhostProtocol accounts
    * @param clientTimestamp the time at which the sender reports the message was sent
    * @param isStory {@code true} if the message is a story or {@code false otherwise}
    * @param isEphemeral {@code true} if the message should only be delivered to devices with active connections or

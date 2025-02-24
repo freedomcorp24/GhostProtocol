@@ -1,9 +1,9 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.filters;
+package org.ghostprotocol.service.filters;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.util.HttpServletRequestUtil;
+import org.ghostprotocol.service.util.HttpServletRequestUtil;
 
 /**
  * Sets a {@link HttpServletRequest} attribute (that will also be available as a

@@ -1,0 +1,21 @@
+cryptoPayments:
+  btcNode:
+    url: "http://localhost:8332"
+    rpcUser: "${BTC_RPC_USER}"
+    rpcPassword: "${BTC_RPC_PASSWORD}"
+    minConfirmations: 3
+  xmrNode:
+    url: "http://localhost:18081"
+    rpcUser: "${XMR_RPC_USER}"
+    rpcPassword: "${XMR_RPC_PASSWORD}"
+    minConfirmations: 10
+  usdtNode:
+    url: "http://localhost:8545"
+    contractAddress: "${USDT_CONTRACT_ADDRESS}"
+    minConfirmations: 12
+  hotWallet:
+    btcAddress: "${BTC_HOT_WALLET}"
+    xmrAddress: "${XMR_HOT_WALLET}"
+    ethAddress: "${ETH_HOT_WALLET}"
+  paymentTimeout: PT2H
+  retryDelay: PT5M

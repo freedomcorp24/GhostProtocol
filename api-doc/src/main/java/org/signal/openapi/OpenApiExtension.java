@@ -1,9 +1,9 @@
 /*
- * Copyright 2024 GhostProtocol
+ * Copyright 2023 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.openapi;
+package org.signal.openapi;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.JavaType;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.Set;
-import org.ghostprotocol.ghostprotocol.auth.AuthenticatedDevice;
+import org.whispersystems.textsecuregcm.auth.AuthenticatedDevice;
 
 /**
  * One of the extension mechanisms of Swagger Core library (OpenAPI processor) is via custom implementations

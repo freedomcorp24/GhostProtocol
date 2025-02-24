@@ -110,7 +110,7 @@ public class RegistrationController {
       description = "If present, an positive integer indicating the number of seconds before a subsequent attempt could succeed"))
   public AccountIdentityResponse register(
       @HeaderParam(HttpHeaders.AUTHORIZATION) @NotNull final BasicAuthorizationHeader authorizationHeader,
-      @HeaderParam(HeaderUtils.X_SIGNAL_AGENT) final String signalAgent,
+      @HeaderParam(HeaderUtils.X_GHOST_AGENT) final String ghostAgent,
       @HeaderParam(HttpHeaders.USER_AGENT) final String userAgent,
       @NotNull @Valid final UsernameRegistrationRequest registrationRequest,
       @Context final ContainerRequestContext requestContext) throws RateLimitExceededException, InterruptedException {
@@ -156,7 +156,7 @@ public class RegistrationController {
         new DeviceSpec(
             registrationRequest.accountAttributes().getName(),
             password,
-            signalAgent,
+            ghostAgent,
             registrationRequest.accountAttributes().getCapabilities(),
             registrationRequest.accountAttributes().getRegistrationId(),
             registrationRequest.accountAttributes().getPhoneNumberIdentityRegistrationId(),

@@ -1,11 +1,11 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
-import org.ghostprotocol.textsecuregcm.entities.RegistrationServiceSession;
+import org.ghostprotocol.service.entities.RegistrationServiceSession;
 import javax.annotation.Nullable;
 import java.time.Duration;
 

@@ -1,0 +1,21 @@
+TableName: ${DYNAMODB_PREFIX}crypto_transactions
+BillingMode: PAY_PER_REQUEST
+AttributeDefinitions:
+  - AttributeName: transaction_id
+    AttributeType: S
+  - AttributeName: wallet_id
+    AttributeType: S
+  - AttributeName: status
+    AttributeType: S
+KeySchema:
+  - AttributeName: transaction_id
+    KeyType: HASH
+GlobalSecondaryIndexes:
+  - IndexName: wallet_id_index
+    KeySchema:
+      - AttributeName: wallet_id
+        KeyType: HASH
+      - AttributeName: status
+        KeyType: RANGE
+    Projection:
+      ProjectionType: ALL

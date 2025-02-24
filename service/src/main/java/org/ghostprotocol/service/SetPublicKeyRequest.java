@@ -10,7 +10,7 @@ public record SetPublicKeyRequest(
     @JsonSerialize(using = ECPublicKeyAdapter.Serializer.class)
     @JsonDeserialize(using = ECPublicKeyAdapter.Deserializer.class)
     @Schema(type="string", description="""
-        The public key, serialized in libsignal's elliptic-curve public key format and then encoded as a standard (i.e.
+        The public key, serialized in the protocol's elliptic-curve public key format and then encoded as a standard (i.e.
         not URL-safe), padded, base64-encoded string.
         """)
     ECPublicKey publicKey) {

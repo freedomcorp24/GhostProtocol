@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -8,7 +8,7 @@ package org.ghostprotocol.ghostprotocol.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.protocol.IdentityKey;
 import org.ghostprotocol.ghostprotocol.identity.ServiceIdentifier;
 import org.ghostprotocol.ghostprotocol.util.ByteArrayBase64WithPaddingAdapter;
 import org.ghostprotocol.ghostprotocol.util.ServiceIdentifierAdapter;

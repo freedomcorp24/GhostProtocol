@@ -28,9 +28,9 @@ import org.ghostprotocol.websocket.setup.WebSocketConnectListener;
 
 /**
  * A "provisioning WebSocket" provides a mechanism for sending a caller-defined provisioning message from the primary
- * device associated with a Signal account to a new device that is not yet associated with a Signal account. Generally,
+ * device associated with a GhostProtocol account to a new device that is not yet associated with a GhostProtocol account. Generally,
  * the message contains key material and credentials the new device needs to associate itself with the primary device's
- * Signal account.
+ * GhostProtocol account.
  * <p>
  * New devices initiate the provisioning process by opening a provisioning WebSocket. The server assigns the new device
  * a random, temporary "provisioning address," which it transmits via the newly-opened WebSocket. From there, the new

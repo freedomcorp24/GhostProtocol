@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.net.HttpHeaders;
@@ -43,32 +43,32 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequest;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse;
-import org.signal.libsignal.zkgroup.receipts.ServerZkReceiptOperations;
+import org.ghostprotocol.libghost.zkgroup.InvalidInputException;
+import org.ghostprotocol.libghost.zkgroup.VerificationFailedException;
+import org.ghostprotocol.libghost.zkgroup.receipts.ReceiptCredentialRequest;
+import org.ghostprotocol.libghost.zkgroup.receipts.ReceiptCredentialResponse;
+import org.ghostprotocol.libghost.zkgroup.receipts.ServerZkReceiptOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.configuration.OneTimeDonationConfiguration;
-import org.ghostprotocol.textsecuregcm.metrics.UserAgentTagUtil;
-import org.ghostprotocol.textsecuregcm.storage.IssuedReceiptsManager;
-import org.ghostprotocol.textsecuregcm.storage.OneTimeDonationsManager;
-import org.ghostprotocol.textsecuregcm.subscriptions.BraintreeManager;
-import org.ghostprotocol.textsecuregcm.subscriptions.ChargeFailure;
-import org.ghostprotocol.textsecuregcm.subscriptions.CustomerAwareSubscriptionPaymentProcessor;
-import org.ghostprotocol.textsecuregcm.subscriptions.PaymentDetails;
-import org.ghostprotocol.textsecuregcm.subscriptions.PaymentMethod;
-import org.ghostprotocol.textsecuregcm.subscriptions.PaymentProvider;
-import org.ghostprotocol.textsecuregcm.subscriptions.PaymentStatus;
-import org.ghostprotocol.textsecuregcm.subscriptions.StripeManager;
-import org.ghostprotocol.textsecuregcm.subscriptions.SubscriptionCurrencyUtil;
-import org.ghostprotocol.textsecuregcm.util.ExactlySize;
-import org.ghostprotocol.textsecuregcm.util.HeaderUtils;
-import org.ghostprotocol.textsecuregcm.util.ua.ClientPlatform;
-import org.ghostprotocol.textsecuregcm.util.ua.UnrecognizedUserAgentException;
-import org.ghostprotocol.textsecuregcm.util.ua.UserAgentUtil;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.configuration.OneTimeDonationConfiguration;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
+import org.ghostprotocol.service.storage.IssuedReceiptsManager;
+import org.ghostprotocol.service.storage.OneTimeDonationsManager;
+import org.ghostprotocol.service.subscriptions.BraintreeManager;
+import org.ghostprotocol.service.subscriptions.ChargeFailure;
+import org.ghostprotocol.service.subscriptions.CustomerAwareSubscriptionPaymentProcessor;
+import org.ghostprotocol.service.subscriptions.PaymentDetails;
+import org.ghostprotocol.service.subscriptions.PaymentMethod;
+import org.ghostprotocol.service.subscriptions.PaymentProvider;
+import org.ghostprotocol.service.subscriptions.PaymentStatus;
+import org.ghostprotocol.service.subscriptions.StripeManager;
+import org.ghostprotocol.service.subscriptions.SubscriptionCurrencyUtil;
+import org.ghostprotocol.service.util.ExactlySize;
+import org.ghostprotocol.service.util.HeaderUtils;
+import org.ghostprotocol.service.util.ua.ClientPlatform;
+import org.ghostprotocol.service.util.ua.UnrecognizedUserAgentException;
+import org.ghostprotocol.service.util.ua.UserAgentUtil;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 

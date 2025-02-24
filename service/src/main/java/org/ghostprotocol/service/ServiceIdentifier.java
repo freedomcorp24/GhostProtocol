@@ -11,11 +11,11 @@ import org.signal.libsignal.protocol.ServiceId;
 
 /**
  * A "service identifier" is a tuple of a UUID and identity type that identifies an account and identity within the
- * Signal service.
+ * GhostProtocol service.
  */
 @Schema(
     type = "string",
-    description = "A service identifier is a tuple of a UUID and identity type that identifies an account and identity within the Signal service.",
+    description = "A service identifier is a tuple of a UUID and identity type that identifies an account and identity within the GhostProtocol service.",
     subTypes = {AciServiceIdentifier.class, PniServiceIdentifier.class}
 )
 public sealed interface ServiceIdentifier permits AciServiceIdentifier, PniServiceIdentifier {

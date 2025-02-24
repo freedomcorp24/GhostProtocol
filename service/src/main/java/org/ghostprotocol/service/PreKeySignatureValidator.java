@@ -1,15 +1,15 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.ghostprotocol.entities;
+package org.ghostprotocol.service.entities;
 
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
-import org.signal.libsignal.protocol.IdentityKey;
-import org.ghostprotocol.ghostprotocol.metrics.MetricsUtil;
-import org.ghostprotocol.ghostprotocol.metrics.UserAgentTagUtil;
+import org.ghostprotocol.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
 
 import javax.annotation.Nullable;
 import java.util.Collection;

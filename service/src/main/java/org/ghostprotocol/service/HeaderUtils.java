@@ -30,11 +30,11 @@ public final class HeaderUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(HeaderUtils.class);
 
-  public static final String X_SIGNAL_AGENT = "X-Signal-Agent";
+  public static final String X_GHOST_AGENT = "X-Ghost-Agent";
 
-  public static final String X_SIGNAL_KEY = "X-Signal-Key";
+  public static final String X_GHOST_KEY = "X-Ghost-Key";
 
-  public static final String TIMESTAMP_HEADER = "X-Signal-Timestamp";
+  public static final String TIMESTAMP_HEADER = "X-Ghost-Timestamp";
 
   public static final String UNIDENTIFIED_ACCESS_KEY = "Unidentified-Access-Key";
 

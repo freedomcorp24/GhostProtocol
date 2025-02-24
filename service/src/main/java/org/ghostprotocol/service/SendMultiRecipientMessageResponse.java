@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -15,7 +15,7 @@ import org.ghostprotocol.ghostprotocol.identity.ServiceIdentifier;
 import org.ghostprotocol.ghostprotocol.util.ServiceIdentifierAdapter;
 
 public record SendMultiRecipientMessageResponse(
-    @Schema(description = "a list of the service identifiers in the request that do not correspond to registered Signal users; will only be present if a group send endorsement was supplied for the request")
+    @Schema(description = "a list of the service identifiers in the request that do not correspond to registered GhostProtocol users; will only be present if a group send endorsement was supplied for the request")
     @JsonSerialize(contentUsing = ServiceIdentifierAdapter.ServiceIdentifierSerializer.class)
     @JsonDeserialize(contentUsing = ServiceIdentifierAdapter.ServiceIdentifierDeserializer.class)
     List<ServiceIdentifier> uuids404) {

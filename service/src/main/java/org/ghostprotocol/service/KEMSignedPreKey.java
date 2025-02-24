@@ -1,16 +1,16 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.entities;
+package org.ghostprotocol.service.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.signal.libsignal.protocol.kem.KEMPublicKey;
-import org.ghostprotocol.ghostprotocol.util.ByteArrayAdapter;
-import org.ghostprotocol.ghostprotocol.util.KEMPublicKeyAdapter;
+import org.ghostprotocol.protocol.kem.KEMPublicKey;
+import org.ghostprotocol.service.util.ByteArrayAdapter;
+import org.ghostprotocol.service.util.KEMPublicKeyAdapter;
 import java.util.Arrays;
 import java.util.Objects;
 

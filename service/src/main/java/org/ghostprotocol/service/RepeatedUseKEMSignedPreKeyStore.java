@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.storage;
+package org.ghostprotocol.service.storage;
 
 import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.libsignal.protocol.kem.KEMPublicKey;
-import org.ghostprotocol.ghostprotocol.entities.KEMSignedPreKey;
-import org.ghostprotocol.ghostprotocol.util.AttributeValues;
+import org.ghostprotocol.service.entities.KEMSignedPreKey;
+import org.ghostprotocol.service.util.AttributeValues;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import java.util.Map;

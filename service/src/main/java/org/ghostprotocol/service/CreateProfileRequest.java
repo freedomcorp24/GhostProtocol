@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCommitment;
+import org.ghostprotocol.zkgroup.profiles.ProfileKeyCommitment;
 import org.ghostprotocol.ghostprotocol.util.ByteArrayBase64WithPaddingAdapter;
 import org.ghostprotocol.ghostprotocol.util.ExactlySize;
 import org.ghostprotocol.ghostprotocol.util.ValidHexString;

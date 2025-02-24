@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -34,10 +34,10 @@ import org.signal.libsignal.zkgroup.GenericServerSecretParams;
 import org.signal.libsignal.zkgroup.auth.AuthCredentialWithPniResponse;
 import org.signal.libsignal.zkgroup.auth.ServerZkAuthOperations;
 import org.signal.libsignal.zkgroup.calllinks.CallLinkAuthCredentialResponse;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.auth.CertificateGenerator;
-import org.ghostprotocol.textsecuregcm.entities.DeliveryCertificate;
-import org.ghostprotocol.textsecuregcm.entities.GroupCredentials;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.auth.CertificateGenerator;
+import org.ghostprotocol.service.entities.DeliveryCertificate;
+import org.ghostprotocol.service.entities.GroupCredentials;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")

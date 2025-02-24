@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import io.dropwizard.auth.Auth;
 import io.micrometer.core.instrument.Counter;
@@ -24,15 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.auth.CloudflareTurnCredentialsManager;
-import org.ghostprotocol.textsecuregcm.auth.TurnToken;
-import org.ghostprotocol.textsecuregcm.auth.TurnTokenGenerator;
-import org.ghostprotocol.textsecuregcm.calls.routing.TurnCallRouter;
-import org.ghostprotocol.textsecuregcm.calls.routing.TurnServerOptions;
-import org.ghostprotocol.textsecuregcm.experiment.ExperimentEnrollmentManager;
-import org.ghostprotocol.textsecuregcm.filters.RemoteAddressFilter;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.auth.CloudflareTurnCredentialsManager;
+import org.ghostprotocol.service.auth.TurnToken;
+import org.ghostprotocol.service.auth.TurnTokenGenerator;
+import org.ghostprotocol.service.calls.routing.TurnCallRouter;
+import org.ghostprotocol.service.calls.routing.TurnServerOptions;
+import org.ghostprotocol.service.experiment.ExperimentEnrollmentManager;
+import org.ghostprotocol.service.filters.RemoteAddressFilter;
+import org.ghostprotocol.service.limits.RateLimiters;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @io.swagger.v3.oas.annotations.tags.Tag(name = "Calling")
@@ -88,7 +88,7 @@ public class CallRoutingControllerV2 {
         tokens.add(cloudflareTurnCredentialsManager.retrieveFromCloudflare());
       }
     } catch (Exception e) {
-      // emit counter, rely on Signal URL fallback
+      // emit counter, rely on GhostProtocol URL fallback
       CallRoutingControllerV2.CLOUDFLARE_TURN_ERROR_COUNTER.increment();
     }
 

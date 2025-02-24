@@ -38,7 +38,7 @@ import org.ghostprotocol.websocket.auth.ReadOnly;
 
 /**
  * The provisioning controller facilitates transmission of provisioning messages from the primary device associated with
- * an existing Signal account to a new device. To send a provisioning message, a primary device generally scans a QR
+ * an existing GhostProtocol account to a new device. To send a provisioning message, a primary device generally scans a QR
  * code displayed by the new device that contains the device's "provisioning address" and a public key. The primary
  * device then encrypts a use-case-specific provisioning message and posts it to
  * {@link #sendProvisioningMessage(AuthenticatedDevice, String, ProvisioningMessage, String)}, at which point the server
@@ -72,7 +72,7 @@ public class ProvisioningController {
       summary = "Send a provisioning message to a new device",
       description = """
           Send a provisioning message from an authenticated device to a device that (presumably) is not yet associated
-          with a Signal account.
+          with a GhostProtocol account.
           """)
   @ApiResponse(responseCode="204", description="The provisioning message was delivered to the given provisioning address")
   @ApiResponse(responseCode="400", description="The provisioning message was too large")

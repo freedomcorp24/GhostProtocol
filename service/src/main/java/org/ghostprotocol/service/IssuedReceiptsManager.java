@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequest;
+import org.ghostprotocol.zkgroup.receipts.ReceiptCredentialRequest;
 import org.ghostprotocol.subscriptions.PaymentProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;

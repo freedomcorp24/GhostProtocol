@@ -1,9 +1,9 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.configuration.dynamic;
+package org.ghostprotocol.service.configuration.dynamic;
 
 /**
  * @param enableLettuceRemoteTag whether the `remote` tag should be added. Note: although this is dynamic, meters are

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -15,7 +15,7 @@ import org.ghostprotocol.configuration.secrets.SecretString;
  * @param packageName      The app package name
  * @param applicationName  The app application name
  * @param productIdToLevel A map of productIds offered in the play billing subscription catalog to their corresponding
- *                         signal subscription level
+ *                         GhostProtocol subscription level
  */
 public record GooglePlayBillingConfiguration(
     @NotNull SecretString credentialsJson,

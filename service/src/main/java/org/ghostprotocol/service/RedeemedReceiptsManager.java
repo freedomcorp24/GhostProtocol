@@ -1,9 +1,9 @@
 /*
- * Copyright 2021 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.storage;
+package org.ghostprotocol.service.storage;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -13,9 +13,9 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nonnull;
-import org.ghostprotocol.libsignal.zkgroup.receipts.ReceiptSerial;
-import org.ghostprotocol.ghostprotocol.util.AttributeValues;
-import org.ghostprotocol.ghostprotocol.util.UUIDUtil;
+import org.ghostprotocol.libghost.zkgroup.receipts.ReceiptSerial;
+import org.ghostprotocol.service.util.AttributeValues;
+import org.ghostprotocol.service.util.UUIDUtil;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.ReturnValue;

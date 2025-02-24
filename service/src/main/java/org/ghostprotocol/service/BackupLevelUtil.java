@@ -1,10 +1,10 @@
 /*
- * Copyright 2024 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 package org.ghostprotocol.textsecuregcm.backup;
 
-import org.signal.libsignal.zkgroup.backups.BackupLevel;
+import org.ghostprotocol.zkgroup.backups.BackupLevel;
 
 public class BackupLevelUtil {
   public static BackupLevel fromReceiptLevel(long receiptLevel) {

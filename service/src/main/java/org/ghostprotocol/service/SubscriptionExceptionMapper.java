@@ -1,9 +1,9 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.mappers;
+package org.ghostprotocol.service.mappers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.jersey.errors.ErrorMessage;
@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import java.util.Map;
-import org.ghostprotocol.textsecuregcm.storage.SubscriptionException;
+import org.ghostprotocol.service.storage.SubscriptionException;
 
 public class SubscriptionExceptionMapper implements ExceptionMapper<SubscriptionException> {
   @VisibleForTesting

@@ -1,13 +1,13 @@
 /*
- * Copyright 2023 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.storage;
+package org.ghostprotocol.service.storage;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import org.ghostprotocol.textsecuregcm.registration.VerificationSession;
+import org.ghostprotocol.service.registration.VerificationSession;
 
 public class VerificationSessionManager {
 

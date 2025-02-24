@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -23,7 +23,7 @@ public class UserRemoteConfigList {
   @JsonSerialize(using = InstantAdapter.EpochSecondSerializer.class)
   @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
   @Schema(description = """
-    Timestamp when the configuration was generated. Deprecated in favor of `X-Signal-Timestamp` response header.
+    Timestamp when the configuration was generated. Deprecated in favor of `X-Ghost-Timestamp` response header.
     """, deprecated = true)
   @Deprecated
   private Instant serverEpochTime;

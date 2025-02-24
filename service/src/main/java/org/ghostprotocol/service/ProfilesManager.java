@@ -1,9 +1,9 @@
 /*
- * Copyright 2013 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.storage;
+package org.ghostprotocol.service.storage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +14,9 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.ghostprotocol.redis.FaultTolerantRedisClusterClient;
-import org.ghostprotocol.ghostprotocol.util.SystemMapper;
-import org.ghostprotocol.ghostprotocol.util.Util;
+import org.ghostprotocol.service.redis.FaultTolerantRedisClusterClient;
+import org.ghostprotocol.service.util.SystemMapper;
+import org.ghostprotocol.service.util.Util;
 import javax.annotation.Nullable;
 
 public class ProfilesManager {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 package org.ghostprotocol.storage;
@@ -61,7 +61,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.protocol.IdentityKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.auth.DisconnectionRequestManager;

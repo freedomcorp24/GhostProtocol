@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 package org.ghostprotocol.storage;
@@ -20,8 +20,8 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-import org.signal.libsignal.protocol.IdentityKey;
-import org.signal.libsignal.zkgroup.backups.BackupCredentialType;
+import org.ghostprotocol.protocol.IdentityKey;
+import org.ghostprotocol.zkgroup.backups.BackupCredentialType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.auth.SaltedTokenHash;
