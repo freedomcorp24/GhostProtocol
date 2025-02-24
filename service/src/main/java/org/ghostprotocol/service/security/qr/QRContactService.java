@@ -1,9 +1,23 @@
 package org.ghostprotocol.service.security.qr;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeWriter;
 import org.ghostprotocol.service.crypto.CryptoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.UUID;
 
 public class QRContactService {
@@ -39,13 +53,37 @@ public class QRContactService {
     }
 
     private String generateQRCode(String data) {
-        // Implementation for QR code generation
-        return "qr_code_data";
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 300, 300);
+            
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
+            
+            return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (Exception e) {
+            logger.error("Error generating QR code", e);
+            throw new RuntimeException("Failed to generate QR code", e);
+        }
     }
 
     private String decodeQRCode(String qrCode) {
-        // Implementation for QR code decoding
-        return "decoded_data";
+        try {
+            byte[] imageData = Base64.getDecoder().decode(qrCode);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+            
+            BinaryBitmap binaryBitmap = new BinaryBitmap(
+                new HybridBinarizer(
+                    new BufferedImageLuminanceSource(image)
+                )
+            );
+            
+            Result result = new MultiFormatReader().decode(binaryBitmap);
+            return result.getText();
+        } catch (Exception e) {
+            logger.error("Error decoding QR code", e);
+            throw new RuntimeException("Failed to decode QR code", e);
+        }
     }
 
     public static class ContactQRData {
@@ -59,6 +97,22 @@ public class QRContactService {
             this.nonce = nonce;
             this.timestamp = timestamp;
             this.expirationTime = expirationTime;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getNonce() {
+            return nonce;
+        }
+
+        public long getTimestamp() {
+            return timestamp;
+        }
+
+        public long getExpirationTime() {
+            return expirationTime;
         }
 
         @Override
