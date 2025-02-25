@@ -21,8 +21,10 @@ public class CryptoWalletManager {
 
   private final Table walletTable;
   private final Table transactionTable;
+  private final String walletTableName = "ghostprotocol-dev-crypto-wallets";
+  private final String transactionTableName = "ghostprotocol-dev-crypto-transactions";
 
-  public CryptoWalletManager(DynamoDB db, String walletTableName, String transactionTableName) {
+  public CryptoWalletManager(DynamoDB db) {
     this.walletTable = db.getTable(walletTableName);
     this.transactionTable = db.getTable(transactionTableName);
   }

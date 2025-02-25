@@ -27,7 +27,7 @@ public class StorageUsageTrackingService {
     
     private final VaultStorageManager storageManager;
     private final AmazonDynamoDB dynamoDb;
-    private final String usageTableName;
+    private final String usageTableName = "ghostprotocol-dev-storage-usage";
     private final MonitoringService monitoringService;
     private final Clock clock;
     
@@ -35,12 +35,10 @@ public class StorageUsageTrackingService {
     public StorageUsageTrackingService(
             VaultStorageManager storageManager,
             AmazonDynamoDB dynamoDb,
-            String usageTableName,
             MonitoringService monitoringService,
             Clock clock) {
         this.storageManager = storageManager;
         this.dynamoDb = dynamoDb;
-        this.usageTableName = usageTableName;
         this.monitoringService = monitoringService;
         this.clock = clock;
     }
