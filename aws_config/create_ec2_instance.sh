@@ -6,14 +6,25 @@ echo "Setting up GhostProtocol EC2 instance in AWS..."
 # Set AWS region
 AWS_REGION="us-west-1"
 
-# Create security group
-echo "Creating security group..."
-SECURITY_GROUP_ID=$(aws ec2 create-security-group \
-  --group-name ghostprotocol-dev-sg \
-  --description "Security group for GhostProtocol development environment" \
+# Check if security group exists
+echo "Checking if security group exists..."
+SECURITY_GROUP_ID=$(aws ec2 describe-security-groups \
+  --filters "Name=group-name,Values=ghostprotocol-dev-sg" \
+  --query "SecurityGroups[0].GroupId" \
   --region $AWS_REGION \
-  --query 'GroupId' \
-  --output text)
+  --output text 2>/dev/null || echo "")
+
+if [ -z "$SECURITY_GROUP_ID" ] || [ "$SECURITY_GROUP_ID" == "None" ]; then
+  echo "Creating security group..."
+  SECURITY_GROUP_ID=$(aws ec2 create-security-group \
+    --group-name ghostprotocol-dev-sg \
+    --description "Security group for GhostProtocol development environment" \
+    --region $AWS_REGION \
+    --query 'GroupId' \
+    --output text)
+else
+  echo "Using existing security group: $SECURITY_GROUP_ID"
+fi
 
 echo "Created security group: $SECURITY_GROUP_ID"
 
@@ -55,20 +66,36 @@ aws ec2 authorize-security-group-ingress \
 
 echo "Added inbound rules to security group"
 
-# Create a key pair
+# Check if key pair exists
 KEY_NAME="ghostprotocol-dev-key"
-aws ec2 create-key-pair \
-  --key-name $KEY_NAME \
-  --query 'KeyMaterial' \
-  --output text \
-  --region $AWS_REGION > ~/.ssh/$KEY_NAME.pem
+echo "Checking if key pair exists..."
+KEY_EXISTS=$(aws ec2 describe-key-pairs \
+  --key-names $KEY_NAME \
+  --region $AWS_REGION 2>/dev/null || echo "not_exists")
 
-chmod 400 ~/.ssh/$KEY_NAME.pem
-echo "Created key pair: $KEY_NAME"
+if [[ $KEY_EXISTS == "not_exists" ]]; then
+  echo "Creating key pair: $KEY_NAME"
+  aws ec2 create-key-pair \
+    --key-name $KEY_NAME \
+    --query 'KeyMaterial' \
+    --output text \
+    --region $AWS_REGION > ~/.ssh/$KEY_NAME.pem
+  
+  chmod 400 ~/.ssh/$KEY_NAME.pem
+  echo "Created key pair: $KEY_NAME"
+else
+  echo "Using existing key pair: $KEY_NAME"
+  # Check if the key file exists locally
+  if [ ! -f ~/.ssh/$KEY_NAME.pem ]; then
+    echo "Warning: Key pair exists in AWS but not locally at ~/.ssh/$KEY_NAME.pem"
+    echo "You may need to download the key pair again or use a different key name."
+    exit 1
+  fi
+fi
 
 # Launch an EC2 instance
 INSTANCE_ID=$(aws ec2 run-instances \
-  --image-id ami-0c55b159cbfafe1f0 \
+  --image-id ami-038d74967dbfcdee5 \
   --instance-type t2.medium \
   --key-name $KEY_NAME \
   --security-group-ids $SECURITY_GROUP_ID \
@@ -159,8 +186,17 @@ EOD
 
 # Wait for SSH to be available
 echo "Waiting for SSH to be available..."
-while ! nc -z $PUBLIC_IP 22; do
-  sleep 5
+for i in {1..30}; do
+  if nc -z -w 5 $PUBLIC_IP 22; then
+    echo "SSH is available"
+    break
+  fi
+  if [ $i -eq 30 ]; then
+    echo "Timed out waiting for SSH to become available"
+    exit 1
+  fi
+  echo "Waiting for SSH to become available... ($i/30)"
+  sleep 10
 done
 
 # Copy user data script to instance
@@ -197,7 +233,7 @@ An EC2 instance has been created with the following configuration:
 
 - Instance ID: $INSTANCE_ID
 - Instance Type: t2.medium
-- AMI ID: ami-0c55b159cbfafe1f0
+- AMI ID: ami-038d74967dbfcdee5
 - Security Group: $SECURITY_GROUP_ID
 - Key Pair: $KEY_NAME
 - Public IP: $PUBLIC_IP
