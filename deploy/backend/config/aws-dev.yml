@@ -1,7 +1,7 @@
 # GhostProtocol Development Environment AWS Configuration
 
 aws:
-  region: us-east-1  # Using the same region where we deployed our CloudFormation stack
+  region: us-west-1  # Using the same region where we deployed our EC2 instance
   
   # S3 Bucket Configuration
   s3:
