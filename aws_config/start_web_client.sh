@@ -1,11 +1,13 @@
 #!/bin/bash
-
 # GhostProtocol Web Client Startup Script
 
 echo "Starting GhostProtocol web client..."
 
-cd web
-npm install
-npm start
+# Navigate to web directory
+cd ~/GhostProtocol/web
 
-echo "Web client started successfully!"
+# Install dependencies
+npm install
+
+# Start the web client
+npm start

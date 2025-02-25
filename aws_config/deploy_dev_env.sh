@@ -1,26 +1,81 @@
 #!/bin/bash
-
-# GhostProtocol Development Environment Deployment Script
+# GhostProtocol AWS Development Environment Deployment Script
 
 echo "Starting GhostProtocol development environment deployment..."
 
-# Check AWS CLI configuration
-echo "Checking AWS CLI configuration..."
-aws configure list
+# Set AWS region
+AWS_REGION="us-west-1"
 
-# Deploy CloudFormation stack
-echo "Deploying CloudFormation stack..."
-aws cloudformation deploy \
-  --template-file aws/development/cloudformation.yaml \
-  --stack-name ghostprotocol-dev-stack \
-  --capabilities CAPABILITY_IAM \
-  --parameter-overrides \
-    Environment=dev \
-    ResourcePrefix=ghostprotocol-dev
+# Create S3 buckets if they don't exist
+echo "Creating S3 buckets..."
+aws s3api create-bucket --bucket ghostprotocol-dev-profiles --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
+aws s3api create-bucket --bucket ghostprotocol-dev-vault --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
+aws s3api create-bucket --bucket ghostprotocol-dev-media --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
+aws s3api create-bucket --bucket ghostprotocol-dev-attachments --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
 
-# Start backend service
-echo "Starting backend service..."
-cd service
-mvn exec:java -Dexec.mainClass="org.ghostprotocol.service.GhostProtocolServerService" -Dexec.args="server src/main/resources/config/aws-dev.yml"
+# Create DynamoDB tables if they don't exist
+echo "Creating DynamoDB tables..."
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-accounts \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
 
-echo "Deployment complete!"
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-devices \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-messages \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-groups \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-crypto-wallets \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-storage-usage \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-admin-roles \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-vault-items \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+aws dynamodb create-table \
+    --table-name ghostprotocol-dev-subscriptions \
+    --attribute-definitions AttributeName=id,AttributeType=S \
+    --key-schema AttributeName=id,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
+    --region $AWS_REGION
+
+echo "AWS development environment setup complete!"

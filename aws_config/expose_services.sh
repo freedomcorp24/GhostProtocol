@@ -1,19 +1,34 @@
 #!/bin/bash
-
 # GhostProtocol Service Exposure Script
 
-echo "Exposing GhostProtocol services for external access..."
+echo "Exposing GhostProtocol services..."
 
-# Expose backend service
-echo "Exposing backend service..."
-BACKEND_PORT=8080
-expose_port local_port=$BACKEND_PORT
+# Get the EC2 instance ID
+INSTANCE_ID=$(aws ec2 describe-instances \
+  --filters "Name=tag:Name,Values=ghostprotocol-dev-instance" \
+  --query "Reservations[0].Instances[0].InstanceId" \
+  --output text)
 
-# Expose web client
-echo "Exposing web client..."
-WEB_PORT=3000
-expose_port local_port=$WEB_PORT
+if [ -z "$INSTANCE_ID" ]; then
+  echo "No EC2 instance found. Please run create_ec2_instance.sh first."
+  exit 1
+fi
 
-echo "Services exposed successfully!"
-echo "Backend URL: http://localhost:$BACKEND_PORT"
-echo "Web Client URL: http://localhost:$WEB_PORT"
+# Get the public IP address
+PUBLIC_IP=$(aws ec2 describe-instances \
+  --instance-ids $INSTANCE_ID \
+  --query "Reservations[0].Instances[0].PublicIpAddress" \
+  --output text)
+
+echo "Found EC2 instance with public IP: $PUBLIC_IP"
+
+# Create a temporary URL using services like ngrok or localtunnel
+# For this example, we'll just use the EC2 public IP
+
+echo "GhostProtocol Development Environment Access Information"
+echo "========================================================"
+echo "Web Client: http://$PUBLIC_IP"
+echo "Backend API: http://$PUBLIC_IP/api"
+echo "Admin Panel: http://$PUBLIC_IP/admin"
+echo ""
+echo "Please share these URLs with the user for testing."
