@@ -32,17 +32,32 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - [x] Created deployment scripts
 - [x] Created EC2 instance creation script
 - [x] Created service exposure script
-- [x] Created Elastic Beanstalk deployment script
-- [x] Created S3/CloudFront deployment script for web client
-- [x] Created AWS Amplify deployment script
-- [x] Created AWS App Runner deployment script
-- [x] Created AWS Lightsail deployment script
 - [ ] Deployed development environment
 - [ ] Configured AWS credentials
 - [ ] Tested S3 bucket access
 - [ ] Tested DynamoDB table access
 
-### 3. Development Environment Setup
+### 3. AWS Resources to be Created
+- S3 buckets:
+  - ghostprotocol-dev-profiles: For user profile data
+  - ghostprotocol-dev-vault: For secure vault storage
+  - ghostprotocol-dev-media: For media files
+  - ghostprotocol-dev-attachments: For message attachments
+- DynamoDB tables:
+  - ghostprotocol-dev-accounts: User account information
+  - ghostprotocol-dev-devices: User devices
+  - ghostprotocol-dev-messages: Message storage
+  - ghostprotocol-dev-groups: Group chat information
+  - ghostprotocol-dev-crypto-wallets: Cryptocurrency wallet data
+  - ghostprotocol-dev-storage-usage: User storage usage tracking
+  - ghostprotocol-dev-admin-roles: Admin role assignments
+  - ghostprotocol-dev-vault-items: Secure vault items
+  - ghostprotocol-dev-subscriptions: User subscription information
+- EC2 instance:
+  - t2.medium instance for hosting the application
+  - Security group with ports 22, 80, 443, 8080, and 3000 open
+
+### 4. Development Environment Setup
 - [ ] Resolved Maven dependency issues
 - [ ] Started backend service
 - [ ] Built and started web client
@@ -50,13 +65,13 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - [ ] Verified functionality
 - [ ] Documented access URLs
 
-### 4. Access Information
+### 5. Access Information
 - Backend URL: TBD
 - Web Client URL: TBD
 - Admin Panel URL: TBD
 
 ## Next Steps
-1. Deploy AWS development environment using one of the deployment scripts
+1. Deploy AWS development environment using setup_dev_env.sh script
 2. Configure AWS credentials
 3. Start backend service
 4. Build and start web client
@@ -73,4 +88,3 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Development environment will be used for testing before cloning to production
 - All features have been implemented and code is 100% complete
 - Focus is now on making the application accessible for testing and review
-- Multiple deployment options have been created to provide flexibility in setting up the development environment
