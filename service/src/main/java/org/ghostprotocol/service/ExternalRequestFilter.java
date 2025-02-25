@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.filters;
+package org.ghostprotocol.service.filters;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import io.grpc.Metadata;
 import io.grpc.MethodDescriptor;
@@ -25,8 +25,8 @@ import java.net.InetAddress;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.grpc.RequestAttributesUtil;
-import org.ghostprotocol.textsecuregcm.util.InetAddressRange;
+import org.ghostprotocol.service.grpc.RequestAttributesUtil;
+import org.ghostprotocol.service.util.InetAddressRange;
 
 public class ExternalRequestFilter implements Filter, ServerInterceptor {
 

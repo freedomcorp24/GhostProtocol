@@ -3,24 +3,24 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.websocket;
+package org.ghostprotocol.service.websocket;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import io.micrometer.core.instrument.Tags;
 import java.util.concurrent.ScheduledExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.limits.MessageDeliveryLoopMonitor;
-import org.ghostprotocol.textsecuregcm.metrics.MessageMetrics;
-import org.ghostprotocol.textsecuregcm.metrics.OpenWebSocketCounter;
-import org.ghostprotocol.textsecuregcm.push.WebSocketConnectionEventManager;
-import org.ghostprotocol.textsecuregcm.push.PushNotificationManager;
-import org.ghostprotocol.textsecuregcm.push.PushNotificationScheduler;
-import org.ghostprotocol.textsecuregcm.push.ReceiptSender;
-import org.ghostprotocol.textsecuregcm.storage.ClientReleaseManager;
-import org.ghostprotocol.textsecuregcm.storage.MessagesManager;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.limits.MessageDeliveryLoopMonitor;
+import org.ghostprotocol.service.metrics.MessageMetrics;
+import org.ghostprotocol.service.metrics.OpenWebSocketCounter;
+import org.ghostprotocol.service.push.WebSocketConnectionEventManager;
+import org.ghostprotocol.service.push.PushNotificationManager;
+import org.ghostprotocol.service.push.PushNotificationScheduler;
+import org.ghostprotocol.service.push.ReceiptSender;
+import org.ghostprotocol.service.storage.ClientReleaseManager;
+import org.ghostprotocol.service.storage.MessagesManager;
 import org.ghostprotocol.websocket.session.WebSocketSessionContext;
 import org.ghostprotocol.websocket.setup.WebSocketConnectListener;
 import reactor.core.scheduler.Scheduler;

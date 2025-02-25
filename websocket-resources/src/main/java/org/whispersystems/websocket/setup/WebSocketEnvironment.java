@@ -2,7 +2,7 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.setup;
+package org.ghostprotocol.websocket.setup;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.core.setup.Environment;
@@ -11,11 +11,11 @@ import jakarta.validation.Validator;
 import java.security.Principal;
 import java.time.Duration;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.whispersystems.websocket.auth.WebSocketAuthenticator;
-import org.whispersystems.websocket.configuration.WebSocketConfiguration;
-import org.whispersystems.websocket.logging.WebsocketRequestLog;
-import org.whispersystems.websocket.messages.WebSocketMessageFactory;
-import org.whispersystems.websocket.messages.protobuf.ProtobufWebSocketMessageFactory;
+import org.ghostprotocol.websocket.auth.WebSocketAuthenticator;
+import org.ghostprotocol.websocket.configuration.WebSocketConfiguration;
+import org.ghostprotocol.websocket.logging.WebsocketRequestLog;
+import org.ghostprotocol.websocket.messages.WebSocketMessageFactory;
+import org.ghostprotocol.websocket.messages.protobuf.ProtobufWebSocketMessageFactory;
 
 public class WebSocketEnvironment<T extends Principal> {
 

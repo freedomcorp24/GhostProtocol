@@ -10,12 +10,12 @@ import io.grpc.Status;
 
 import java.time.Clock;
 import java.util.List;
-import org.signal.libsignal.protocol.ServiceId;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.ServerSecretParams;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.groupsend.GroupSendDerivedKeyPair;
-import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken;
+import org.ghostprotocol.protocol.ServiceId;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.ServerSecretParams;
+import org.ghostprotocol.protocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.protocol.zkgroup.groupsend.GroupSendDerivedKeyPair;
+import org.ghostprotocol.protocol.zkgroup.groupsend.GroupSendFullToken;
 import org.ghostprotocol.service.identity.ServiceIdentifier;
 
 import reactor.core.publisher.Mono;

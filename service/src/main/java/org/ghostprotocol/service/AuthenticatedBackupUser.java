@@ -5,8 +5,8 @@
 
 package org.ghostprotocol.service.auth;
 
-import org.signal.libsignal.zkgroup.backups.BackupCredentialType;
-import org.signal.libsignal.zkgroup.backups.BackupLevel;
+import org.ghostprotocol.protocol.zkgroup.backups.BackupCredentialType;
+import org.ghostprotocol.protocol.zkgroup.backups.BackupLevel;
 
 public record AuthenticatedBackupUser(byte[] backupId,
                                       BackupCredentialType credentialType,

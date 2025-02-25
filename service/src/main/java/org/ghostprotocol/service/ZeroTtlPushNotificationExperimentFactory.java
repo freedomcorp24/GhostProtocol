@@ -5,12 +5,12 @@
 
 package org.ghostprotocol.service.workers;
 
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.DynamoDbTables;
-import org.ghostprotocol.textsecuregcm.experiment.DeviceLastSeenState;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperiment;
-import org.ghostprotocol.textsecuregcm.experiment.ZeroTtlPushNotificationExperiment;
-import org.ghostprotocol.textsecuregcm.push.ZeroTtlNotificationScheduler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.configuration.DynamoDbTables;
+import org.ghostprotocol.service.experiment.DeviceLastSeenState;
+import org.ghostprotocol.service.experiment.PushNotificationExperiment;
+import org.ghostprotocol.service.experiment.ZeroTtlPushNotificationExperiment;
+import org.ghostprotocol.service.push.ZeroTtlNotificationScheduler;
 import java.time.Clock;
 
 public class ZeroTtlPushNotificationExperimentFactory implements PushNotificationExperimentFactory<DeviceLastSeenState> {

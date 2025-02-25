@@ -9,8 +9,8 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.security.InvalidKeyException;
 import java.util.concurrent.TimeUnit;
-import org.signal.libsignal.protocol.ecc.Curve;
-import org.signal.libsignal.protocol.ecc.ECPrivateKey;
+import org.ghostprotocol.protocol.ecc.Curve;
+import org.ghostprotocol.protocol.ecc.ECPrivateKey;
 import org.ghostprotocol.service.entities.MessageProtos.SenderCertificate;
 import org.ghostprotocol.service.entities.MessageProtos.ServerCertificate;
 import org.ghostprotocol.service.identity.IdentityType;
@@ -47,7 +47,7 @@ public class CertificateGenerator {
     byte[] signature;
     try {
       signature = Curve.calculateSignature(privateKey, certificate);
-    } catch (org.signal.libsignal.protocol.InvalidKeyException e) {
+    } catch (org.ghostprotocol.protocol.InvalidKeyException e) {
       throw new InvalidKeyException(e);
     }
 

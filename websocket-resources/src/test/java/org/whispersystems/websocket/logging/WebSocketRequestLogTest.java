@@ -1,8 +1,8 @@
 /*
- * Copyright 2013-2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging;
+package org.ghostprotocol.websocket.logging;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -25,9 +25,9 @@ import org.glassfish.jersey.server.ContainerResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.whispersystems.websocket.WebSocketSecurityContext;
-import org.whispersystems.websocket.session.ContextPrincipal;
-import org.whispersystems.websocket.session.WebSocketSessionContext;
+import org.ghostprotocol.websocket.WebSocketSecurityContext;
+import org.ghostprotocol.websocket.session.ContextPrincipal;
+import org.ghostprotocol.websocket.session.WebSocketSessionContext;
 
 public class WebSocketRequestLogTest {
 

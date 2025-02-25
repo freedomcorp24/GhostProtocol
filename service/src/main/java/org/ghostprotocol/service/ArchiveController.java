@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -62,19 +62,19 @@ import org.ghostprotocol.zkgroup.backups.BackupAuthCredentialPresentation;
 import org.ghostprotocol.zkgroup.backups.BackupAuthCredentialRequest;
 import org.ghostprotocol.zkgroup.backups.BackupCredentialType;
 import org.ghostprotocol.zkgroup.receipts.ReceiptCredentialPresentation;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.backup.BackupAuthManager;
-import org.ghostprotocol.textsecuregcm.backup.BackupManager;
-import org.ghostprotocol.textsecuregcm.backup.CopyParameters;
-import org.ghostprotocol.textsecuregcm.backup.CopyResult;
-import org.ghostprotocol.textsecuregcm.backup.MediaEncryptionParameters;
-import org.ghostprotocol.textsecuregcm.entities.RemoteAttachment;
-import org.ghostprotocol.textsecuregcm.util.BackupAuthCredentialAdapter;
-import org.ghostprotocol.textsecuregcm.util.ByteArrayAdapter;
-import org.ghostprotocol.textsecuregcm.util.ByteArrayBase64UrlAdapter;
-import org.ghostprotocol.textsecuregcm.util.ECPublicKeyAdapter;
-import org.ghostprotocol.textsecuregcm.util.ExactlySize;
-import org.ghostprotocol.textsecuregcm.util.Util;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.backup.BackupAuthManager;
+import org.ghostprotocol.service.backup.BackupManager;
+import org.ghostprotocol.service.backup.CopyParameters;
+import org.ghostprotocol.service.backup.CopyResult;
+import org.ghostprotocol.service.backup.MediaEncryptionParameters;
+import org.ghostprotocol.service.entities.RemoteAttachment;
+import org.ghostprotocol.service.util.BackupAuthCredentialAdapter;
+import org.ghostprotocol.service.util.ByteArrayAdapter;
+import org.ghostprotocol.service.util.ByteArrayBase64UrlAdapter;
+import org.ghostprotocol.service.util.ECPublicKeyAdapter;
+import org.ghostprotocol.service.util.ExactlySize;
+import org.ghostprotocol.service.util.Util;
 import org.ghostprotocol.websocket.auth.Mutable;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 import reactor.core.publisher.Mono;

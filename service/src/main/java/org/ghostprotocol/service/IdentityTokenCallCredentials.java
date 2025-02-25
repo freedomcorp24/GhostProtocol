@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.registration;
+package org.ghostprotocol.service.registration;
 
 import com.google.auth.oauth2.ExternalAccountCredentials;
 import com.google.auth.oauth2.ImpersonatedCredentials;

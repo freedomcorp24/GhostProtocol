@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.google.common.base.MoreObjects;
 import com.google.protobuf.ByteString;
@@ -15,10 +15,10 @@ import java.util.Set;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.signal.libsignal.protocol.ecc.Curve;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
-import org.signal.libsignal.protocol.ecc.ECPrivateKey;
-import org.ghostprotocol.textsecuregcm.entities.MessageProtos;
+import org.ghostprotocol.protocol.ecc.Curve;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECPrivateKey;
+import org.ghostprotocol.service.entities.MessageProtos;
 
 public class CertificateCommand extends Command {
 
@@ -61,7 +61,7 @@ public class CertificateCommand extends Command {
     System.out.println("Private key: " + Base64.getEncoder().encodeToString(keyPair.getPrivateKey().serialize()));
   }
 
-  private void runCertificateCommand(Namespace namespace) throws InvalidKeyException, org.signal.libsignal.protocol.InvalidKeyException {
+  private void runCertificateCommand(Namespace namespace) throws InvalidKeyException, org.ghostprotocol.protocol.InvalidKeyException {
     if (namespace.getString("key") == null) {
       System.out.println("No key specified!");
       return;
@@ -91,7 +91,7 @@ public class CertificateCommand extends Command {
     byte[] signature;
     try {
       signature = Curve.calculateSignature(key, certificate);
-    } catch (org.signal.libsignal.protocol.InvalidKeyException e) {
+    } catch (org.ghostprotocol.protocol.InvalidKeyException e) {
       throw new InvalidKeyException(e);
     }
 

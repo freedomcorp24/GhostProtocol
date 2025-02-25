@@ -2,7 +2,7 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging;
+package org.ghostprotocol.websocket.logging;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.websocket.logging.layout.WebsocketEventLayoutFactory;
+import org.ghostprotocol.websocket.logging.layout.WebsocketEventLayoutFactory;
 
 public class WebsocketRequestLoggerFactory {
 

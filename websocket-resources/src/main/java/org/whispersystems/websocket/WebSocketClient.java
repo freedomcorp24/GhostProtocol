@@ -2,7 +2,7 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket;
+package org.ghostprotocol.websocket;
 
 import com.google.common.net.HttpHeaders;
 import java.nio.ByteBuffer;
@@ -18,9 +18,9 @@ import org.eclipse.jetty.websocket.api.WriteCallback;
 import org.eclipse.jetty.websocket.api.exceptions.WebSocketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.websocket.messages.WebSocketMessage;
-import org.whispersystems.websocket.messages.WebSocketMessageFactory;
-import org.whispersystems.websocket.messages.WebSocketResponseMessage;
+import org.ghostprotocol.websocket.messages.WebSocketMessage;
+import org.ghostprotocol.websocket.messages.WebSocketMessageFactory;
+import org.ghostprotocol.websocket.messages.WebSocketResponseMessage;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class WebSocketClient {

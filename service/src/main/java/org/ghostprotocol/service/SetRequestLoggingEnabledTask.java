@@ -6,7 +6,7 @@
 package org.ghostprotocol.service.workers;
 
 import io.dropwizard.servlets.tasks.Task;
-import org.ghostprotocol.textsecuregcm.util.logging.RequestLogManager;
+import org.ghostprotocol.service.util.logging.RequestLogManager;
 
 import java.io.PrintWriter;
 import java.util.List;

@@ -12,7 +12,7 @@ import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.util.Optional;
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.protocol.IdentityKey;
 import org.ghostprotocol.ghostprotocol.identity.AciServiceIdentifier;
 import org.ghostprotocol.ghostprotocol.util.ByteArrayBase64UrlAdapter;
 import org.ghostprotocol.ghostprotocol.util.ByteArrayBase64WithPaddingAdapter;

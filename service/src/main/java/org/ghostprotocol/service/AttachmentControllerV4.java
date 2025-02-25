@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,14 +18,14 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Map;
 import javax.annotation.Nonnull;
-import org.ghostprotocol.textsecuregcm.attachments.AttachmentGenerator;
-import org.ghostprotocol.textsecuregcm.attachments.GcsAttachmentGenerator;
-import org.ghostprotocol.textsecuregcm.attachments.TusAttachmentGenerator;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.AttachmentDescriptorV3;
-import org.ghostprotocol.textsecuregcm.experiment.ExperimentEnrollmentManager;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiter;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
+import org.ghostprotocol.service.attachments.AttachmentGenerator;
+import org.ghostprotocol.service.attachments.GcsAttachmentGenerator;
+import org.ghostprotocol.service.attachments.TusAttachmentGenerator;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.AttachmentDescriptorV3;
+import org.ghostprotocol.service.experiment.ExperimentEnrollmentManager;
+import org.ghostprotocol.service.limits.RateLimiter;
+import org.ghostprotocol.service.limits.RateLimiters;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 

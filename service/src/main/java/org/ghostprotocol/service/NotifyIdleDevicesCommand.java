@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.micrometer.core.instrument.Counter;
@@ -6,13 +6,13 @@ import io.micrometer.core.instrument.Metrics;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.configuration.DynamoDbTables;
-import org.ghostprotocol.textsecuregcm.identity.IdentityType;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.push.IdleDeviceNotificationScheduler;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.Device;
-import org.ghostprotocol.textsecuregcm.storage.MessagesManager;
+import org.ghostprotocol.service.configuration.DynamoDbTables;
+import org.ghostprotocol.service.identity.IdentityType;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.push.IdleDeviceNotificationScheduler;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.Device;
+import org.ghostprotocol.service.storage.MessagesManager;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;

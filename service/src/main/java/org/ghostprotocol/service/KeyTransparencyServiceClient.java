@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.keytransparency;
+package org.ghostprotocol.service.keytransparency;
 
 import com.google.protobuf.AbstractMessageLite;
 import com.google.protobuf.ByteString;
@@ -34,8 +34,8 @@ import org.ghostprotocol.keytransparency.client.SearchRequest;
 import org.ghostprotocol.keytransparency.client.UsernameHashMonitorRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.util.CompletableFutureUtil;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.util.CompletableFutureUtil;
 
 public class KeyTransparencyServiceClient implements Managed {
 

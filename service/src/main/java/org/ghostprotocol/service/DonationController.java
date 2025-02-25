@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,17 +23,17 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 import javax.annotation.Nonnull;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation;
-import org.signal.libsignal.zkgroup.receipts.ReceiptSerial;
-import org.signal.libsignal.zkgroup.receipts.ServerZkReceiptOperations;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.configuration.BadgesConfiguration;
-import org.ghostprotocol.textsecuregcm.entities.RedeemReceiptRequest;
-import org.ghostprotocol.textsecuregcm.storage.AccountBadge;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
-import org.ghostprotocol.textsecuregcm.storage.RedeemedReceiptsManager;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.protocol.zkgroup.receipts.ReceiptCredentialPresentation;
+import org.ghostprotocol.protocol.zkgroup.receipts.ReceiptSerial;
+import org.ghostprotocol.protocol.zkgroup.receipts.ServerZkReceiptOperations;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.configuration.BadgesConfiguration;
+import org.ghostprotocol.service.entities.RedeemReceiptRequest;
+import org.ghostprotocol.service.storage.AccountBadge;
+import org.ghostprotocol.service.storage.AccountsManager;
+import org.ghostprotocol.service.storage.RedeemedReceiptsManager;
 import org.ghostprotocol.websocket.auth.Mutable;
 
 @Path("/v1/donation")

@@ -9,7 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HexFormat;
-import org.signal.libsignal.protocol.kdf.HKDF;
+import org.ghostprotocol.protocol.kdf.HKDF;
 
 public record SaltedTokenHash(String hash, String salt) {
 

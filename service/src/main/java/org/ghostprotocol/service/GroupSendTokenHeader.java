@@ -8,8 +8,8 @@ package org.ghostprotocol.service.auth;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response.Status;
 import java.util.Base64;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.groupsend.GroupSendFullToken;
 
 public record GroupSendTokenHeader(GroupSendFullToken token) {
 

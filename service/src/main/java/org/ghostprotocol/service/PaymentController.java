@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
@@ -11,10 +11,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.PaymentAddress;
-import org.ghostprotocol.textsecuregcm.payments.PaymentProcessor;
-import org.ghostprotocol.textsecuregcm.payments.ExchangeRateManager;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.PaymentAddress;
+import org.ghostprotocol.service.payments.PaymentProcessor;
+import org.ghostprotocol.service.payments.ExchangeRateManager;
 
 import java.math.BigDecimal;
 import java.time.Duration;

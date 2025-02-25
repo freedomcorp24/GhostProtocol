@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
 import org.ghostprotocol.service.auth.grpc.AuthenticatedDevice;
 import org.ghostprotocol.service.storage.ClientPublicKeysManager;
 import org.ghostprotocol.service.util.ExceptionUtils;

@@ -1,13 +1,13 @@
 /*
- * Copyright 2020 Signal Messenger, LLC
+ * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 syntax = "proto2";
 
-package signalservice;
+package ghostprotocol;
 
-option java_package = "org.whispersystems.websocket.messages.protobuf";
+option java_package = "org.ghostprotocol.websocket.messages.protobuf";
 option java_outer_classname = "SubProtocol";
 
 message WebSocketRequestMessage {

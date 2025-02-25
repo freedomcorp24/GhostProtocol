@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import javax.crypto.BadPaddingException;
 import javax.crypto.ShortBufferException;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
 
 /**
  * Helper for the responder of a 2-message handshake with a pre-shared responder static key

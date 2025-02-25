@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -29,11 +29,11 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.Base64;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.ProvisioningMessage;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
-import org.ghostprotocol.textsecuregcm.metrics.UserAgentTagUtil;
-import org.ghostprotocol.textsecuregcm.push.ProvisioningManager;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.ProvisioningMessage;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
+import org.ghostprotocol.service.push.ProvisioningManager;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 /**
@@ -44,7 +44,7 @@ import org.ghostprotocol.websocket.auth.ReadOnly;
  * {@link #sendProvisioningMessage(AuthenticatedDevice, String, ProvisioningMessage, String)}, at which point the server
  * delivers the message to the new device via an open provisioning WebSocket.
  *
- * @see org.ghostprotocol.textsecuregcm.websocket.ProvisioningConnectListener
+ * @see org.ghostprotocol.service.websocket.ProvisioningConnectListener
  */
 @Path("/v1/provisioning")
 @Tag(name = "Provisioning")

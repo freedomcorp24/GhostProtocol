@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -65,13 +65,13 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.server.ManagedAsync;
-import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
-import org.signal.libsignal.protocol.ServiceId;
-import org.signal.libsignal.protocol.util.Pair;
-import org.signal.libsignal.zkgroup.ServerSecretParams;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.groupsend.GroupSendDerivedKeyPair;
-import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken;
+import org.ghostprotocol.protocol.SealedSenderMultiRecipientMessage;
+import org.ghostprotocol.protocol.ServiceId;
+import org.ghostprotocol.protocol.util.Pair;
+import org.ghostprotocol.zkgroup.ServerSecretParams;
+import org.ghostprotocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.zkgroup.groupsend.GroupSendDerivedKeyPair;
+import org.ghostprotocol.zkgroup.groupsend.GroupSendFullToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.service.auth.Anonymous;

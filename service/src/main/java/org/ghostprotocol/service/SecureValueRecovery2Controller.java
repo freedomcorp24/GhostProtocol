@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.auth.Auth;
@@ -23,17 +23,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentials;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentialsGenerator;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentialsSelector;
-import org.ghostprotocol.textsecuregcm.configuration.SecureValueRecovery2Configuration;
-import org.ghostprotocol.textsecuregcm.entities.AuthCheckRequest;
-import org.ghostprotocol.textsecuregcm.entities.AuthCheckResponseV2;
-import org.ghostprotocol.textsecuregcm.limits.RateLimitedByIp;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.auth.ExternalServiceCredentials;
+import org.ghostprotocol.service.auth.ExternalServiceCredentialsGenerator;
+import org.ghostprotocol.service.auth.ExternalServiceCredentialsSelector;
+import org.ghostprotocol.service.configuration.SecureValueRecovery2Configuration;
+import org.ghostprotocol.service.entities.AuthCheckRequest;
+import org.ghostprotocol.service.entities.AuthCheckResponseV2;
+import org.ghostprotocol.service.limits.RateLimitedByIp;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.AccountsManager;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v2/backup")

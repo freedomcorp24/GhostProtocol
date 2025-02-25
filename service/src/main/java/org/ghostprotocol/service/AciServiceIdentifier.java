@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.UUID;
-import org.signal.libsignal.protocol.ServiceId;
+import org.ghostprotocol.protocol.ServiceId;
 import org.ghostprotocol.ghostprotocol.metrics.MetricsUtil;
 import org.ghostprotocol.ghostprotocol.util.UUIDUtil;
 
@@ -54,7 +54,7 @@ public record AciServiceIdentifier(UUID uuid) implements ServiceIdentifier {
   }
 
   @Override
-  public ServiceId.Aci toLibsignal() {
+  public ServiceId.Aci toGhostProtocol() {
     return new ServiceId.Aci(uuid);
   }
 

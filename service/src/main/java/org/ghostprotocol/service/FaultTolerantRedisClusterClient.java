@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.redis;
+package org.ghostprotocol.service.redis;
 
 import io.github.resilience4j.core.IntervalFunction;
 import io.github.resilience4j.reactor.retry.RetryOperator;
@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import org.reactivestreams.Publisher;
-import org.ghostprotocol.textsecuregcm.configuration.CircuitBreakerConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.RedisClusterConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.RetryConfiguration;
-import org.ghostprotocol.textsecuregcm.util.CircuitBreakerUtil;
+import org.ghostprotocol.service.configuration.CircuitBreakerConfiguration;
+import org.ghostprotocol.service.configuration.RedisClusterConfiguration;
+import org.ghostprotocol.service.configuration.RetryConfiguration;
+import org.ghostprotocol.service.util.CircuitBreakerUtil;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.google.common.annotations.VisibleForTesting;
 import java.time.Clock;
@@ -11,10 +11,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import org.apache.commons.lang3.StringUtils;
-import org.ghostprotocol.textsecuregcm.identity.IdentityType;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.Device;
-import org.ghostprotocol.textsecuregcm.storage.MessagesManager;
+import org.ghostprotocol.service.identity.IdentityType;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.Device;
+import org.ghostprotocol.service.storage.MessagesManager;
 import reactor.core.publisher.Mono;
 
 /**

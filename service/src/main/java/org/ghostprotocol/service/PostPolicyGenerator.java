@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import org.ghostprotocol.textsecuregcm.util.Pair;
+import org.ghostprotocol.service.util.Pair;
 
 public class PostPolicyGenerator {
 

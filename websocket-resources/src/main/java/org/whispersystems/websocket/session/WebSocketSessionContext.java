@@ -2,13 +2,13 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.session;
+package org.ghostprotocol.websocket.session;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.annotation.Nullable;
-import org.whispersystems.websocket.WebSocketClient;
+import org.ghostprotocol.websocket.WebSocketClient;
 
 public class WebSocketSessionContext {
 

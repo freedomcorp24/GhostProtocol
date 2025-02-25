@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.entities;
+package org.ghostprotocol.service.entities;
 
-import org.signal.libsignal.protocol.IdentityKey;
+import org.ghostprotocol.protocol.IdentityKey;
 
 public interface SignedPreKey<K> extends PreKey<K> {
 

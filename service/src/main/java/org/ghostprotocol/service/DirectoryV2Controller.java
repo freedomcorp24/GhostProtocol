@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.auth.Auth;
@@ -15,10 +15,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.time.Clock;
 import java.util.UUID;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentials;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentialsGenerator;
-import org.ghostprotocol.textsecuregcm.configuration.DirectoryV2ClientConfiguration;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.auth.ExternalServiceCredentials;
+import org.ghostprotocol.service.auth.ExternalServiceCredentialsGenerator;
+import org.ghostprotocol.service.configuration.DirectoryV2ClientConfiguration;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v2/directory")

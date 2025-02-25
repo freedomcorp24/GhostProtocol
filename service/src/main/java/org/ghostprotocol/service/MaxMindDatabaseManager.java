@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.geo;
+package org.ghostprotocol.service.geo;
 
 import com.maxmind.db.CHMCache;
 import com.maxmind.geoip2.DatabaseReader;
@@ -21,9 +21,9 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.configuration.S3ObjectMonitorFactory;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.s3.S3ObjectMonitor;
+import org.ghostprotocol.service.configuration.S3ObjectMonitorFactory;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.s3.S3ObjectMonitor;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 
 public class MaxMindDatabaseManager implements Supplier<DatabaseReader>, Managed {

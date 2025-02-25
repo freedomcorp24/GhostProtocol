@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.entities;
+package org.ghostprotocol.service.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 import org.ghostprotocol.protocol.IdentityKey;
-import org.ghostprotocol.textsecuregcm.util.IdentityKeyAdapter;
+import org.ghostprotocol.service.util.IdentityKeyAdapter;
 
 public record PhoneNumberIdentityKeyDistributionRequest(
     @NotNull

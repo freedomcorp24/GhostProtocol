@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.registration;
+package org.ghostprotocol.service.registration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.ghostprotocol.textsecuregcm.storage.SerializedExpireableJsonDynamoStore;
+import org.ghostprotocol.service.storage.SerializedExpireableJsonDynamoStore;
 
 /**
  * Server-internal stored session object. Primarily used by
- * {@link org.ghostprotocol.textsecuregcm.controllers.VerificationController} to manage the steps required to begin
+ * {@link org.ghostprotocol.service.controllers.VerificationController} to manage the steps required to begin
  * requesting codes from Registration Service, in order to get a verified session to be provided to
- * {@link org.ghostprotocol.textsecuregcm.controllers.RegistrationController}.
+ * {@link org.ghostprotocol.service.controllers.RegistrationController}.
  *
  * @param pushChallenge           the value of a push challenge sent to a client, after it submitted a push token
  * @param requestedInformation    information requested that a client send to the server
@@ -30,9 +30,9 @@ import org.ghostprotocol.textsecuregcm.storage.SerializedExpireableJsonDynamoSto
  * @param createdTimestamp        when this session was created
  * @param updatedTimestamp        when this session was updated
  * @param remoteExpirationSeconds when the remote
- *                                {@link org.ghostprotocol.textsecuregcm.entities.RegistrationServiceSession} expires
- * @see org.ghostprotocol.textsecuregcm.entities.RegistrationServiceSession
- * @see org.ghostprotocol.textsecuregcm.entities.VerificationSessionResponse
+ *                                {@link org.ghostprotocol.service.entities.RegistrationServiceSession} expires
+ * @see org.ghostprotocol.service.entities.RegistrationServiceSession
+ * @see org.ghostprotocol.service.entities.VerificationSessionResponse
  */
 public record VerificationSession(
     @Nullable String pushChallenge,

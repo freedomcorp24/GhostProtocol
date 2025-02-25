@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.redis;
+package org.ghostprotocol.service.redis;
 
 import io.github.resilience4j.retry.Retry;
 import io.lettuce.core.cluster.event.ClusterTopologyChangedEvent;

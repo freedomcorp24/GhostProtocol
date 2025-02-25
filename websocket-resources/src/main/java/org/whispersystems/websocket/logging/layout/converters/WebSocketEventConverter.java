@@ -2,9 +2,9 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging.layout.converters;
+package org.ghostprotocol.websocket.logging.layout.converters;
 
-import org.whispersystems.websocket.logging.WebsocketEvent;
+import org.ghostprotocol.websocket.logging.WebsocketEvent;
 
 import ch.qos.logback.core.Context;
 import ch.qos.logback.core.pattern.DynamicConverter;

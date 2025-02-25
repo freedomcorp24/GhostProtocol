@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import static com.codahale.metrics.MetricRegistry.name;
 
@@ -20,9 +20,9 @@ import java.time.Instant;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.metrics.UserAgentTagUtil;
-import org.ghostprotocol.textsecuregcm.push.WebSocketConnectionEventManager;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
+import org.ghostprotocol.service.push.WebSocketConnectionEventManager;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 import org.ghostprotocol.websocket.session.WebSocketSession;
 import org.ghostprotocol.websocket.session.WebSocketSessionContext;

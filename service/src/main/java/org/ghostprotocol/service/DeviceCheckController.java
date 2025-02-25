@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.dropwizard.auth.Auth;
@@ -29,18 +29,18 @@ import java.time.Duration;
 import java.util.Base64;
 import java.util.Locale;
 import org.glassfish.jersey.server.ManagedAsync;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.backup.BackupAuthManager;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.AppleDeviceCheckManager;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.ChallengeNotFoundException;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.DeviceCheckKeyIdNotFoundException;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.DeviceCheckVerificationFailedException;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.DuplicatePublicKeyException;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.RequestReuseException;
-import org.ghostprotocol.textsecuregcm.storage.devicecheck.TooManyKeysException;
-import org.ghostprotocol.textsecuregcm.util.SystemMapper;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.backup.BackupAuthManager;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.devicecheck.AppleDeviceCheckManager;
+import org.ghostprotocol.service.storage.devicecheck.ChallengeNotFoundException;
+import org.ghostprotocol.service.storage.devicecheck.DeviceCheckKeyIdNotFoundException;
+import org.ghostprotocol.service.storage.devicecheck.DeviceCheckVerificationFailedException;
+import org.ghostprotocol.service.storage.devicecheck.DuplicatePublicKeyException;
+import org.ghostprotocol.service.storage.devicecheck.RequestReuseException;
+import org.ghostprotocol.service.storage.devicecheck.TooManyKeysException;
+import org.ghostprotocol.service.util.SystemMapper;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 /**

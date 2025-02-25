@@ -2,14 +2,14 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.configuration;
+package org.ghostprotocol.websocket.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import org.whispersystems.websocket.logging.WebsocketRequestLoggerFactory;
+import org.ghostprotocol.websocket.logging.WebsocketRequestLoggerFactory;
 
 public class WebSocketConfiguration {
 

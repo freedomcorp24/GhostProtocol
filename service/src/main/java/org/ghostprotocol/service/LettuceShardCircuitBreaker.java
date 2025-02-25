@@ -34,7 +34,7 @@ import java.util.stream.StreamSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.util.CircuitBreakerUtil;
+import org.ghostprotocol.service.util.CircuitBreakerUtil;
 import reactor.core.scheduler.Scheduler;
 
 /**

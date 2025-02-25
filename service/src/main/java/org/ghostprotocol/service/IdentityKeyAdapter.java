@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.util.Base64;
-import org.signal.libsignal.protocol.IdentityKey;
-import org.signal.libsignal.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.IdentityKey;
+import org.ghostprotocol.protocol.InvalidKeyException;
 
 public class IdentityKeyAdapter {
 

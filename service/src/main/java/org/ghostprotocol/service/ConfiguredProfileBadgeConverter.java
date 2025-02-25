@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.badges;
+package org.ghostprotocol.service.badges;
 
 import com.google.common.annotations.VisibleForTesting;
 import java.time.Clock;
@@ -17,17 +17,17 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.ghostprotocol.i18n.HeaderControlledResourceBundleLookup;
-import org.ghostprotocol.textsecuregcm.configuration.BadgeConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.BadgesConfiguration;
-import org.ghostprotocol.textsecuregcm.entities.Badge;
-import org.ghostprotocol.textsecuregcm.entities.BadgeSvg;
-import org.ghostprotocol.textsecuregcm.entities.SelfBadge;
-import org.ghostprotocol.textsecuregcm.storage.AccountBadge;
+import org.ghostprotocol.service.configuration.BadgeConfiguration;
+import org.ghostprotocol.service.configuration.BadgesConfiguration;
+import org.ghostprotocol.service.entities.Badge;
+import org.ghostprotocol.service.entities.BadgeSvg;
+import org.ghostprotocol.service.entities.SelfBadge;
+import org.ghostprotocol.service.storage.AccountBadge;
 
 public class ConfiguredProfileBadgeConverter implements ProfileBadgeConverter, BadgeTranslator {
 
   @VisibleForTesting
-  static final String BASE_NAME = "org.ghostprotocol.badges.Badges";
+  static final String BASE_NAME = "org.ghostprotocol.service.badges.Badges";
 
   private final Clock clock;
   private final Map<String, BadgeConfiguration> knownBadges;

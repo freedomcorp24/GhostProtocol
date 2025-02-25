@@ -2,14 +2,14 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.messages.protobuf;
+package org.ghostprotocol.websocket.messages.protobuf;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.whispersystems.websocket.messages.InvalidMessageException;
-import org.whispersystems.websocket.messages.WebSocketMessage;
-import org.whispersystems.websocket.messages.WebSocketRequestMessage;
-import org.whispersystems.websocket.messages.WebSocketResponseMessage;
+import org.ghostprotocol.websocket.messages.InvalidMessageException;
+import org.ghostprotocol.websocket.messages.WebSocketMessage;
+import org.ghostprotocol.websocket.messages.WebSocketRequestMessage;
+import org.ghostprotocol.websocket.messages.WebSocketResponseMessage;
 
 public class ProtobufWebSocketMessage implements WebSocketMessage {
 

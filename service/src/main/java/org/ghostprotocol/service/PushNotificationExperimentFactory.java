@@ -1,7 +1,7 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperiment;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.experiment.PushNotificationExperiment;
 
 public interface PushNotificationExperimentFactory<T> {
 

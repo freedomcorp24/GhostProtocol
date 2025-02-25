@@ -2,12 +2,12 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging.layout;
+package org.ghostprotocol.websocket.logging.layout;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.core.pattern.PatternLayoutBase;
 import io.dropwizard.logging.common.layout.LayoutFactory;
-import org.whispersystems.websocket.logging.WebsocketEvent;
+import org.ghostprotocol.websocket.logging.WebsocketEvent;
 
 import java.util.TimeZone;
 

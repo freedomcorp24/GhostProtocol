@@ -1,11 +1,11 @@
-package org.ghostprotocol.textsecuregcm.scheduler;
+package org.ghostprotocol.service.scheduler;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.micrometer.core.instrument.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.util.Util;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.util.Util;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;

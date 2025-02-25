@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.s3;
+package org.ghostprotocol.service.s3;
 
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;

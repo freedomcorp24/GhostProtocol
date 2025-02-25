@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import org.signal.libsignal.protocol.InvalidMessageException;
-import org.signal.libsignal.protocol.InvalidVersionException;
-import org.signal.libsignal.protocol.SealedSenderMultiRecipientMessage;
+import org.ghostprotocol.protocol.InvalidMessageException;
+import org.ghostprotocol.protocol.InvalidVersionException;
+import org.ghostprotocol.protocol.SealedSenderMultiRecipientMessage;
 
 @Provider
 @Consumes(MultiRecipientMessageProvider.MEDIA_TYPE)

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.badges;
+package org.ghostprotocol.service.badges;
 
 import java.util.List;
 import java.util.Locale;

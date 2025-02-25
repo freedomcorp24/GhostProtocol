@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.util.DataSize;
@@ -23,21 +23,21 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
-import org.signal.libsignal.protocol.ecc.Curve;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.signal.libsignal.zkgroup.GenericServerSecretParams;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialPresentation;
-import org.signal.libsignal.zkgroup.backups.BackupCredentialType;
-import org.signal.libsignal.zkgroup.backups.BackupLevel;
-import org.ghostprotocol.textsecuregcm.attachments.AttachmentGenerator;
-import org.ghostprotocol.textsecuregcm.attachments.TusAttachmentGenerator;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedBackupUser;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.util.AsyncTimerUtil;
-import org.ghostprotocol.textsecuregcm.util.ExceptionUtils;
-import org.ghostprotocol.textsecuregcm.util.Pair;
+import org.ghostprotocol.protocol.ecc.Curve;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.zkgroup.GenericServerSecretParams;
+import org.ghostprotocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.zkgroup.backups.BackupAuthCredentialPresentation;
+import org.ghostprotocol.zkgroup.backups.BackupCredentialType;
+import org.ghostprotocol.zkgroup.backups.BackupLevel;
+import org.ghostprotocol.service.attachments.AttachmentGenerator;
+import org.ghostprotocol.service.attachments.TusAttachmentGenerator;
+import org.ghostprotocol.service.auth.AuthenticatedBackupUser;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.util.AsyncTimerUtil;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.service.util.Pair;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;

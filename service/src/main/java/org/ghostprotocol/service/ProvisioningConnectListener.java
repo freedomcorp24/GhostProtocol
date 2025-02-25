@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.websocket;
+package org.ghostprotocol.service.websocket;
 
 import com.google.common.annotations.VisibleForTesting;
 import java.security.SecureRandom;
@@ -14,15 +14,15 @@ import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.controllers.ProvisioningController;
-import org.ghostprotocol.textsecuregcm.entities.MessageProtos;
-import org.ghostprotocol.textsecuregcm.entities.ProvisioningMessage;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.metrics.OpenWebSocketCounter;
-import org.ghostprotocol.textsecuregcm.push.ProvisioningManager;
-import org.ghostprotocol.textsecuregcm.storage.PubSubProtos;
-import org.ghostprotocol.textsecuregcm.util.HeaderUtils;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.controllers.ProvisioningController;
+import org.ghostprotocol.service.entities.MessageProtos;
+import org.ghostprotocol.service.entities.ProvisioningMessage;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.metrics.OpenWebSocketCounter;
+import org.ghostprotocol.service.push.ProvisioningManager;
+import org.ghostprotocol.service.storage.PubSubProtos;
+import org.ghostprotocol.service.util.HeaderUtils;
 import org.ghostprotocol.websocket.session.WebSocketSessionContext;
 import org.ghostprotocol.websocket.setup.WebSocketConnectListener;
 

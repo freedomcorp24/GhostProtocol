@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.util.Base64;
 import io.micrometer.core.instrument.Metrics;
-import org.signal.libsignal.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.InvalidKeyException;
 import org.ghostprotocol.service.metrics.MetricsUtil;
 
 abstract class AbstractPublicKeyDeserializer<K> extends JsonDeserializer<K> {

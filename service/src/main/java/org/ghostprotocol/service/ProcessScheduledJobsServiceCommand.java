@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.core.Application;
@@ -16,10 +16,10 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.scheduler.JobScheduler;
-import org.ghostprotocol.textsecuregcm.util.logging.UncaughtExceptionHandler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.scheduler.JobScheduler;
+import org.ghostprotocol.service.util.logging.UncaughtExceptionHandler;
 import reactor.core.Disposable;
 import reactor.core.Disposables;
 

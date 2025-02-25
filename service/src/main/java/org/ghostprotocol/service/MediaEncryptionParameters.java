@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 import javax.crypto.spec.SecretKeySpec;
 

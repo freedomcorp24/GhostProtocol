@@ -2,14 +2,14 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging.layout.converters;
+package org.ghostprotocol.websocket.logging.layout.converters;
 
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.util.CachingDateFormatter;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
-import org.whispersystems.websocket.logging.WebsocketEvent;
+import org.ghostprotocol.websocket.logging.WebsocketEvent;
 
 public class DateConverter extends WebSocketEventConverter {
 

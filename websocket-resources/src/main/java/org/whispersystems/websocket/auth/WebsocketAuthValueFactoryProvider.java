@@ -2,7 +2,7 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.auth;
+package org.ghostprotocol.websocket.auth;
 
 import io.dropwizard.auth.Auth;
 import jakarta.inject.Inject;
@@ -21,8 +21,8 @@ import org.glassfish.jersey.server.model.Parameter;
 import org.glassfish.jersey.server.spi.internal.ValueParamProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.websocket.ReusableAuth;
-import org.whispersystems.websocket.WebSocketResourceProvider;
+import org.ghostprotocol.websocket.ReusableAuth;
+import org.ghostprotocol.websocket.WebSocketResourceProvider;
 
 @Singleton
 public class WebsocketAuthValueFactoryProvider<T extends Principal> extends AbstractValueParamProvider  {

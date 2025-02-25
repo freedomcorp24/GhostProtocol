@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.attachments;
+package org.ghostprotocol.service.attachments;
 
-import org.ghostprotocol.textsecuregcm.gcp.CanonicalRequest;
-import org.ghostprotocol.textsecuregcm.gcp.CanonicalRequestGenerator;
-import org.ghostprotocol.textsecuregcm.gcp.CanonicalRequestSigner;
+import org.ghostprotocol.service.gcp.CanonicalRequest;
+import org.ghostprotocol.service.gcp.CanonicalRequestGenerator;
+import org.ghostprotocol.service.gcp.CanonicalRequestSigner;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.security.InvalidKeyException;

@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import org.ghostprotocol.textsecuregcm.storage.SubscriptionManager;
+import org.ghostprotocol.service.storage.SubscriptionManager;
 
 public class VaultStorageService {
     private final VaultStorageManager storageManager;

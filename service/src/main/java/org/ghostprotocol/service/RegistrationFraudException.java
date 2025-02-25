@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.registration;
+package org.ghostprotocol.service.registration;
 
 public class RegistrationFraudException extends Exception {
   public RegistrationFraudException(final RegistrationServiceSenderException cause) {
