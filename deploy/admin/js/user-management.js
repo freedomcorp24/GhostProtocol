@@ -1,304 +1,385 @@
-/**
- * User Management Module for GhostProtocol Admin Panel
- */
-class UserManagement {
-    constructor(apiService) {
-        this.apiService = apiService;
-        this.users = [];
-        this.currentUser = null;
-        
-        // DOM elements
-        this.usersTable = document.getElementById('users-table');
-        this.userModal = document.getElementById('user-modal');
-        this.userForm = document.getElementById('user-form');
-        this.userModalTitle = document.getElementById('user-modal-title');
-        this.addUserBtn = document.getElementById('add-user-btn');
-        this.cancelUserBtn = document.getElementById('cancel-user-btn');
-        this.saveUserBtn = document.getElementById('save-user-btn');
-        this.userSearch = document.getElementById('user-search');
-        this.userFilter = document.getElementById('user-filter');
-        
-        // Initialize
-        this.init();
+// User Management for GhostProtocol Admin Panel
+
+// API endpoint
+const API_ENDPOINT = 'http://54.215.16.4/api';
+
+// Get authentication token from localStorage
+const getAuthToken = () => localStorage.getItem('authToken');
+
+// Check if user is authenticated and has admin privileges
+const checkAdminAuth = async () => {
+  const token = getAuthToken();
+  
+  if (!token) {
+    window.location.href = '/admin/login.html';
+    return false;
+  }
+  
+  try {
+    const response = await fetch(`${API_ENDPOINT}/auth/me`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Authentication failed');
     }
     
-    /**
-     * Initialize the user management module
-     */
-    init() {
-        // Load users
-        this.loadUsers();
-        
-        // Event listeners
-        this.addUserBtn.addEventListener('click', () => this.showAddUserModal());
-        this.cancelUserBtn.addEventListener('click', () => this.hideUserModal());
-        this.userForm.addEventListener('submit', (e) => this.handleUserFormSubmit(e));
-        this.userSearch.addEventListener('input', () => this.filterUsers());
-        this.userFilter.addEventListener('change', () => this.filterUsers());
-        
-        // Close modal when clicking on the close button or outside the modal
-        document.querySelector('#user-modal .close').addEventListener('click', () => this.hideUserModal());
-        window.addEventListener('click', (e) => {
-            if (e.target === this.userModal) {
-                this.hideUserModal();
-            }
-        });
+    const userData = await response.json();
+    
+    if (userData.role !== 'admin' && userData.role !== 'super_admin') {
+      window.location.href = '/admin/unauthorized.html';
+      return false;
     }
     
-    /**
-     * Load users from the API
-     */
-    async loadUsers() {
+    return userData;
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    window.location.href = '/admin/login.html';
+    return false;
+  }
+};
+
+// Fetch all users
+const fetchUsers = async () => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch users');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
+
+// Ban a user
+const banUser = async (userId) => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users/${userId}/ban`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to ban user');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error banning user:', error);
+    throw error;
+  }
+};
+
+// Unban a user
+const unbanUser = async (userId) => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ status: 'active' })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to unban user');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error unbanning user:', error);
+    throw error;
+  }
+};
+
+// Upgrade user to premium
+const upgradeToPremium = async (userId, tier) => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users/${userId}/subscription`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        subscription_tier: tier,
+        premium: true,
+        admin_override: true
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to upgrade user');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error upgrading user:', error);
+    throw error;
+  }
+};
+
+// Downgrade user from premium
+const downgradeFromPremium = async (userId) => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users/${userId}/subscription`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        subscription_tier: 'free',
+        premium: false,
+        admin_override: true
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to downgrade user');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error downgrading user:', error);
+    throw error;
+  }
+};
+
+// Delete a user
+const deleteUser = async (userId) => {
+  try {
+    const token = getAuthToken();
+    
+    const response = await fetch(`${API_ENDPOINT}/users/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete user');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+};
+
+// Initialize the user management interface
+const initUserManagement = async () => {
+  const userData = await checkAdminAuth();
+  
+  if (!userData) {
+    return;
+  }
+  
+  // Set admin name in the UI
+  const adminNameElement = document.getElementById('admin-name');
+  if (adminNameElement) {
+    adminNameElement.textContent = userData.username;
+  }
+  
+  // Set admin role in the UI
+  const adminRoleElement = document.getElementById('admin-role');
+  if (adminRoleElement) {
+    adminRoleElement.textContent = userData.role === 'super_admin' ? 'Master Admin' : 'Admin';
+  }
+  
+  // Load users
+  const users = await fetchUsers();
+  displayUsers(users);
+  
+  // Set up event listeners
+  setupEventListeners();
+};
+
+// Display users in the UI
+const displayUsers = (users) => {
+  const userTableBody = document.getElementById('user-table-body');
+  
+  if (!userTableBody) {
+    console.error('User table body element not found');
+    return;
+  }
+  
+  userTableBody.innerHTML = '';
+  
+  users.forEach(user => {
+    const row = document.createElement('tr');
+    
+    row.innerHTML = `
+      <td>${user.id}</td>
+      <td>${user.username}</td>
+      <td>${user.role}</td>
+      <td>${user.status}</td>
+      <td>${user.premium ? 'Premium' : 'Free'}</td>
+      <td>${user.subscription_tier}</td>
+      <td>
+        ${user.status === 'banned' 
+          ? '<button class="unban-btn" data-user-id="' + user.id + '">Unban</button>' 
+          : '<button class="ban-btn" data-user-id="' + user.id + '">Ban</button>'}
+        ${user.premium 
+          ? '<button class="downgrade-btn" data-user-id="' + user.id + '">Downgrade</button>' 
+          : '<button class="upgrade-btn" data-user-id="' + user.id + '">Upgrade</button>'}
+        <button class="delete-btn" data-user-id="${user.id}">Delete</button>
+      </td>
+    `;
+    
+    userTableBody.appendChild(row);
+  });
+};
+
+// Set up event listeners for user actions
+const setupEventListeners = () => {
+  const userTableBody = document.getElementById('user-table-body');
+  
+  if (!userTableBody) {
+    return;
+  }
+  
+  // Ban user
+  userTableBody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('ban-btn')) {
+      const userId = event.target.getAttribute('data-user-id');
+      
+      if (confirm('Are you sure you want to ban this user?')) {
         try {
-            showLoading('Loading users...');
-            const response = await this.apiService.getUsers();
-            this.users = response.users || [];
-            this.renderUsersTable();
-            hideLoading();
+          await banUser(userId);
+          alert('User banned successfully');
+          const users = await fetchUsers();
+          displayUsers(users);
         } catch (error) {
-            hideLoading();
-            showAlert(`Error loading users: ${error.message}`, 'error');
+          alert('Failed to ban user: ' + error.message);
         }
+      }
     }
-    
-    /**
-     * Render the users table
-     */
-    renderUsersTable() {
-        // Clear the table body
-        const tbody = this.usersTable.querySelector('tbody');
-        tbody.innerHTML = '';
-        
-        // If no users, show a message
-        if (this.users.length === 0) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = '<td colspan="7">No users found</td>';
-            tbody.appendChild(tr);
-            return;
-        }
-        
-        // Add users to the table
-        this.users.forEach(user => {
-            const tr = document.createElement('tr');
-            
-            // Format the created date
-            const createdDate = new Date(user.created_at);
-            const formattedDate = createdDate.toLocaleDateString();
-            
-            tr.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td><span class="status-badge ${user.status}">${user.status}</span></td>
-                <td>${user.subscription || 'free'}</td>
-                <td>${formattedDate}</td>
-                <td class="actions">
-                    <button class="btn btn-outline btn-sm btn-edit" data-id="${user.id}">Edit</button>
-                    <button class="btn btn-outline btn-sm btn-ban" data-id="${user.id}" ${user.status === 'banned' ? 'disabled' : ''}>Ban</button>
-                    <button class="btn btn-danger btn-sm btn-delete" data-id="${user.id}">Delete</button>
-                </td>
-            `;
-            
-            // Add event listeners to the buttons
-            tr.querySelector('.btn-edit').addEventListener('click', () => this.showEditUserModal(user.id));
-            tr.querySelector('.btn-ban').addEventListener('click', () => this.banUser(user.id));
-            tr.querySelector('.btn-delete').addEventListener('click', () => this.deleteUser(user.id));
-            
-            tbody.appendChild(tr);
-        });
-    }
-    
-    /**
-     * Filter users based on search and filter
-     */
-    filterUsers() {
-        const searchTerm = this.userSearch.value.toLowerCase();
-        const filterValue = this.userFilter.value;
-        
-        const filteredUsers = this.users.filter(user => {
-            // Filter by search term
-            const matchesSearch = 
-                user.username.toLowerCase().includes(searchTerm) ||
-                user.email.toLowerCase().includes(searchTerm) ||
-                user.id.toLowerCase().includes(searchTerm);
-            
-            // Filter by status/subscription
-            let matchesFilter = true;
-            if (filterValue !== 'all') {
-                if (filterValue === 'active' || filterValue === 'banned') {
-                    matchesFilter = user.status === filterValue;
-                } else if (filterValue === 'premium' || filterValue === 'free') {
-                    matchesFilter = user.subscription === filterValue;
-                }
-            }
-            
-            return matchesSearch && matchesFilter;
-        });
-        
-        // Update the table with filtered users
-        const tbody = this.usersTable.querySelector('tbody');
-        tbody.innerHTML = '';
-        
-        if (filteredUsers.length === 0) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = '<td colspan="7">No users found</td>';
-            tbody.appendChild(tr);
-            return;
-        }
-        
-        filteredUsers.forEach(user => {
-            const tr = document.createElement('tr');
-            
-            // Format the created date
-            const createdDate = new Date(user.created_at);
-            const formattedDate = createdDate.toLocaleDateString();
-            
-            tr.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td><span class="status-badge ${user.status}">${user.status}</span></td>
-                <td>${user.subscription || 'free'}</td>
-                <td>${formattedDate}</td>
-                <td class="actions">
-                    <button class="btn btn-outline btn-sm btn-edit" data-id="${user.id}">Edit</button>
-                    <button class="btn btn-outline btn-sm btn-ban" data-id="${user.id}" ${user.status === 'banned' ? 'disabled' : ''}>Ban</button>
-                    <button class="btn btn-danger btn-sm btn-delete" data-id="${user.id}">Delete</button>
-                </td>
-            `;
-            
-            // Add event listeners to the buttons
-            tr.querySelector('.btn-edit').addEventListener('click', () => this.showEditUserModal(user.id));
-            tr.querySelector('.btn-ban').addEventListener('click', () => this.banUser(user.id));
-            tr.querySelector('.btn-delete').addEventListener('click', () => this.deleteUser(user.id));
-            
-            tbody.appendChild(tr);
-        });
-    }
-    
-    /**
-     * Show the add user modal
-     */
-    showAddUserModal() {
-        this.currentUser = null;
-        this.userModalTitle.textContent = 'Add New User';
-        this.userForm.reset();
-        this.userModal.style.display = 'block';
-    }
-    
-    /**
-     * Show the edit user modal
-     * @param {string} userId - User ID
-     */
-    async showEditUserModal(userId) {
+  });
+  
+  // Unban user
+  userTableBody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('unban-btn')) {
+      const userId = event.target.getAttribute('data-user-id');
+      
+      if (confirm('Are you sure you want to unban this user?')) {
         try {
-            showLoading('Loading user details...');
-            const response = await this.apiService.getUser(userId);
-            this.currentUser = response.user;
-            
-            this.userModalTitle.textContent = 'Edit User';
-            
-            // Fill the form with user data
-            document.getElementById('username').value = this.currentUser.username;
-            document.getElementById('email').value = this.currentUser.email;
-            document.getElementById('status').value = this.currentUser.status;
-            document.getElementById('role').value = this.currentUser.role || 'user';
-            document.getElementById('subscription').value = this.currentUser.subscription || 'free';
-            
-            this.userModal.style.display = 'block';
-            hideLoading();
+          await unbanUser(userId);
+          alert('User unbanned successfully');
+          const users = await fetchUsers();
+          displayUsers(users);
         } catch (error) {
-            hideLoading();
-            showAlert(`Error loading user details: ${error.message}`, 'error');
+          alert('Failed to unban user: ' + error.message);
         }
+      }
     }
-    
-    /**
-     * Hide the user modal
-     */
-    hideUserModal() {
-        this.userModal.style.display = 'none';
-    }
-    
-    /**
-     * Handle user form submission
-     * @param {Event} e - Form submit event
-     */
-    async handleUserFormSubmit(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const userData = {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            status: document.getElementById('status').value,
-            role: document.getElementById('role').value,
-            subscription: document.getElementById('subscription').value
-        };
-        
+  });
+  
+  // Upgrade user
+  userTableBody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('upgrade-btn')) {
+      const userId = event.target.getAttribute('data-user-id');
+      const tier = prompt('Enter subscription tier (basic, premium, enterprise):', 'premium');
+      
+      if (tier) {
         try {
-            showLoading(this.currentUser ? 'Updating user...' : 'Creating user...');
-            
-            let response;
-            if (this.currentUser) {
-                // Update existing user
-                response = await this.apiService.updateUser(this.currentUser.id, userData);
-                showAlert('User updated successfully', 'success');
-            } else {
-                // Create new user
-                response = await this.apiService.createUser(userData);
-                showAlert('User created successfully', 'success');
-            }
-            
-            // Reload users and hide modal
-            await this.loadUsers();
-            this.hideUserModal();
-            hideLoading();
+          await upgradeToPremium(userId, tier);
+          alert('User upgraded successfully');
+          const users = await fetchUsers();
+          displayUsers(users);
         } catch (error) {
-            hideLoading();
-            showAlert(`Error ${this.currentUser ? 'updating' : 'creating'} user: ${error.message}`, 'error');
+          alert('Failed to upgrade user: ' + error.message);
         }
+      }
     }
-    
-    /**
-     * Ban a user
-     * @param {string} userId - User ID
-     */
-    async banUser(userId) {
-        if (!confirm('Are you sure you want to ban this user?')) {
-            return;
-        }
-        
+  });
+  
+  // Downgrade user
+  userTableBody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('downgrade-btn')) {
+      const userId = event.target.getAttribute('data-user-id');
+      
+      if (confirm('Are you sure you want to downgrade this user to free tier?')) {
         try {
-            showLoading('Banning user...');
-            await this.apiService.banUser(userId);
-            showAlert('User banned successfully', 'success');
-            await this.loadUsers();
-            hideLoading();
+          await downgradeFromPremium(userId);
+          alert('User downgraded successfully');
+          const users = await fetchUsers();
+          displayUsers(users);
         } catch (error) {
-            hideLoading();
-            showAlert(`Error banning user: ${error.message}`, 'error');
+          alert('Failed to downgrade user: ' + error.message);
         }
+      }
     }
-    
-    /**
-     * Delete a user
-     * @param {string} userId - User ID
-     */
-    async deleteUser(userId) {
-        if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-            return;
-        }
-        
+  });
+  
+  // Delete user
+  userTableBody.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('delete-btn')) {
+      const userId = event.target.getAttribute('data-user-id');
+      
+      if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
         try {
-            showLoading('Deleting user...');
-            await this.apiService.deleteUser(userId);
-            showAlert('User deleted successfully', 'success');
-            await this.loadUsers();
-            hideLoading();
+          await deleteUser(userId);
+          alert('User deleted successfully');
+          const users = await fetchUsers();
+          displayUsers(users);
         } catch (error) {
-            hideLoading();
-            showAlert(`Error deleting user: ${error.message}`, 'error');
+          alert('Failed to delete user: ' + error.message);
         }
+      }
     }
-}
+  });
+  
+  // Refresh button
+  const refreshBtn = document.getElementById('refresh-users-btn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', async () => {
+      const users = await fetchUsers();
+      displayUsers(users);
+    });
+  }
+};
+
+// Initialize when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initUserManagement);
+
+// Export functions for testing
+window.adminFunctions = {
+  fetchUsers,
+  banUser,
+  unbanUser,
+  upgradeToPremium,
+  downgradeFromPremium,
+  deleteUser
+};

@@ -4,609 +4,279 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GhostProtocol Admin Panel</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .admin-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-info span {
+            margin-right: 10px;
+        }
+        
+        .admin-role {
+            background-color: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+        
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
+        
+        .sidebar-menu li:hover {
+            background-color: #444;
+        }
+        
+        .sidebar-menu li.active {
+            background-color: #4caf50;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .ban-btn, .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .unban-btn {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .upgrade-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .downgrade-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="admin-container">
-        <header class="admin-header">
-            <div class="logo">
-                <h1>GhostProtocol</h1>
-                <span>Admin Panel</span>
-            </div>
-            <div class="user-info">
-                <span class="username">Admin User</span>
-                <span class="role">Super Admin</span>
-                <button id="logout-btn" class="btn btn-outline">Logout</button>
-            </div>
-        </header>
+    <header>
+        <div class="logo">GhostProtocol Admin</div>
+        <div class="admin-info">
+            <span>Welcome, <span id="admin-name">Admin</span></span>
+            <span class="admin-role" id="admin-role">Master Admin</span>
+        </div>
+    </header>
+    
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="active">Dashboard</li>
+            <li>User Management</li>
+            <li>Subscription Management</li>
+            <li>Content Moderation</li>
+            <li>System Settings</li>
+            <li>Analytics</li>
+            <li>Logs</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <h1>Admin Dashboard</h1>
         
-        <div class="admin-content">
-            <nav class="admin-sidebar">
-                <ul class="nav-menu">
-                    <li class="nav-item active" data-tab="dashboard">
-                        <span class="icon">📊</span>
-                        <span class="label">Dashboard</span>
-                    </li>
-                    <li class="nav-item" data-tab="users">
-                        <span class="icon">👥</span>
-                        <span class="label">User Management</span>
-                    </li>
-                    <li class="nav-item" data-tab="subscriptions">
-                        <span class="icon">💎</span>
-                        <span class="label">Subscription Tiers</span>
-                    </li>
-                    <li class="nav-item" data-tab="analytics">
-                        <span class="icon">📈</span>
-                        <span class="label">Analytics</span>
-                    </li>
-                    <li class="nav-item" data-tab="settings">
-                        <span class="icon">⚙️</span>
-                        <span class="label">Settings</span>
-                    </li>
-                </ul>
-            </nav>
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-title">Total Users</div>
+                <div class="card-value">1,234</div>
+                <div class="card-subtitle">+12% from last month</div>
+            </div>
             
-            <main class="admin-main">
-                <!-- Dashboard Tab -->
-                <section id="dashboard" class="tab-content active">
-                    <h2>Dashboard</h2>
-                    <div class="dashboard-stats">
-                        <div class="stat-card">
-                            <h3>Total Users</h3>
-                            <div class="stat-value" id="total-users">Loading...</div>
-                            <div class="stat-change positive">+5.2% from last week</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Active Users</h3>
-                            <div class="stat-value" id="active-users">Loading...</div>
-                            <div class="stat-change positive">+3.8% from last week</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Premium Subscriptions</h3>
-                            <div class="stat-value" id="premium-subs">Loading...</div>
-                            <div class="stat-change positive">+7.1% from last week</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Revenue (Monthly)</h3>
-                            <div class="stat-value" id="monthly-revenue">Loading...</div>
-                            <div class="stat-change positive">+12.4% from last month</div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-charts">
-                        <div class="chart-container">
-                            <h3>User Growth</h3>
-                            <div class="chart" id="user-growth-chart">
-                                <div class="chart-placeholder">Chart loading...</div>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <h3>Subscription Distribution</h3>
-                            <div class="chart" id="subscription-chart">
-                                <div class="chart-placeholder">Chart loading...</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-tables">
-                        <div class="table-container">
-                            <h3>Recent User Activity</h3>
-                            <table class="data-table" id="recent-activity-table">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Action</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="3">Loading data...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-container">
-                            <h3>System Status</h3>
-                            <table class="data-table" id="system-status-table">
-                                <thead>
-                                    <tr>
-                                        <th>Component</th>
-                                        <th>Status</th>
-                                        <th>Uptime</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="3">Loading data...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- User Management Tab -->
-                <section id="users" class="tab-content">
-                    <h2>User Management</h2>
-                    <div class="action-bar">
-                        <button id="add-user-btn" class="btn btn-primary">Add New User</button>
-                        <div class="search-container">
-                            <input type="text" id="user-search" placeholder="Search users...">
-                            <button class="btn btn-outline">Search</button>
-                        </div>
-                        <div class="filter-container">
-                            <select id="user-filter">
-                                <option value="all">All Users</option>
-                                <option value="active">Active</option>
-                                <option value="banned">Banned</option>
-                                <option value="premium">Premium</option>
-                                <option value="free">Free</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table class="data-table" id="users-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Subscription</th>
-                                    <th>Created</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="7">Loading users...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- User Modal -->
-                    <div id="user-modal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h2 id="user-modal-title">Add New User</h2>
-                            <form id="user-form">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" id="username" name="username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select id="status" name="status">
-                                        <option value="active">Active</option>
-                                        <option value="banned">Banned</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select id="role" name="role">
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="support">Support</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="subscription">Subscription</label>
-                                    <select id="subscription" name="subscription">
-                                        <option value="free">Free</option>
-                                        <option value="premium">Premium</option>
-                                        <option value="business">Business</option>
-                                    </select>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="button" class="btn btn-outline" id="cancel-user-btn">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="save-user-btn">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Subscription Tiers Tab -->
-                <section id="subscriptions" class="tab-content">
-                    <h2>Subscription Tiers</h2>
-                    <div class="action-bar">
-                        <button id="add-tier-btn" class="btn btn-primary">Add New Tier</button>
-                    </div>
-                    
-                    <div class="subscription-tiers" id="subscription-tiers-container">
-                        <div class="tier-card">
-                            <div class="tier-header">
-                                <h3>Free</h3>
-                                <div class="tier-price">$0.00</div>
-                            </div>
-                            <div class="tier-features">
-                                <ul>
-                                    <li>Basic messaging</li>
-                                    <li>End-to-end encryption</li>
-                                    <li>Group chats (up to 5 people)</li>
-                                </ul>
-                            </div>
-                            <div class="tier-limits">
-                                <div class="limit-item">
-                                    <span class="limit-label">Storage</span>
-                                    <span class="limit-value">1 GB</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Message History</span>
-                                    <span class="limit-value">30 days</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Group Size</span>
-                                    <span class="limit-value">5 people</span>
-                                </div>
-                            </div>
-                            <div class="tier-actions">
-                                <button class="btn btn-outline btn-edit-tier" data-tier-id="free">Edit</button>
-                                <button class="btn btn-danger btn-delete-tier" data-tier-id="free">Delete</button>
-                            </div>
-                        </div>
-                        
-                        <div class="tier-card">
-                            <div class="tier-header">
-                                <h3>Premium</h3>
-                                <div class="tier-price">$9.99</div>
-                            </div>
-                            <div class="tier-features">
-                                <ul>
-                                    <li>Advanced messaging</li>
-                                    <li>End-to-end encryption</li>
-                                    <li>Group chats (up to 50 people)</li>
-                                    <li>Screen sharing</li>
-                                    <li>Voice and video calls</li>
-                                    <li>Vault storage</li>
-                                    <li>Extended message history</li>
-                                </ul>
-                            </div>
-                            <div class="tier-limits">
-                                <div class="limit-item">
-                                    <span class="limit-label">Storage</span>
-                                    <span class="limit-value">10 GB</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Message History</span>
-                                    <span class="limit-value">1 year</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Group Size</span>
-                                    <span class="limit-value">50 people</span>
-                                </div>
-                            </div>
-                            <div class="tier-actions">
-                                <button class="btn btn-outline btn-edit-tier" data-tier-id="premium">Edit</button>
-                                <button class="btn btn-danger btn-delete-tier" data-tier-id="premium">Delete</button>
-                            </div>
-                        </div>
-                        
-                        <div class="tier-card">
-                            <div class="tier-header">
-                                <h3>Business</h3>
-                                <div class="tier-price">$19.99</div>
-                            </div>
-                            <div class="tier-features">
-                                <ul>
-                                    <li>All Premium features</li>
-                                    <li>Group chats (up to 200 people)</li>
-                                    <li>Admin controls</li>
-                                    <li>Priority support</li>
-                                    <li>Advanced vault storage</li>
-                                    <li>Unlimited message history</li>
-                                    <li>Custom branding</li>
-                                </ul>
-                            </div>
-                            <div class="tier-limits">
-                                <div class="limit-item">
-                                    <span class="limit-label">Storage</span>
-                                    <span class="limit-value">100 GB</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Message History</span>
-                                    <span class="limit-value">Unlimited</span>
-                                </div>
-                                <div class="limit-item">
-                                    <span class="limit-label">Group Size</span>
-                                    <span class="limit-value">200 people</span>
-                                </div>
-                            </div>
-                            <div class="tier-actions">
-                                <button class="btn btn-outline btn-edit-tier" data-tier-id="business">Edit</button>
-                                <button class="btn btn-danger btn-delete-tier" data-tier-id="business">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Subscription Tier Modal -->
-                    <div id="tier-modal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h2 id="tier-modal-title">Add New Subscription Tier</h2>
-                            <form id="tier-form">
-                                <div class="form-group">
-                                    <label for="tier-name">Name</label>
-                                    <input type="text" id="tier-name" name="name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tier-price">Price</label>
-                                    <input type="number" id="tier-price" name="price" step="0.01" min="0" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tier-features">Features (one per line)</label>
-                                    <textarea id="tier-features" name="features" rows="5" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Limits</label>
-                                    <div class="limits-container">
-                                        <div class="limit-input">
-                                            <label for="tier-storage">Storage</label>
-                                            <input type="text" id="tier-storage" name="storage" placeholder="e.g. 10 GB">
-                                        </div>
-                                        <div class="limit-input">
-                                            <label for="tier-history">Message History</label>
-                                            <input type="text" id="tier-history" name="history" placeholder="e.g. 1 year">
-                                        </div>
-                                        <div class="limit-input">
-                                            <label for="tier-group-size">Group Size</label>
-                                            <input type="number" id="tier-group-size" name="group_size" placeholder="e.g. 50">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="button" class="btn btn-outline" id="cancel-tier-btn">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="save-tier-btn">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Analytics Tab -->
-                <section id="analytics" class="tab-content">
-                    <h2>Analytics</h2>
-                    <div class="analytics-tabs">
-                        <button class="analytics-tab active" data-analytics-tab="users">Users</button>
-                        <button class="analytics-tab" data-analytics-tab="messages">Messages</button>
-                        <button class="analytics-tab" data-analytics-tab="subscriptions">Subscriptions</button>
-                        <button class="analytics-tab" data-analytics-tab="system">System</button>
-                    </div>
-                    
-                    <div class="analytics-content">
-                        <!-- Users Analytics -->
-                        <div id="users-analytics" class="analytics-tab-content active">
-                            <div class="analytics-charts">
-                                <div class="chart-container">
-                                    <h3>User Growth</h3>
-                                    <div class="chart" id="user-growth-analytics-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Active Users</h3>
-                                    <div class="chart" id="active-users-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>User Retention</h3>
-                                    <div class="chart" id="user-retention-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>User Demographics</h3>
-                                    <div class="chart" id="user-demographics-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Messages Analytics -->
-                        <div id="messages-analytics" class="analytics-tab-content">
-                            <div class="analytics-charts">
-                                <div class="chart-container">
-                                    <h3>Message Volume</h3>
-                                    <div class="chart" id="message-volume-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Message Types</h3>
-                                    <div class="chart" id="message-types-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Group Activity</h3>
-                                    <div class="chart" id="group-activity-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Peak Hours</h3>
-                                    <div class="chart" id="peak-hours-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Subscriptions Analytics -->
-                        <div id="subscriptions-analytics" class="analytics-tab-content">
-                            <div class="analytics-charts">
-                                <div class="chart-container">
-                                    <h3>Subscription Distribution</h3>
-                                    <div class="chart" id="subscription-distribution-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Conversion Rate</h3>
-                                    <div class="chart" id="conversion-rate-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Revenue</h3>
-                                    <div class="chart" id="revenue-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Subscription Growth</h3>
-                                    <div class="chart" id="subscription-growth-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- System Analytics -->
-                        <div id="system-analytics" class="analytics-tab-content">
-                            <div class="analytics-charts">
-                                <div class="chart-container">
-                                    <h3>API Response Time</h3>
-                                    <div class="chart" id="api-response-time-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Error Rate</h3>
-                                    <div class="chart" id="error-rate-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Resource Usage</h3>
-                                    <div class="chart" id="resource-usage-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                                <div class="chart-container">
-                                    <h3>Security</h3>
-                                    <div class="chart" id="security-chart">
-                                        <div class="chart-placeholder">Chart loading...</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Settings Tab -->
-                <section id="settings" class="tab-content">
-                    <h2>Settings</h2>
-                    <div class="settings-container">
-                        <div class="settings-section">
-                            <h3>General Settings</h3>
-                            <form id="general-settings-form">
-                                <div class="form-group">
-                                    <label for="site-name">Site Name</label>
-                                    <input type="text" id="site-name" name="site_name" value="GhostProtocol">
-                                </div>
-                                <div class="form-group">
-                                    <label for="admin-email">Admin Email</label>
-                                    <input type="email" id="admin-email" name="admin_email" value="admin@ghostprotocol.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="default-language">Default Language</label>
-                                    <select id="default-language" name="default_language">
-                                        <option value="en">English</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="fr">French</option>
-                                        <option value="de">German</option>
-                                        <option value="zh">Chinese</option>
-                                        <option value="ru">Russian</option>
-                                        <option value="ar">Arabic</option>
-                                        <option value="ja">Japanese</option>
-                                    </select>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save Settings</button>
-                                </div>
-                            </form>
-                        </div>
-                        
-                        <div class="settings-section">
-                            <h3>Security Settings</h3>
-                            <form id="security-settings-form">
-                                <div class="form-group">
-                                    <label for="session-timeout">Session Timeout (minutes)</label>
-                                    <input type="number" id="session-timeout" name="session_timeout" value="30" min="5">
-                                </div>
-                                <div class="form-group">
-                                    <label for="max-login-attempts">Max Login Attempts</label>
-                                    <input type="number" id="max-login-attempts" name="max_login_attempts" value="5" min="1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password-expiry">Password Expiry (days)</label>
-                                    <input type="number" id="password-expiry" name="password_expiry" value="90" min="0">
-                                </div>
-                                <div class="form-group checkbox-group">
-                                    <input type="checkbox" id="two-factor-auth" name="two_factor_auth" checked>
-                                    <label for="two-factor-auth">Require Two-Factor Authentication for Admins</label>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save Settings</button>
-                                </div>
-                            </form>
-                        </div>
-                        
-                        <div class="settings-section">
-                            <h3>API Settings</h3>
-                            <form id="api-settings-form">
-                                <div class="form-group">
-                                    <label for="api-url">API URL</label>
-                                    <input type="text" id="api-url" name="api_url" value="http://54.215.16.4/api">
-                                </div>
-                                <div class="form-group">
-                                    <label for="api-timeout">API Timeout (seconds)</label>
-                                    <input type="number" id="api-timeout" name="api_timeout" value="30" min="1">
-                                </div>
-                                <div class="form-group checkbox-group">
-                                    <input type="checkbox" id="api-logging" name="api_logging" checked>
-                                    <label for="api-logging">Enable API Logging</label>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save Settings</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            </main>
+            <div class="card">
+                <div class="card-title">Premium Users</div>
+                <div class="card-value">567</div>
+                <div class="card-subtitle">46% of total users</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Active Sessions</div>
+                <div class="card-value">892</div>
+                <div class="card-subtitle">Current active users</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Messages Today</div>
+                <div class="card-value">45,678</div>
+                <div class="card-subtitle">+5% from yesterday</div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Alert Component -->
-    <div id="alert" class="alert">
-        <div class="alert-content">
-            <span class="alert-message">This is an alert message</span>
-            <button class="alert-close">&times;</button>
+        
+        <div class="section-title">
+            <span>User Management</span>
+            <button class="btn" id="refresh-users-btn">Refresh</button>
         </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Plan</th>
+                    <th>Tier</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <!-- User data will be populated here -->
+            </tbody>
+        </table>
     </div>
     
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <div class="loading-message">Loading...</div>
-    </div>
-    
-    <!-- JavaScript -->
-    <script src="js/api-service.js"></script>
     <script src="js/user-management.js"></script>
-    <script src="js/subscription-management.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/app.js"></script>
 </body>
 </html>
