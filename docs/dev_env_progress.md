@@ -23,7 +23,9 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Rebranding from WhisperSystems/Signal to GhostProtocol is complete
 
 ### 2. Development Environment Setup
-- [x] Resolved Maven dependency issues
+- [ ] Resolving Maven dependency issues
+  - Working on building websocket-resources module
+  - Attempting to build service module
 - [ ] Start backend service
 - [ ] Build and start web client
 - [ ] Expose ports for external access
@@ -44,17 +46,18 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Admin Panel URL: TBD
 
 ## Next Steps
-1. Start backend service
-2. Build and start web client
-3. Expose ports for external access
-4. Verify functionality
-5. Document access URLs and credentials
-6. Report to user
+1. Resolve Maven dependency issues
+2. Start backend service
+3. Build and start web client
+4. Expose ports for external access
+5. Verify functionality
+6. Document access URLs and credentials
+7. Report to user
 
 ## Issues and Blockers
-- Maven dependency issues being resolved
+- Maven dependency issues with websocket-resources module
+- Duplicate classes between org.whispersystems and org.ghostprotocol packages
 - Need to fix zkgroup-java dependency
-- Duplicate classes in websocket-resources module
 
 ## Notes
 - Development environment will be used for testing before cloning to production
