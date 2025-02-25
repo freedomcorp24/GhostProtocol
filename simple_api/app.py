@@ -1,62 +1,55 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+#!/usr/bin/env python3
+
+import os
 import json
 import re
-import os
-import sys
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
 
-# Add the current directory to the path so we can import the API modules
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-
+# Import API modules
 from api.users import (
     get_users, get_user, create_user, update_user, delete_user, ban_user
 )
+from api.v1.auth_custom import signup, login, get_current_user
 from api.subscriptions import (
     get_subscription_tiers, get_subscription_tier, create_subscription_tier,
     update_subscription_tier, delete_subscription_tier, get_user_subscription,
     update_user_subscription
 )
 from api.vault import (
-    get_user_vault_items, get_vault_item, create_vault_item,
-    update_vault_item, delete_vault_item
+    get_user_vault, get_vault_item, create_vault_item, update_vault_item, delete_vault_item
 )
 from api.analytics import (
-    get_user_stats, get_message_stats, get_subscription_stats,
+    get_user_analytics, get_message_analytics, get_subscription_analytics,
     get_system_health, get_dashboard_stats
 )
 
-class APIHandler(BaseHTTPRequestHandler):
-    def _set_headers(self, status_code=200, content_type='application/json'):
+class GhostProtocolAPIHandler(BaseHTTPRequestHandler):
+    def _set_headers(self, status_code=200):
         self.send_response(status_code)
-        self.send_header('Content-type', content_type)
+        self.send_header('Content-type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         self.end_headers()
     
     def _get_request_body(self):
-        content_length = int(self.headers['Content-Length']) if 'Content-Length' in self.headers else 0
-        body = self.rfile.read(content_length)
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length).decode('utf-8')
         return json.loads(body) if body else {}
     
     def _send_response(self, data, status_code=200):
-        self._set_headers(status_code)
+        self._set_headers(int(status_code) if isinstance(status_code, str) else status_code)
         self.wfile.write(json.dumps(data).encode())
     
     def do_OPTIONS(self):
         self._set_headers()
     
     def do_GET(self):
-        parsed_url = urlparse(self.path)
-        path = parsed_url.path
+        path = self.path
         
-        # Health check endpoint
-        if path == '/health':
-            self._send_response({"status": "ok", "version": "1.0.0"})
-            return
-        
-        # API info endpoint
-        if path == '/' or path == '/api':
+        # Root endpoint
+        if path == '/' or path == '':
             self._send_response({
                 "message": "GhostProtocol API",
                 "version": "1.0.0",
@@ -73,106 +66,128 @@ class APIHandler(BaseHTTPRequestHandler):
                     "/api/analytics/messages",
                     "/api/analytics/subscriptions",
                     "/api/analytics/system",
-                    "/api/analytics/dashboard"
+                    "/api/analytics/dashboard",
+                    "/api/auth/signup",
+                    "/api/auth/login",
+                    "/api/auth/me"
                 ]
             })
             return
         
-        # Users endpoints
-        users_match = re.match(r'^/api/users/?$', path)
-        user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-        user_ban_match = re.match(r'^/api/users/([^/]+)/ban/?$', path)
-        user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
-        
-        # Vault endpoints
-        user_vault_match = re.match(r'^/api/users/([^/]+)/vault/?$', path)
-        vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
-        
-        # Subscription endpoints
-        subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
-        subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
-        
-        # Analytics endpoints
-        analytics_users_match = re.match(r'^/api/analytics/users/?$', path)
-        analytics_messages_match = re.match(r'^/api/analytics/messages/?$', path)
-        analytics_subscriptions_match = re.match(r'^/api/analytics/subscriptions/?$', path)
-        analytics_system_match = re.match(r'^/api/analytics/system/?$', path)
-        analytics_dashboard_match = re.match(r'^/api/analytics/dashboard/?$', path)
+        # Health check endpoint
+        if path == '/health':
+            self._send_response({"status": "healthy"})
+            return
         
         try:
+            # User endpoints
+            users_match = re.match(r'^/api/users/?$', path)
+            user_match = re.match(r'^/api/users/([^/]+)/?$', path)
+            ban_user_match = re.match(r'^/api/users/([^/]+)/ban/?$', path)
+            
+            # Subscription endpoints
+            subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
+            subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
+            
+            # Auth endpoints
+            auth_signup_match = re.match(r'^/api/auth/signup/?$', path)
+            auth_login_match = re.match(r'^/api/auth/login/?$', path)
+            auth_me_match = re.match(r'^/api/auth/me/?$', path)
+            
+            # Analytics endpoints
+            analytics_users_match = re.match(r'^/api/analytics/users/?$', path)
+            analytics_messages_match = re.match(r'^/api/analytics/messages/?$', path)
+            analytics_subscriptions_match = re.match(r'^/api/analytics/subscriptions/?$', path)
+            analytics_system_match = re.match(r'^/api/analytics/system/?$', path)
+            analytics_dashboard_match = re.match(r'^/api/analytics/dashboard/?$', path)
+            
+            # Vault endpoints
+            user_vault_match = re.match(r'^/api/users/([^/]+)/vault/?$', path)
+            vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
+            
+            # User subscription endpoint
+            user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
+            
             if users_match:
                 self._send_response(get_users())
             elif user_match:
                 user_id = user_match.group(1)
-                response, status_code = get_user(user_id)
-                self._send_response(response, status_code)
-            elif user_ban_match:
-                user_id = user_ban_match.group(1)
+                self._send_response(get_user(user_id))
+            elif ban_user_match:
+                user_id = ban_user_match.group(1)
                 response, status_code = ban_user(user_id)
-                self._send_response(response, status_code)
-            elif user_subscription_match:
-                user_id = user_subscription_match.group(1)
-                response, status_code = get_user_subscription(user_id)
-                self._send_response(response, status_code)
-            elif user_vault_match:
-                user_id = user_vault_match.group(1)
-                self._send_response(get_user_vault_items(user_id))
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                response, status_code = get_vault_item(item_id, user_id)
                 self._send_response(response, status_code)
             elif subscriptions_match:
                 self._send_response(get_subscription_tiers())
             elif subscription_match:
                 tier_id = subscription_match.group(1)
-                response, status_code = get_subscription_tier(tier_id)
-                self._send_response(response, status_code)
+                self._send_response(get_subscription_tier(tier_id))
+            elif user_subscription_match:
+                user_id = user_subscription_match.group(1)
+                self._send_response(get_user_subscription(user_id))
+            elif user_vault_match:
+                user_id = user_vault_match.group(1)
+                self._send_response(get_user_vault(user_id))
+            elif vault_item_match:
+                user_id = vault_item_match.group(1)
+                item_id = vault_item_match.group(2)
+                self._send_response(get_vault_item(user_id, item_id))
             elif analytics_users_match:
-                self._send_response(get_user_stats())
+                self._send_response(get_user_analytics())
             elif analytics_messages_match:
-                self._send_response(get_message_stats())
+                self._send_response(get_message_analytics())
             elif analytics_subscriptions_match:
-                self._send_response(get_subscription_stats())
+                self._send_response(get_subscription_analytics())
             elif analytics_system_match:
                 self._send_response(get_system_health())
             elif analytics_dashboard_match:
                 self._send_response(get_dashboard_stats())
+            elif auth_me_match:
+                response, status_code = get_current_user(self.headers)
+                self._send_response(response, status_code)
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
             self._send_response({"error": str(e)}, 500)
     
     def do_POST(self):
-        parsed_url = urlparse(self.path)
-        path = parsed_url.path
+        path = self.path
+        data = self._get_request_body()
         
-        # Users endpoints
+        # User endpoints
         users_match = re.match(r'^/api/users/?$', path)
-        user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
         
         # Vault endpoints
         user_vault_match = re.match(r'^/api/users/([^/]+)/vault/?$', path)
         
+        # Auth endpoints
+        auth_signup_match = re.match(r'^/api/auth/signup/?$', path)
+        auth_login_match = re.match(r'^/api/auth/login/?$', path)
+        
         # Subscription endpoints
         subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
+        user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
         
         try:
-            data = self._get_request_body()
-            
             if users_match:
                 response, status_code = create_user(data)
                 self._send_response(response, status_code)
-            elif user_subscription_match:
-                user_id = user_subscription_match.group(1)
-                response = update_user_subscription(user_id, data)
-                self._send_response(response)
             elif user_vault_match:
                 user_id = user_vault_match.group(1)
                 response, status_code = create_vault_item(user_id, data)
                 self._send_response(response, status_code)
+            elif user_subscription_match:
+                user_id = user_subscription_match.group(1)
+                response, status_code = update_user_subscription(user_id, data)
+                self._send_response(response, status_code)
             elif subscriptions_match:
                 response, status_code = create_subscription_tier(data)
+                self._send_response(response, status_code)
+            elif auth_signup_match:
+                response, status_code = signup(data)
+                self._send_response(response, status_code)
+            elif auth_login_match:
+                response, status_code = login(data)
                 self._send_response(response, status_code)
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
@@ -180,33 +195,31 @@ class APIHandler(BaseHTTPRequestHandler):
             self._send_response({"error": str(e)}, 500)
     
     def do_PUT(self):
-        parsed_url = urlparse(self.path)
-        path = parsed_url.path
+        path = self.path
+        data = self._get_request_body()
         
-        # Users endpoints
+        # User endpoints
         user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-        
-        # Vault endpoints
-        vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
         
         # Subscription endpoints
         subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
         
+        # Vault endpoints
+        vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
+        
         try:
-            data = self._get_request_body()
-            
             if user_match:
                 user_id = user_match.group(1)
                 response, status_code = update_user(user_id, data)
                 self._send_response(response, status_code)
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                response, status_code = update_vault_item(item_id, user_id, data)
-                self._send_response(response, status_code)
             elif subscription_match:
                 tier_id = subscription_match.group(1)
                 response, status_code = update_subscription_tier(tier_id, data)
+                self._send_response(response, status_code)
+            elif vault_item_match:
+                user_id = vault_item_match.group(1)
+                item_id = vault_item_match.group(2)
+                response, status_code = update_vault_item(user_id, item_id, data)
                 self._send_response(response, status_code)
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
@@ -214,41 +227,40 @@ class APIHandler(BaseHTTPRequestHandler):
             self._send_response({"error": str(e)}, 500)
     
     def do_DELETE(self):
-        parsed_url = urlparse(self.path)
-        path = parsed_url.path
+        path = self.path
         
-        # Users endpoints
+        # User endpoints
         user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-        
-        # Vault endpoints
-        vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
         
         # Subscription endpoints
         subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
+        
+        # Vault endpoints
+        vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
         
         try:
             if user_match:
                 user_id = user_match.group(1)
                 response, status_code = delete_user(user_id)
                 self._send_response(response, status_code)
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                response, status_code = delete_vault_item(item_id, user_id)
-                self._send_response(response, status_code)
             elif subscription_match:
                 tier_id = subscription_match.group(1)
                 response, status_code = delete_subscription_tier(tier_id)
+                self._send_response(response, status_code)
+            elif vault_item_match:
+                user_id = vault_item_match.group(1)
+                item_id = vault_item_match.group(2)
+                response, status_code = delete_vault_item(user_id, item_id)
                 self._send_response(response, status_code)
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
             self._send_response({"error": str(e)}, 500)
 
-def run(server_class=HTTPServer, handler_class=APIHandler, port=8080):
+def run(server_class=HTTPServer, handler_class=GhostProtocolAPIHandler, port=8080):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    print(f'Starting API server on port {port}...')
+    print(f"Starting GhostProtocol API server on port {port}...")
     httpd.serve_forever()
 
 if __name__ == '__main__':
