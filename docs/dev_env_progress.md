@@ -30,6 +30,8 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - [x] Defined S3 bucket structure
 - [x] Defined DynamoDB table structure
 - [x] Created deployment scripts
+- [x] Created EC2 instance creation script
+- [x] Created service exposure script
 - [ ] Deployed development environment
 - [ ] Configured AWS credentials
 - [ ] Tested S3 bucket access
