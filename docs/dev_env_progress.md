@@ -4,7 +4,7 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 
 ## Current Status
 - **Date**: February 25, 2025
-- **Branch**: devin/1740491156-update-status
+- **Branch**: devin/1740499668-dev-env-setup
 - **Overall Progress**: Setting up development environment for testing
 
 ## Plan Overview
@@ -23,6 +23,7 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Rebranding from WhisperSystems/Signal to GhostProtocol is complete
 
 ### 2. Development Environment Setup
+- [x] Resolved Maven dependency issues
 - [ ] Start backend service
 - [ ] Build and start web client
 - [ ] Expose ports for external access
@@ -51,7 +52,9 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 6. Report to user
 
 ## Issues and Blockers
-- None currently identified
+- Maven dependency issues being resolved
+- Need to fix zkgroup-java dependency
+- Duplicate classes in websocket-resources module
 
 ## Notes
 - Development environment will be used for testing before cloning to production
