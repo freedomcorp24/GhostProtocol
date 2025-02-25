@@ -32,6 +32,11 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - [x] Created deployment scripts
 - [x] Created EC2 instance creation script
 - [x] Created service exposure script
+- [x] Created Elastic Beanstalk deployment script
+- [x] Created S3/CloudFront deployment script for web client
+- [x] Created AWS Amplify deployment script
+- [x] Created AWS App Runner deployment script
+- [x] Created AWS Lightsail deployment script
 - [ ] Deployed development environment
 - [ ] Configured AWS credentials
 - [ ] Tested S3 bucket access
@@ -51,7 +56,7 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Admin Panel URL: TBD
 
 ## Next Steps
-1. Deploy AWS development environment
+1. Deploy AWS development environment using one of the deployment scripts
 2. Configure AWS credentials
 3. Start backend service
 4. Build and start web client
@@ -68,3 +73,4 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 - Development environment will be used for testing before cloning to production
 - All features have been implemented and code is 100% complete
 - Focus is now on making the application accessible for testing and review
+- Multiple deployment options have been created to provide flexibility in setting up the development environment
