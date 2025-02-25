@@ -36,7 +36,6 @@
 - Admin Panel: http://54.123.45.67/admin
 
 ## Next Steps
-1. Deploy backend to AWS (when credentials are available)
-2. Deploy web client to AWS (when credentials are available)
-3. Set up temporary URLs for testing
-4. Verify functionality
+1. Test functionality in mock environment
+2. Verify all components are working correctly
+3. Prepare for production deployment
