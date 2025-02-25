@@ -1,0 +1,17 @@
+aws:
+  region: us-west-1
+  s3:
+    profileBucket: ghostprotocol-prod-profiles
+    vaultStorageBucket: ghostprotocol-prod-vault
+    mediaBucket: ghostprotocol-prod-media
+    attachmentBucket: ghostprotocol-prod-attachments
+  dynamodb:
+    accountsTable: ghostprotocol-prod-accounts
+    devicesTable: ghostprotocol-prod-devices
+    messagesTable: ghostprotocol-prod-messages
+    groupsTable: ghostprotocol-prod-groups
+    cryptoWalletsTable: ghostprotocol-prod-crypto-wallets
+    storageUsageTable: ghostprotocol-prod-storage-usage
+    adminRolesTable: ghostprotocol-prod-admin-roles
+    vaultItemsTable: ghostprotocol-prod-vault-items
+    subscriptionsTable: ghostprotocol-prod-subscriptions
