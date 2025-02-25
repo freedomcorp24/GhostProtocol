@@ -11,9 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.AccountsManager;
 
 public class SetUserDiscoverabilityCommand extends AbstractCommandWithDependencies {
 

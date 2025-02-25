@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.storage;
+package org.ghostprotocol.service.storage;
 
 import com.stripe.exception.StripeException;
 import java.time.Instant;
@@ -16,22 +16,22 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequest;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse;
-import org.signal.libsignal.zkgroup.receipts.ServerZkReceiptOperations;
-import org.ghostprotocol.textsecuregcm.controllers.SubscriptionController;
-import org.ghostprotocol.textsecuregcm.subscriptions.AppleAppStoreManager;
-import org.ghostprotocol.textsecuregcm.subscriptions.CustomerAwareSubscriptionPaymentProcessor;
-import org.ghostprotocol.textsecuregcm.subscriptions.GooglePlayBillingManager;
-import org.ghostprotocol.textsecuregcm.subscriptions.PaymentProvider;
-import org.ghostprotocol.textsecuregcm.subscriptions.ProcessorCustomer;
-import org.ghostprotocol.textsecuregcm.subscriptions.SubscriptionInformation;
-import org.ghostprotocol.textsecuregcm.subscriptions.SubscriptionPaymentProcessor;
-import org.ghostprotocol.textsecuregcm.util.ExceptionUtils;
-import org.ghostprotocol.textsecuregcm.util.Util;
-import org.ghostprotocol.textsecuregcm.util.ua.ClientPlatform;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.protocol.zkgroup.receipts.ReceiptCredentialRequest;
+import org.ghostprotocol.protocol.zkgroup.receipts.ReceiptCredentialResponse;
+import org.ghostprotocol.protocol.zkgroup.receipts.ServerZkReceiptOperations;
+import org.ghostprotocol.service.controllers.SubscriptionController;
+import org.ghostprotocol.service.subscriptions.AppleAppStoreManager;
+import org.ghostprotocol.service.subscriptions.CustomerAwareSubscriptionPaymentProcessor;
+import org.ghostprotocol.service.subscriptions.GooglePlayBillingManager;
+import org.ghostprotocol.service.subscriptions.PaymentProvider;
+import org.ghostprotocol.service.subscriptions.ProcessorCustomer;
+import org.ghostprotocol.service.subscriptions.SubscriptionInformation;
+import org.ghostprotocol.service.subscriptions.SubscriptionPaymentProcessor;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.service.util.Util;
+import org.ghostprotocol.service.util.ua.ClientPlatform;
 
 /**
  * Manages updates to the Subscriptions table and the upstream subscription payment providers.

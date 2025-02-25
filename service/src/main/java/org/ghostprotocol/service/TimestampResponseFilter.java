@@ -15,7 +15,7 @@ import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import java.io.IOException;
-import org.ghostprotocol.textsecuregcm.util.HeaderUtils;
+import org.ghostprotocol.service.util.HeaderUtils;
 
 /**
  * Injects a timestamp header into all outbound responses.

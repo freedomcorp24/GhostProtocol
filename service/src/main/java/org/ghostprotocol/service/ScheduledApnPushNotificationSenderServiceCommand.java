@@ -12,10 +12,10 @@ import io.dropwizard.core.setup.Environment;
 import io.dropwizard.jetty.HttpsConnectorFactory;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.push.PushNotificationScheduler;
-import org.ghostprotocol.textsecuregcm.util.logging.UncaughtExceptionHandler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.push.PushNotificationScheduler;
+import org.ghostprotocol.service.util.logging.UncaughtExceptionHandler;
 
 public class ScheduledApnPushNotificationSenderServiceCommand extends ServerCommand<GhostProtocolServerConfiguration> {
 

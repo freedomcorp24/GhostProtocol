@@ -2,11 +2,11 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.session;
+package org.ghostprotocol.websocket.session;
 
 import jakarta.ws.rs.core.SecurityContext;
 import org.glassfish.jersey.server.ContainerRequest;
-import org.whispersystems.websocket.WebSocketSecurityContext;
+import org.ghostprotocol.websocket.WebSocketSecurityContext;
 
 public class WebSocketSessionContainerRequestValueFactory {
   private final ContainerRequest request;

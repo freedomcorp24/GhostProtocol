@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 import io.grpc.Status;
 import java.io.IOException;
@@ -21,15 +21,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
-import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.signal.libsignal.zkgroup.backups.BackupLevel;
+import org.ghostprotocol.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.zkgroup.backups.BackupLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedBackupUser;
-import org.ghostprotocol.textsecuregcm.util.AttributeValues;
-import org.ghostprotocol.textsecuregcm.util.ExceptionUtils;
-import org.ghostprotocol.textsecuregcm.util.Util;
+import org.ghostprotocol.service.auth.AuthenticatedBackupUser;
+import org.ghostprotocol.service.util.AttributeValues;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.service.util.Util;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Scheduler;
 import software.amazon.awssdk.core.SdkBytes;

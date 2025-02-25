@@ -3,10 +3,10 @@ package org.ghostprotocol.ghostprotocol.configuration;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import javax.annotation.Nullable;
-import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.Curve;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
-import org.signal.libsignal.protocol.ecc.ECPrivateKey;
+import org.ghostprotocol.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.ecc.Curve;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECPrivateKey;
 import org.ghostprotocol.ghostprotocol.configuration.secrets.SecretBytes;
 import org.ghostprotocol.ghostprotocol.configuration.secrets.SecretString;
 

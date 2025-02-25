@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.filters;
+package org.ghostprotocol.service.filters;
 
 import com.google.common.net.HttpHeaders;
 import com.vdurmont.semver4j.Semver;
@@ -19,15 +19,15 @@ import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.configuration.dynamic.DynamicConfiguration;
-import org.ghostprotocol.textsecuregcm.experiment.ExperimentEnrollmentManager;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.storage.DynamicConfigurationManager;
-import org.ghostprotocol.textsecuregcm.util.ua.ClientPlatform;
-import org.ghostprotocol.textsecuregcm.util.ua.UnrecognizedUserAgentException;
-import org.ghostprotocol.textsecuregcm.util.ua.UserAgent;
-import org.ghostprotocol.textsecuregcm.util.ua.UserAgentUtil;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.configuration.dynamic.DynamicConfiguration;
+import org.ghostprotocol.service.experiment.ExperimentEnrollmentManager;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.storage.DynamicConfigurationManager;
+import org.ghostprotocol.service.util.ua.ClientPlatform;
+import org.ghostprotocol.service.util.ua.UnrecognizedUserAgentException;
+import org.ghostprotocol.service.util.ua.UserAgent;
+import org.ghostprotocol.service.util.ua.UserAgentUtil;
 
 public class RestDeprecationFilter implements ContainerRequestFilter {
 

@@ -2,7 +2,7 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket;
+package org.ghostprotocol.websocket;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.net.HttpHeaders;
@@ -35,15 +35,15 @@ import org.glassfish.jersey.server.ContainerRequest;
 import org.glassfish.jersey.server.ContainerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.websocket.logging.WebsocketRequestLog;
-import org.whispersystems.websocket.messages.InvalidMessageException;
-import org.whispersystems.websocket.messages.WebSocketMessage;
-import org.whispersystems.websocket.messages.WebSocketMessageFactory;
-import org.whispersystems.websocket.messages.WebSocketRequestMessage;
-import org.whispersystems.websocket.messages.WebSocketResponseMessage;
-import org.whispersystems.websocket.session.ContextPrincipal;
-import org.whispersystems.websocket.session.WebSocketSessionContext;
-import org.whispersystems.websocket.setup.WebSocketConnectListener;
+import org.ghostprotocol.websocket.logging.WebsocketRequestLog;
+import org.ghostprotocol.websocket.messages.InvalidMessageException;
+import org.ghostprotocol.websocket.messages.WebSocketMessage;
+import org.ghostprotocol.websocket.messages.WebSocketMessageFactory;
+import org.ghostprotocol.websocket.messages.WebSocketRequestMessage;
+import org.ghostprotocol.websocket.messages.WebSocketResponseMessage;
+import org.ghostprotocol.websocket.session.ContextPrincipal;
+import org.ghostprotocol.websocket.session.WebSocketSessionContext;
+import org.ghostprotocol.websocket.setup.WebSocketConnectListener;
 
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
@@ -163,14 +163,14 @@ public class WebSocketResourceProvider<T extends Principal> implements WebSocket
   }
 
   /**
-   * The property name where {@link org.whispersystems.websocket.auth.WebsocketAuthValueFactoryProvider} can find an
+   * The property name where {@link org.ghostprotocol.websocket.auth.WebsocketAuthValueFactoryProvider} can find an
    * {@link ReusableAuth} object that lives for the lifetime of the websocket
    */
   public static final String REUSABLE_AUTH_PROPERTY = WebSocketResourceProvider.class.getName() + ".reusableAuth";
 
   /**
-   * The property name where {@link org.whispersystems.websocket.auth.WebsocketAuthValueFactoryProvider} can install a
-   * {@link org.whispersystems.websocket.ReusableAuth.MutableRef} for us to close when the request is finished
+   * The property name where {@link org.ghostprotocol.websocket.auth.WebsocketAuthValueFactoryProvider} can install a
+   * {@link org.ghostprotocol.websocket.ReusableAuth.MutableRef} for us to close when the request is finished
    */
   public static final String RESOLVED_PRINCIPAL_PROPERTY = WebSocketResourceProvider.class.getName() + ".resolvedPrincipal";
   private void handleRequest(WebSocketRequestMessage requestMessage) {

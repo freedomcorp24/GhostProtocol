@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.gcp;
+package org.ghostprotocol.service.gcp;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -2,7 +2,7 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import io.dropwizard.core.Application;
 import io.dropwizard.core.cli.Cli;
@@ -11,9 +11,9 @@ import io.dropwizard.core.setup.Environment;
 import net.sourceforge.argparse4j.inf.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.util.logging.UncaughtExceptionHandler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.util.logging.UncaughtExceptionHandler;
 
 /**
  * Base class for one-shot commands that use {@link CommandDependencies}.

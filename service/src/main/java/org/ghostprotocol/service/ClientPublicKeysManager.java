@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
 import org.ghostprotocol.ghostprotocol.identity.IdentityType;
 import software.amazon.awssdk.services.dynamodb.model.TransactWriteItem;
 

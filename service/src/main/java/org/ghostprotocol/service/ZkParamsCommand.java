@@ -10,8 +10,8 @@ import io.dropwizard.core.setup.Bootstrap;
 import java.util.Base64;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.signal.libsignal.zkgroup.ServerPublicParams;
-import org.signal.libsignal.zkgroup.ServerSecretParams;
+import org.ghostprotocol.protocol.zkgroup.ServerPublicParams;
+import org.ghostprotocol.protocol.zkgroup.ServerSecretParams;
 
 public class ZkParamsCommand extends Command {
 

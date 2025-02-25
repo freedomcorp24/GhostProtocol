@@ -5,7 +5,7 @@
 
 package org.ghostprotocol.service.mappers;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -13,7 +13,7 @@ import io.micrometer.core.instrument.Metrics;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.ext.ExceptionMapper;
-import org.ghostprotocol.textsecuregcm.util.NonNormalizedPhoneNumberException;
+import org.ghostprotocol.service.util.NonNormalizedPhoneNumberException;
 
 public class NonNormalizedPhoneNumberExceptionMapper implements ExceptionMapper<NonNormalizedPhoneNumberException> {
 

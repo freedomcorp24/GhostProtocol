@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.registration;
+package org.ghostprotocol.service.registration;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -33,10 +33,10 @@ import org.ghostprotocol.registration.rpc.GetRegistrationSessionMetadataRequest;
 import org.ghostprotocol.registration.rpc.RegistrationServiceGrpc;
 import org.ghostprotocol.registration.rpc.RegistrationSessionMetadata;
 import org.ghostprotocol.registration.rpc.SendVerificationCodeRequest;
-import org.ghostprotocol.textsecuregcm.controllers.RateLimitExceededException;
-import org.ghostprotocol.textsecuregcm.controllers.VerificationSessionRateLimitExceededException;
-import org.ghostprotocol.textsecuregcm.entities.RegistrationServiceSession;
-import org.ghostprotocol.textsecuregcm.util.CompletableFutureUtil;
+import org.ghostprotocol.service.controllers.RateLimitExceededException;
+import org.ghostprotocol.service.controllers.VerificationSessionRateLimitExceededException;
+import org.ghostprotocol.service.entities.RegistrationServiceSession;
+import org.ghostprotocol.service.util.CompletableFutureUtil;
 
 public class RegistrationServiceClient implements Managed {
 

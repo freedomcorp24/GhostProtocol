@@ -13,10 +13,10 @@ import io.dropwizard.jetty.HttpsConnectorFactory;
 import java.time.Duration;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.storage.MessagePersister;
-import org.ghostprotocol.textsecuregcm.util.logging.UncaughtExceptionHandler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.storage.MessagePersister;
+import org.ghostprotocol.service.util.logging.UncaughtExceptionHandler;
 
 public class MessagePersisterServiceCommand extends ServerCommand<GhostProtocolServerConfiguration> {
 

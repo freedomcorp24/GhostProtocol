@@ -9,7 +9,7 @@ import io.dropwizard.core.cli.Command;
 import io.dropwizard.core.setup.Bootstrap;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.GhostProtocolVersion;
+import org.ghostprotocol.service.GhostProtocolVersion;
 
 public class ServerVersionCommand extends Command {
 

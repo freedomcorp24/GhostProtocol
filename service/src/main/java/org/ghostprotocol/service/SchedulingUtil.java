@@ -1,11 +1,11 @@
-package org.ghostprotocol.textsecuregcm.scheduler;
+package org.ghostprotocol.service.scheduler;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberToTimeZonesMapper;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import org.ghostprotocol.textsecuregcm.storage.Account;
+import org.ghostprotocol.service.storage.Account;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalTime;

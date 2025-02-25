@@ -15,9 +15,9 @@ import java.util.UUID;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.Device;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.Device;
 
 public class UnlinkDeviceCommand extends AbstractCommandWithDependencies {
 
@@ -62,7 +62,7 @@ public class UnlinkDeviceCommand extends AbstractCommandWithDependencies {
     }
 
     for (byte deviceId : deviceIds) {
-      /** see {@link org.ghostprotocol.textsecuregcm.controllers.DeviceController#removeDevice} */
+      /** see {@link org.ghostprotocol.service.controllers.DeviceController#removeDevice} */
       System.out.format("Removing device %s::%d\n", aci, deviceId);
       deps.accountsManager().removeDevice(account, deviceId).join();
     }

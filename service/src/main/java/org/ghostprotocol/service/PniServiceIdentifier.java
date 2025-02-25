@@ -7,7 +7,7 @@ package org.ghostprotocol.identity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import org.signal.libsignal.protocol.ServiceId;
+import org.ghostprotocol.protocol.ServiceId;
 import org.ghostprotocol.util.UUIDUtil;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -54,7 +54,7 @@ public record PniServiceIdentifier(UUID uuid) implements ServiceIdentifier {
   }
 
   @Override
-  public ServiceId.Pni toLibsignal() {
+  public ServiceId.Pni toGhostProtocol() {
     return new ServiceId.Pni(uuid);
   }
 

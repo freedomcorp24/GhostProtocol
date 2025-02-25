@@ -5,8 +5,8 @@
 
 package org.ghostprotocol.storage;
 
-import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
 import org.ghostprotocol.entities.ECPreKey;
 import org.ghostprotocol.util.AttributeValues;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;

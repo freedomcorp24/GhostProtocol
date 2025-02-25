@@ -2,10 +2,10 @@
  * Copyright 2024 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.auth;
+package org.ghostprotocol.websocket.auth;
 
 /**
- * Teach {@link org.whispersystems.websocket.ReusableAuth} how to make a deep copy of a principal (that is safe to
+ * Teach {@link org.ghostprotocol.websocket.ReusableAuth} how to make a deep copy of a principal (that is safe to
  * concurrently modify while the original principal is being read), and how to refresh a principal after it has been
  * potentially modified.
  *

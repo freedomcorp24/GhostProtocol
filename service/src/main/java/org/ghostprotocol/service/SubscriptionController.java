@@ -56,7 +56,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse;
+import org.ghostprotocol.protocol.zkgroup.receipts.ReceiptCredentialResponse;
 import org.ghostprotocol.service.auth.AuthenticatedDevice;
 import org.ghostprotocol.service.backup.BackupManager;
 import org.ghostprotocol.service.badges.BadgeTranslator;

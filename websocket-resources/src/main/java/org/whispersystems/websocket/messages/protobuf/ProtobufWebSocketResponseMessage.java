@@ -2,9 +2,9 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.messages.protobuf;
+package org.ghostprotocol.websocket.messages.protobuf;
 
-import org.whispersystems.websocket.messages.WebSocketResponseMessage;
+import org.ghostprotocol.websocket.messages.WebSocketResponseMessage;
 
 import java.util.HashMap;
 import java.util.Map;

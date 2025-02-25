@@ -1,6 +1,6 @@
-package org.ghostprotocol.textsecuregcm.registration;
+package org.ghostprotocol.service.registration;
 
-import org.ghostprotocol.textsecuregcm.entities.RegistrationServiceSession;
+import org.ghostprotocol.service.entities.RegistrationServiceSession;
 
 /**
  * Indicates that a request to send a verification code failed because the destination number does not support the

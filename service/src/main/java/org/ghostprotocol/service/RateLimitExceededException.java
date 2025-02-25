@@ -2,14 +2,14 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import io.grpc.Metadata;
 import io.grpc.Status;
 import java.time.Duration;
 import java.util.Optional;
 import javax.annotation.Nullable;
-import org.ghostprotocol.textsecuregcm.grpc.ConvertibleToGrpcStatus;
+import org.ghostprotocol.service.grpc.ConvertibleToGrpcStatus;
 
 public class RateLimitExceededException extends Exception implements ConvertibleToGrpcStatus {
 

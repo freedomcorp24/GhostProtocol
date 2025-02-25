@@ -16,9 +16,9 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import java.io.IOException;
 import java.util.Base64;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialRequest;
-import org.signal.libsignal.zkgroup.internal.ByteArray;
+import org.ghostprotocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.zkgroup.backups.BackupAuthCredentialRequest;
+import org.ghostprotocol.zkgroup.internal.ByteArray;
 import org.ghostprotocol.service.metrics.MetricsUtil;
 
 public class BackupAuthCredentialAdapter {

@@ -5,7 +5,7 @@
 
 package org.ghostprotocol.service.redis;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import io.lettuce.core.RedisException;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;

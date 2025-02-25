@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.auth.Auth;
@@ -24,12 +24,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.UserRemoteConfig;
-import org.ghostprotocol.textsecuregcm.entities.UserRemoteConfigList;
-import org.ghostprotocol.textsecuregcm.storage.RemoteConfigsManager;
-import org.ghostprotocol.textsecuregcm.util.Conversions;
-import org.ghostprotocol.textsecuregcm.util.Util;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.UserRemoteConfig;
+import org.ghostprotocol.service.entities.UserRemoteConfigList;
+import org.ghostprotocol.service.storage.RemoteConfigsManager;
+import org.ghostprotocol.service.util.Conversions;
+import org.ghostprotocol.service.util.Util;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v1/config")

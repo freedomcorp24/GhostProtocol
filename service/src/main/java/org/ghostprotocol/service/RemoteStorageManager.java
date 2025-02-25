@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 import java.util.List;
 import java.util.Optional;

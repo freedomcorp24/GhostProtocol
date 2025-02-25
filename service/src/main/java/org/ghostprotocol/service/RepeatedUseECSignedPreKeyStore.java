@@ -7,8 +7,8 @@ package org.ghostprotocol.service.storage;
 
 import java.util.Map;
 import java.util.UUID;
-import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
 import org.ghostprotocol.service.entities.ECSignedPreKey;
 import org.ghostprotocol.service.util.AttributeValues;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;

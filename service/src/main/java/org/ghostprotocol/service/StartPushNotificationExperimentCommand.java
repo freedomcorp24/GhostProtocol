@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.annotations.VisibleForTesting;
@@ -7,12 +7,12 @@ import io.micrometer.core.instrument.Metrics;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperiment;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperimentSamples;
-import org.ghostprotocol.textsecuregcm.identity.IdentityType;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.Device;
+import org.ghostprotocol.service.experiment.PushNotificationExperiment;
+import org.ghostprotocol.service.experiment.PushNotificationExperimentSamples;
+import org.ghostprotocol.service.identity.IdentityType;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.Device;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;

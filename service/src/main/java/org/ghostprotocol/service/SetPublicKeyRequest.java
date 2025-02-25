@@ -3,7 +3,7 @@ package org.ghostprotocol.service.entities;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
 import org.ghostprotocol.service.util.ECPublicKeyAdapter;
 
 public record SetPublicKeyRequest(

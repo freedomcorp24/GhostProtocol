@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,14 +20,14 @@ import java.time.ZonedDateTime;
 import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.List;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.StickerPackFormUploadAttributes;
-import org.ghostprotocol.textsecuregcm.entities.StickerPackFormUploadAttributes.StickerPackFormUploadItem;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
-import org.ghostprotocol.textsecuregcm.s3.PolicySigner;
-import org.ghostprotocol.textsecuregcm.s3.PostPolicyGenerator;
-import org.ghostprotocol.textsecuregcm.util.Constants;
-import org.ghostprotocol.textsecuregcm.util.Pair;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.StickerPackFormUploadAttributes;
+import org.ghostprotocol.service.entities.StickerPackFormUploadAttributes.StickerPackFormUploadItem;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.s3.PolicySigner;
+import org.ghostprotocol.service.s3.PostPolicyGenerator;
+import org.ghostprotocol.service.util.Constants;
+import org.ghostprotocol.service.util.Pair;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v1/sticker")

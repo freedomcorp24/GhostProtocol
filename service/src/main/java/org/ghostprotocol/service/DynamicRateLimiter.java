@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.limits;
+package org.ghostprotocol.service.limits;
 
 import static java.util.Objects.requireNonNull;
 

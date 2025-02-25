@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import io.dropwizard.auth.Auth;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,14 +12,14 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import org.signal.libsignal.protocol.ServiceId;
-import org.signal.libsignal.zkgroup.GenericServerSecretParams;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.calllinks.CreateCallLinkCredentialRequest;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.CreateCallLinkCredential;
-import org.ghostprotocol.textsecuregcm.entities.GetCreateCallLinkCredentialsRequest;
-import org.ghostprotocol.textsecuregcm.limits.RateLimiters;
+import org.ghostprotocol.protocol.ServiceId;
+import org.ghostprotocol.protocol.zkgroup.GenericServerSecretParams;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.calllinks.CreateCallLinkCredentialRequest;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.CreateCallLinkCredential;
+import org.ghostprotocol.service.entities.GetCreateCallLinkCredentialsRequest;
+import org.ghostprotocol.service.limits.RateLimiters;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v1/call-link")

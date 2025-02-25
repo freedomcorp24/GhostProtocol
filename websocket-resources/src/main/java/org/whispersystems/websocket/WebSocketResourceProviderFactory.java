@@ -2,7 +2,7 @@
  * Copyright 2013 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket;
+package org.ghostprotocol.websocket;
 
 import static java.util.Optional.ofNullable;
 
@@ -22,12 +22,12 @@ import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.server.ApplicationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.websocket.auth.AuthenticationException;
-import org.whispersystems.websocket.auth.WebSocketAuthenticator;
-import org.whispersystems.websocket.auth.WebsocketAuthValueFactoryProvider;
-import org.whispersystems.websocket.configuration.WebSocketConfiguration;
-import org.whispersystems.websocket.session.WebSocketSessionContextValueFactoryProvider;
-import org.whispersystems.websocket.setup.WebSocketEnvironment;
+import org.ghostprotocol.websocket.auth.AuthenticationException;
+import org.ghostprotocol.websocket.auth.WebSocketAuthenticator;
+import org.ghostprotocol.websocket.auth.WebsocketAuthValueFactoryProvider;
+import org.ghostprotocol.websocket.configuration.WebSocketConfiguration;
+import org.ghostprotocol.websocket.session.WebSocketSessionContextValueFactoryProvider;
+import org.ghostprotocol.websocket.setup.WebSocketEnvironment;
 
 public class WebSocketResourceProviderFactory<T extends Principal> extends JettyWebSocketServlet implements
     JettyWebSocketCreator {

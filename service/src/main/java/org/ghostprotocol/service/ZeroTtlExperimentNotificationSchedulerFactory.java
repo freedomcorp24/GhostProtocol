@@ -1,10 +1,10 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import java.time.Clock;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.configuration.DynamoDbTables;
-import org.ghostprotocol.textsecuregcm.push.ZeroTtlNotificationScheduler;
-import org.ghostprotocol.textsecuregcm.scheduler.JobScheduler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.configuration.DynamoDbTables;
+import org.ghostprotocol.service.push.ZeroTtlNotificationScheduler;
+import org.ghostprotocol.service.scheduler.JobScheduler;
 
 public class ZeroTtlExperimentNotificationSchedulerFactory implements JobSchedulerFactory {
 

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
-import static org.ghostprotocol.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import com.google.common.net.HttpHeaders;
 import io.dropwizard.auth.Auth;
@@ -30,16 +30,16 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.IOException;
-import org.ghostprotocol.textsecuregcm.auth.AuthenticatedDevice;
-import org.ghostprotocol.textsecuregcm.entities.AnswerCaptchaChallengeRequest;
-import org.ghostprotocol.textsecuregcm.entities.AnswerChallengeRequest;
-import org.ghostprotocol.textsecuregcm.entities.AnswerPushChallengeRequest;
-import org.ghostprotocol.textsecuregcm.filters.RemoteAddressFilter;
-import org.ghostprotocol.textsecuregcm.limits.RateLimitChallengeManager;
-import org.ghostprotocol.textsecuregcm.metrics.UserAgentTagUtil;
-import org.ghostprotocol.textsecuregcm.push.NotPushRegisteredException;
-import org.ghostprotocol.textsecuregcm.spam.ChallengeConstraintChecker;
-import org.ghostprotocol.textsecuregcm.spam.ChallengeConstraintChecker.ChallengeConstraints;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.AnswerCaptchaChallengeRequest;
+import org.ghostprotocol.service.entities.AnswerChallengeRequest;
+import org.ghostprotocol.service.entities.AnswerPushChallengeRequest;
+import org.ghostprotocol.service.filters.RemoteAddressFilter;
+import org.ghostprotocol.service.limits.RateLimitChallengeManager;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
+import org.ghostprotocol.service.push.NotPushRegisteredException;
+import org.ghostprotocol.service.spam.ChallengeConstraintChecker;
+import org.ghostprotocol.service.spam.ChallengeConstraintChecker.ChallengeConstraints;
 import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v1/challenge")

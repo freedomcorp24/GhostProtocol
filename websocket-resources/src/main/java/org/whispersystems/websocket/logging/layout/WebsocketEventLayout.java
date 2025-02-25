@@ -2,19 +2,19 @@
  * Copyright 2013-2020 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket.logging.layout;
+package org.ghostprotocol.websocket.logging.layout;
 
 import ch.qos.logback.core.Context;
 import ch.qos.logback.core.pattern.PatternLayoutBase;
-import org.whispersystems.websocket.logging.WebsocketEvent;
-import org.whispersystems.websocket.logging.layout.converters.ContentLengthConverter;
-import org.whispersystems.websocket.logging.layout.converters.DateConverter;
-import org.whispersystems.websocket.logging.layout.converters.EnsureLineSeparation;
-import org.whispersystems.websocket.logging.layout.converters.NAConverter;
-import org.whispersystems.websocket.logging.layout.converters.RemoteHostConverter;
-import org.whispersystems.websocket.logging.layout.converters.RequestHeaderConverter;
-import org.whispersystems.websocket.logging.layout.converters.RequestUrlConverter;
-import org.whispersystems.websocket.logging.layout.converters.StatusCodeConverter;
+import org.ghostprotocol.websocket.logging.WebsocketEvent;
+import org.ghostprotocol.websocket.logging.layout.converters.ContentLengthConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.DateConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.EnsureLineSeparation;
+import org.ghostprotocol.websocket.logging.layout.converters.NAConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.RemoteHostConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.RequestHeaderConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.RequestUrlConverter;
+import org.ghostprotocol.websocket.logging.layout.converters.StatusCodeConverter;
 
 import java.util.HashMap;
 import java.util.Map;

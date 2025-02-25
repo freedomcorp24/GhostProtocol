@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.ghostprotocol.entities;
+package org.ghostprotocol.service.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.signal.libsignal.protocol.ecc.ECPublicKey;
-import org.ghostprotocol.ghostprotocol.util.ECPublicKeyAdapter;
+import org.ghostprotocol.protocol.ecc.ECPublicKey;
+import org.ghostprotocol.service.util.ECPublicKeyAdapter;
 
 public record ECPreKey(
     @Schema(description="""
@@ -21,7 +21,7 @@ public record ECPreKey(
     @JsonSerialize(using = ECPublicKeyAdapter.Serializer.class)
     @JsonDeserialize(using = ECPublicKeyAdapter.Deserializer.class)
     @Schema(type="string", description="""
-        The public key, serialized in libsignal's elliptic-curve public key format and then base64-encoded.
+        The public key, serialized in GhostProtocol's elliptic-curve public key format and then base64-encoded.
         """)
     ECPublicKey publicKey) implements PreKey<ECPublicKey> {
 

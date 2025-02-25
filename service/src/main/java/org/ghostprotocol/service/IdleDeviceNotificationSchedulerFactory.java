@@ -1,8 +1,8 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.push.IdleDeviceNotificationScheduler;
-import org.ghostprotocol.textsecuregcm.scheduler.JobScheduler;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.push.IdleDeviceNotificationScheduler;
+import org.ghostprotocol.service.scheduler.JobScheduler;
 import java.time.Clock;
 
 public class IdleDeviceNotificationSchedulerFactory implements JobSchedulerFactory {

@@ -7,7 +7,7 @@ package org.ghostprotocol.ghostprotocol.identity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.UUID;
-import org.signal.libsignal.protocol.ServiceId;
+import org.ghostprotocol.protocol.ServiceId;
 
 /**
  * A "service identifier" is a tuple of a UUID and identity type that identifies an account and identity within the
@@ -78,15 +78,15 @@ public sealed interface ServiceIdentifier permits AciServiceIdentifier, PniServi
     }
   }
 
-  static ServiceIdentifier fromLibsignal(final ServiceId libsignalServiceId) {
-    if (libsignalServiceId instanceof ServiceId.Aci) {
-      return new AciServiceIdentifier(libsignalServiceId.getRawUUID());
+  static ServiceIdentifier fromProtocol(final ServiceId protocolServiceId) {
+    if (protocolServiceId instanceof ServiceId.Aci) {
+      return new AciServiceIdentifier(protocolServiceId.getRawUUID());
     }
-    if (libsignalServiceId instanceof ServiceId.Pni) {
-      return new PniServiceIdentifier(libsignalServiceId.getRawUUID());
+    if (protocolServiceId instanceof ServiceId.Pni) {
+      return new PniServiceIdentifier(protocolServiceId.getRawUUID());
     }
-    throw new IllegalArgumentException("unknown libsignal ServiceId type");
+    throw new IllegalArgumentException("unknown protocol ServiceId type");
   }
 
-  ServiceId toLibsignal();
+  ServiceId toProtocol();
 }

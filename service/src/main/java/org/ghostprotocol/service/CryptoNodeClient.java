@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.payments;
+package org.ghostprotocol.service.payments;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;

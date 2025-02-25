@@ -25,7 +25,7 @@ import java.security.cert.X509Certificate;
 import java.util.concurrent.Executor;
 import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.ghostprotocol.service.storage.ClientPublicKeysManager;

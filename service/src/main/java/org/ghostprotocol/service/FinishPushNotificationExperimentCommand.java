@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.annotations.VisibleForTesting;
@@ -10,12 +10,12 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperiment;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperimentSample;
-import org.ghostprotocol.textsecuregcm.experiment.PushNotificationExperimentSamples;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.experiment.PushNotificationExperiment;
+import org.ghostprotocol.service.experiment.PushNotificationExperimentSample;
+import org.ghostprotocol.service.experiment.PushNotificationExperimentSamples;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.storage.AccountsManager;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;

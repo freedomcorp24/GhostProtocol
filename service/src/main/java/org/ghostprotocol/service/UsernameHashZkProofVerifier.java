@@ -5,8 +5,8 @@
 
 package org.ghostprotocol.service.util;
 
-import org.signal.libsignal.usernames.BaseUsernameException;
-import org.signal.libsignal.usernames.Username;
+import org.ghostprotocol.protocol.usernames.BaseUsernameException;
+import org.ghostprotocol.protocol.usernames.Username;
 
 public class UsernameHashZkProofVerifier {
   public void verifyProof(final byte[] proof, final byte[] hash) throws BaseUsernameException {

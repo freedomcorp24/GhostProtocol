@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import org.signal.libsignal.protocol.ecc.ECKeyPair;
+import org.ghostprotocol.protocol.ecc.ECKeyPair;
 
 /**
  * A NoiseAnonymousHandler is a netty pipeline element that handles the responder side of an unauthenticated handshake

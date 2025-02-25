@@ -5,8 +5,8 @@
 
 package org.ghostprotocol.service.util;
 
-import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.kem.KEMPublicKey;
+import org.ghostprotocol.protocol.InvalidKeyException;
+import org.ghostprotocol.protocol.kem.KEMPublicKey;
 
 public class KEMPublicKeyAdapter {
 

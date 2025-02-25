@@ -1,4 +1,4 @@
-package org.ghostprotocol.textsecuregcm.backup;
+package org.ghostprotocol.service.backup;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.micrometer.core.instrument.Metrics;
@@ -26,12 +26,12 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.configuration.Cdn3StorageManagerConfiguration;
-import org.ghostprotocol.textsecuregcm.http.FaultTolerantHttpClient;
-import org.ghostprotocol.textsecuregcm.metrics.MetricsUtil;
-import org.ghostprotocol.textsecuregcm.util.ExceptionUtils;
-import org.ghostprotocol.textsecuregcm.util.HttpUtils;
-import org.ghostprotocol.textsecuregcm.util.SystemMapper;
+import org.ghostprotocol.service.configuration.Cdn3StorageManagerConfiguration;
+import org.ghostprotocol.service.http.FaultTolerantHttpClient;
+import org.ghostprotocol.service.metrics.MetricsUtil;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.service.util.HttpUtils;
+import org.ghostprotocol.service.util.SystemMapper;
 
 public class Cdn3RemoteStorageManager implements RemoteStorageManager {
 

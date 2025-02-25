@@ -2,12 +2,12 @@
  * Copyright 2024 Signal Messenger, LLC
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.whispersystems.websocket;
+package org.ghostprotocol.websocket;
 
 import java.security.Principal;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.whispersystems.websocket.auth.PrincipalSupplier;
+import org.ghostprotocol.websocket.auth.PrincipalSupplier;
 
 /**
  * This class holds a principal that can be reused across requests on a websocket. Since two requests may operate

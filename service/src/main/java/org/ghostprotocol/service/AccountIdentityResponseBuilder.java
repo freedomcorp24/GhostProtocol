@@ -2,15 +2,15 @@
  * Copyright 2024 GhostProtocol
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-package org.ghostprotocol.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import java.time.Clock;
 import java.util.List;
 import java.util.Optional;
-import org.ghostprotocol.textsecuregcm.entities.AccountIdentityResponse;
-import org.ghostprotocol.textsecuregcm.entities.Entitlements;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.DeviceCapability;
+import org.ghostprotocol.service.entities.AccountIdentityResponse;
+import org.ghostprotocol.service.entities.Entitlements;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.DeviceCapability;
 
 public class AccountIdentityResponseBuilder {
 

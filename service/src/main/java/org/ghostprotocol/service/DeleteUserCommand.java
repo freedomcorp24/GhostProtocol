@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.workers;
+package org.ghostprotocol.service.workers;
 
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Environment;
@@ -12,10 +12,10 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ghostprotocol.textsecuregcm.GhostProtocolServerConfiguration;
-import org.ghostprotocol.textsecuregcm.storage.Account;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager;
-import org.ghostprotocol.textsecuregcm.storage.AccountsManager.DeletionReason;
+import org.ghostprotocol.service.GhostProtocolServerConfiguration;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.AccountsManager;
+import org.ghostprotocol.service.storage.AccountsManager.DeletionReason;
 
 public class DeleteUserCommand extends AbstractCommandWithDependencies {
 

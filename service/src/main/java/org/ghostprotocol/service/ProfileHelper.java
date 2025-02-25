@@ -1,13 +1,13 @@
 package org.ghostprotocol.service.util;
 
 import com.google.common.annotations.VisibleForTesting;
-import org.signal.libsignal.protocol.ServiceId;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.VerificationFailedException;
-import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredentialResponse;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCommitment;
-import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredentialRequest;
-import org.signal.libsignal.zkgroup.profiles.ServerZkProfileOperations;
+import org.ghostprotocol.protocol.ServiceId;
+import org.ghostprotocol.protocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.protocol.zkgroup.VerificationFailedException;
+import org.ghostprotocol.protocol.zkgroup.profiles.ExpiringProfileKeyCredentialResponse;
+import org.ghostprotocol.protocol.zkgroup.profiles.ProfileKeyCommitment;
+import org.ghostprotocol.protocol.zkgroup.profiles.ProfileKeyCredentialRequest;
+import org.ghostprotocol.protocol.zkgroup.profiles.ServerZkProfileOperations;
 import org.ghostprotocol.service.configuration.BadgeConfiguration;
 import org.ghostprotocol.service.identity.ServiceIdentifier;
 import org.ghostprotocol.service.storage.AccountBadge;

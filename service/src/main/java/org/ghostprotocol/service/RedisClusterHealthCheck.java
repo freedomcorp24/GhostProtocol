@@ -6,7 +6,7 @@
 package org.ghostprotocol.service.providers;
 
 import com.codahale.metrics.health.HealthCheck;
-import org.ghostprotocol.textsecuregcm.redis.FaultTolerantRedisClusterClient;
+import org.ghostprotocol.service.redis.FaultTolerantRedisClusterClient;
 
 public class RedisClusterHealthCheck extends HealthCheck {
 

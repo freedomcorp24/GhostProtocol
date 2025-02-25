@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.attachments;
+package org.ghostprotocol.service.attachments;
 
 import org.apache.http.HttpHeaders;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentials;
-import org.ghostprotocol.textsecuregcm.auth.ExternalServiceCredentialsGenerator;
-import org.ghostprotocol.textsecuregcm.util.HeaderUtils;
+import org.ghostprotocol.service.auth.ExternalServiceCredentials;
+import org.ghostprotocol.service.auth.ExternalServiceCredentialsGenerator;
+import org.ghostprotocol.service.util.HeaderUtils;
 import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.util.Base64;

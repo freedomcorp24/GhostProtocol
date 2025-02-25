@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.util.Base64;
-import org.signal.libsignal.zkgroup.InvalidInputException;
-import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredentialResponse;
+import org.ghostprotocol.zkgroup.InvalidInputException;
+import org.ghostprotocol.zkgroup.profiles.ExpiringProfileKeyCredentialResponse;
 
 public class ExpiringProfileKeyCredentialResponseAdapter {
 

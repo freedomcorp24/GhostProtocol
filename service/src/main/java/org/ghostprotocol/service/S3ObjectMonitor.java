@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.ghostprotocol.textsecuregcm.s3;
+package org.ghostprotocol.service.s3;
 
 import com.google.common.annotations.VisibleForTesting;
 import java.io.IOException;
