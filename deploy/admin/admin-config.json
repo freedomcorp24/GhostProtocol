@@ -1,10 +1,70 @@
 {
-  "apiEndpoint": "http://54.123.45.67/api",
-  "features": {
-    "userManagement": true,
-    "analytics": true,
-    "contentModeration": true,
-    "monitoring": true
-  },
-  "environment": "development"
+  "apiEndpoint": "http://54.215.16.4/api",
+  "adminRoles": [
+    {
+      "role": "super_admin",
+      "permissions": ["manage_users", "manage_subscriptions", "manage_tiers", "view_analytics", "manage_admins"]
+    },
+    {
+      "role": "admin",
+      "permissions": ["manage_users", "manage_subscriptions", "view_analytics"]
+    },
+    {
+      "role": "support",
+      "permissions": ["view_users", "view_subscriptions"]
+    }
+  ],
+  "subscriptionTiers": [
+    {
+      "id": "free",
+      "name": "Free",
+      "price": 0,
+      "features": ["basic_messaging", "group_chats", "media_sharing"],
+      "limits": {
+        "storage": "1GB",
+        "message_history": "30 days",
+        "group_size": 10
+      }
+    },
+    {
+      "id": "premium",
+      "name": "Premium",
+      "price": 9.99,
+      "features": ["basic_messaging", "group_chats", "media_sharing", "screen_sharing", "vault_storage", "extended_history"],
+      "limits": {
+        "storage": "10GB",
+        "message_history": "1 year",
+        "group_size": 100
+      }
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "price": 19.99,
+      "features": ["basic_messaging", "group_chats", "media_sharing", "screen_sharing", "vault_storage", "extended_history", "priority_support", "admin_controls"],
+      "limits": {
+        "storage": "50GB",
+        "message_history": "unlimited",
+        "group_size": 500
+      }
+    }
+  ],
+  "paymentGateways": [
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "enabled": true
+    },
+    {
+      "id": "paypal",
+      "name": "PayPal",
+      "enabled": true
+    },
+    {
+      "id": "crypto",
+      "name": "Cryptocurrency",
+      "enabled": true,
+      "currencies": ["BTC", "ETH", "XMR"]
+    }
+  ]
 }

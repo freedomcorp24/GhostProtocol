@@ -15,9 +15,20 @@ scp -i $SSH_KEY_PATH -o StrictHostKeyChecking=no index.html ec2-user@$EC2_PUBLIC
 scp -i $SSH_KEY_PATH -o StrictHostKeyChecking=no css/admin.css ec2-user@$EC2_PUBLIC_IP:/home/ec2-user/ghostprotocol/admin/css/
 scp -i $SSH_KEY_PATH -o StrictHostKeyChecking=no js/*.js ec2-user@$EC2_PUBLIC_IP:/home/ec2-user/ghostprotocol/admin/js/
 
-# Update nginx configuration if needed
+# Update nginx configuration
 echo "Updating nginx configuration..."
-ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no ec2-user@$EC2_PUBLIC_IP "sudo sed -i 's|/home/ec2-user/ghostprotocol/admin_panel|/home/ec2-user/ghostprotocol/admin|g' /etc/nginx/conf.d/ghostprotocol.conf"
+ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no ec2-user@$EC2_PUBLIC_IP "sudo tee /etc/nginx/conf.d/admin.conf > /dev/null" << 'NGINX_CONF'
+server {
+    listen 80;
+    server_name 54.215.16.4;
+
+    location /admin {
+        alias /home/ec2-user/ghostprotocol/admin;
+        index index.html;
+        try_files $uri $uri/ /admin/index.html;
+    }
+}
+NGINX_CONF
 
 # Restart nginx
 echo "Restarting nginx..."

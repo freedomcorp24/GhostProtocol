@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostProtocol - Secure Messaging</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 20px;
+        }
+        
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #3498db;
+        }
+        
+        .hero {
+            background-color: #3498db;
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: #777;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .pricing {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pricing-header h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .pricing-features {
+            padding: 20px;
+        }
+        
+        .pricing-features ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-btn {
+            display: block;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        .cta {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta .btn {
+            background-color: #fff;
+            color: #3498db;
+        }
+        
+        .cta .btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 50px 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #3a546d;
+            margin-top: 30px;
+            color: #bbb;
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-actions a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .form-actions a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                margin-top: 20px;
+            }
+            
+            .nav-menu li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">GhostProtocol</div>
+                <ul class="nav-menu">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#" id="login-btn">Login</a></li>
+                    <li><a href="#" id="signup-btn" class="btn">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Secure Messaging for Everyone</h1>
+            <p>GhostProtocol provides end-to-end encrypted messaging, voice and video calls, and secure file sharing. Your privacy is our priority.</p>
+            <a href="#" class="btn" id="get-started-btn">Get Started</a>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Features</h2>
+                <p>GhostProtocol offers a comprehensive suite of secure communication tools designed to protect your privacy.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>End-to-End Encryption</h3>
+                    <p>All messages, calls, and files are encrypted end-to-end, ensuring only you and your recipients can access them.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📞</div>
+                    <h3>Secure Voice & Video Calls</h3>
+                    <p>Make crystal-clear voice and video calls with the same end-to-end encryption that protects your messages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Group Chats</h3>
+                    <p>Create secure group chats with friends, family, or colleagues, with all the same privacy protections.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Screen Sharing</h3>
+                    <p>Share your screen during calls for presentations, troubleshooting, or collaboration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h3>Secure Vault</h3>
+                    <p>Store sensitive files, passwords, and notes in your encrypted vault, accessible only to you.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Self-Destructing Messages</h3>
+                    <p>Set messages to automatically delete after they've been read or after a specified time period.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pricing Plans</h2>
+                <p>Choose the plan that fits your needs. All plans include our core security features.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Free</h3>
+                        <div class="price">$0</div>
+                        <p>per month</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Basic messaging</li>
+                            <li>End-to-end encryption</li>
+                            <li>Group chats (up to 5 people)</li>
+                            <li>1 GB storage</li>
+                            <li>30-day message history</li>
+                        </ul>
+                        <a href="#" class="btn pricing-btn" id="free-signup-btn">Sign Up</a>
+                    </div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">$9.99</div>
+                        <p>per month</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Advanced messaging</li>
+                            <li>End-to-end encryption</li>
+                            <li>Group chats (up to 50 people)</li>
+                            <li>Screen sharing</li>
+                            <li>Voice and video calls</li>
+                            <li>Vault storage</li>
+                            <li>10 GB storage</li>
+                            <li>1-year message history</li>
+                        </ul>
+                        <a href="#" class="btn pricing-btn" id="premium-signup-btn">Sign Up</a>
+                    </div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Business</h3>
+                        <div class="price">$19.99</div>
+                        <p>per month</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>All Premium features</li>
+                            <li>Group chats (up to 200 people)</li>
+                            <li>Admin controls</li>
+                            <li>Priority support</li>
+                            <li>Advanced vault storage</li>
+                            <li>100 GB storage</li>
+                            <li>Unlimited message history</li>
+                            <li>Custom branding</li>
+                        </ul>
+                        <a href="#" class="btn pricing-btn" id="business-signup-btn">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Secure Your Communications?</h2>
+            <p>Join millions of users who trust GhostProtocol for their secure messaging needs.</p>
+            <a href="#" class="btn" id="cta-signup-btn">Sign Up Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GhostProtocol</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Messaging</a></li>
+                        <li><a href="#">Voice & Video</a></li>
+                        <li><a href="#">Screen Sharing</a></li>
+                        <li><a href="#">Vault</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 GhostProtocol. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to GhostProtocol</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <a href="#">Forgot password?</a>
+                    <button type="submit" class="btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create a GhostProtocol Account</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" name="confirm_password" required>
+                </div>
+                <div class="form-actions">
+                    <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+                    <button type="submit" class="btn">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Modal functionality
+        const loginModal = document.getElementById('login-modal');
+        const signupModal = document.getElementById('signup-modal');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const getStartedBtn = document.getElementById('get-started-btn');
+        const freeSignupBtn = document.getElementById('free-signup-btn');
+        const premiumSignupBtn = document.getElementById('premium-signup-btn');
+        const businessSignupBtn = document.getElementById('business-signup-btn');
+        const ctaSignupBtn = document.getElementById('cta-signup-btn');
+        const loginLink = document.getElementById('login-link');
+        const closeBtns = document.querySelectorAll('.close');
+        
+        // Show login modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'block';
+        });
+        
+        // Show signup modal
+        const showSignupModal = (e) => {
+            e.preventDefault();
+            signupModal.style.display = 'block';
+        };
+        
+        signupBtn.addEventListener('click', showSignupModal);
+        getStartedBtn.addEventListener('click', showSignupModal);
+        freeSignupBtn.addEventListener('click', showSignupModal);
+        premiumSignupBtn.addEventListener('click', showSignupModal);
+        businessSignupBtn.addEventListener('click', showSignupModal);
+        ctaSignupBtn.addEventListener('click', showSignupModal);
+        
+        // Switch from signup to login
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.style.display = 'none';
+            loginModal.style.display = 'block';
+        });
+        
+        // Close modals
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'none';
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+        });
+        
+        // Form submission
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // In a real implementation, this would send a request to the API
+            console.log('Login attempt:', { username, password });
+            
+            // Simulate successful login
+            alert('Login successful! Redirecting to dashboard...');
+            window.location.href = '/dashboard';
+        });
+        
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // In a real implementation, this would send a request to the API
+            console.log('Signup attempt:', { username, email, password });
+            
+            // Simulate successful signup
+            alert('Account created successfully! Redirecting to dashboard...');
+            window.location.href = '/dashboard';
+        });
+    </script>
+</body>
+</html>

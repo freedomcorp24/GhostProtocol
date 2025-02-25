@@ -1,235 +1,246 @@
 /**
- * Subscription Management Component for GhostProtocol Admin Panel
+ * Subscription Management Module for GhostProtocol Admin Panel
  */
 class SubscriptionManagement {
-  constructor(apiService) {
-    this.apiService = apiService;
-    this.subscriptionTiers = [];
-    this.currentTier = null;
-  }
-
-  /**
-   * Initialize the subscription management component
-   */
-  async init() {
-    this.bindEvents();
-    await this.loadSubscriptionTiers();
-    this.renderSubscriptionTable();
-  }
-
-  /**
-   * Bind event listeners
-   */
-  bindEvents() {
-    // Subscription form submission
-    document.getElementById('subscription-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      await this.saveSubscriptionTier();
-    });
-
-    // New subscription button
-    document.getElementById('new-subscription-btn').addEventListener('click', () => {
-      this.showSubscriptionForm();
-    });
-
-    // Close modal button
-    document.querySelectorAll('.close-modal').forEach(button => {
-      button.addEventListener('click', () => {
-        this.hideModals();
-      });
-    });
-  }
-
-  /**
-   * Load subscription tiers from the API
-   */
-  async loadSubscriptionTiers() {
-    try {
-      const response = await this.apiService.getSubscriptionTiers();
-      this.subscriptionTiers = response.tiers || [];
-      return this.subscriptionTiers;
-    } catch (error) {
-      this.showAlert('Error loading subscription tiers: ' + error.message, 'danger');
-      return [];
+    constructor(apiService) {
+        this.apiService = apiService;
+        this.subscriptionTiers = [];
+        this.currentTier = null;
+        
+        // DOM elements
+        this.subscriptionTiersContainer = document.getElementById('subscription-tiers-container');
+        this.tierModal = document.getElementById('tier-modal');
+        this.tierForm = document.getElementById('tier-form');
+        this.tierModalTitle = document.getElementById('tier-modal-title');
+        this.addTierBtn = document.getElementById('add-tier-btn');
+        this.cancelTierBtn = document.getElementById('cancel-tier-btn');
+        this.saveTierBtn = document.getElementById('save-tier-btn');
+        
+        // Initialize
+        this.init();
     }
-  }
-
-  /**
-   * Render the subscription table
-   */
-  renderSubscriptionTable() {
-    const tableBody = document.getElementById('subscription-table-body');
-    tableBody.innerHTML = '';
-
-    if (this.subscriptionTiers.length === 0) {
-      tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No subscription tiers found</td></tr>';
-      return;
+    
+    /**
+     * Initialize the subscription management module
+     */
+    init() {
+        // Load subscription tiers
+        this.loadSubscriptionTiers();
+        
+        // Event listeners
+        this.addTierBtn.addEventListener('click', () => this.showAddTierModal());
+        this.cancelTierBtn.addEventListener('click', () => this.hideTierModal());
+        this.tierForm.addEventListener('submit', (e) => this.handleTierFormSubmit(e));
+        
+        // Close modal when clicking on the close button or outside the modal
+        document.querySelector('#tier-modal .close').addEventListener('click', () => this.hideTierModal());
+        window.addEventListener('click', (e) => {
+            if (e.target === this.tierModal) {
+                this.hideTierModal();
+            }
+        });
     }
-
-    this.subscriptionTiers.forEach(tier => {
-      const row = document.createElement('tr');
-      
-      row.innerHTML = `
-        <td>${tier.name}</td>
-        <td>$${tier.price.toFixed(2)}</td>
-        <td>${tier.features.join(', ')}</td>
-        <td>
-          <div>Storage: ${tier.limits.storage}</div>
-          <div>History: ${tier.limits.message_history}</div>
-          <div>Group Size: ${tier.limits.group_size}</div>
-        </td>
-        <td>
-          <button class="btn btn-sm btn-primary edit-subscription" data-id="${tier.id}">Edit</button>
-          <button class="btn btn-sm btn-danger delete-subscription" data-id="${tier.id}">Delete</button>
-        </td>
-      `;
-
-      tableBody.appendChild(row);
-    });
-
-    // Add event listeners to buttons after they're added to the DOM
-    document.querySelectorAll('.edit-subscription').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const tierId = e.target.getAttribute('data-id');
-        await this.editSubscriptionTier(tierId);
-      });
-    });
-
-    document.querySelectorAll('.delete-subscription').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const tierId = e.target.getAttribute('data-id');
-        await this.deleteSubscriptionTier(tierId);
-      });
-    });
-  }
-
-  /**
-   * Show the subscription form modal
-   */
-  showSubscriptionForm(tier = null) {
-    this.currentTier = tier;
-    const form = document.getElementById('subscription-form');
-    const modal = document.getElementById('subscription-modal');
-
-    // Reset form
-    form.reset();
-
-    // Set form values if editing a tier
-    if (tier) {
-      document.getElementById('tier-id').value = tier.id;
-      document.getElementById('tier-name').value = tier.name;
-      document.getElementById('tier-price').value = tier.price;
-      document.getElementById('tier-features').value = tier.features.join(', ');
-      document.getElementById('tier-storage').value = tier.limits.storage;
-      document.getElementById('tier-history').value = tier.limits.message_history;
-      document.getElementById('tier-group-size').value = tier.limits.group_size;
-      document.getElementById('subscription-modal-title').textContent = 'Edit Subscription Tier';
-    } else {
-      document.getElementById('tier-id').value = '';
-      document.getElementById('subscription-modal-title').textContent = 'Add New Subscription Tier';
-    }
-
-    // Show modal
-    modal.style.display = 'block';
-  }
-
-  /**
-   * Hide all modals
-   */
-  hideModals() {
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.style.display = 'none';
-    });
-  }
-
-  /**
-   * Save a subscription tier (create or update)
-   */
-  async saveSubscriptionTier() {
-    try {
-      const tierId = document.getElementById('tier-id').value;
-      const tierData = {
-        name: document.getElementById('tier-name').value,
-        price: parseFloat(document.getElementById('tier-price').value),
-        features: document.getElementById('tier-features').value.split(',').map(f => f.trim()),
-        limits: {
-          storage: document.getElementById('tier-storage').value,
-          message_history: document.getElementById('tier-history').value,
-          group_size: parseInt(document.getElementById('tier-group-size').value)
+    
+    /**
+     * Load subscription tiers from the API
+     */
+    async loadSubscriptionTiers() {
+        try {
+            showLoading('Loading subscription tiers...');
+            const response = await this.apiService.getSubscriptionTiers();
+            this.subscriptionTiers = response.tiers || [];
+            this.renderSubscriptionTiers();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error loading subscription tiers: ${error.message}`, 'error');
         }
-      };
-
-      // If creating a new tier, add an ID
-      if (!tierId) {
-        tierData.id = document.getElementById('tier-name').value.toLowerCase().replace(/\s+/g, '_');
-      }
-
-      let response;
-      if (tierId) {
-        // Update existing tier
-        response = await this.apiService.updateSubscriptionTier(tierId, tierData);
-        this.showAlert('Subscription tier updated successfully', 'success');
-      } else {
-        // Create new tier
-        response = await this.apiService.createSubscriptionTier(tierData);
-        this.showAlert('Subscription tier created successfully', 'success');
-      }
-
-      // Hide modal and reload tiers
-      this.hideModals();
-      await this.loadSubscriptionTiers();
-      this.renderSubscriptionTable();
-    } catch (error) {
-      this.showAlert('Error saving subscription tier: ' + error.message, 'danger');
     }
-  }
-
-  /**
-   * Edit a subscription tier
-   */
-  async editSubscriptionTier(tierId) {
-    try {
-      const response = await this.apiService.getSubscriptionTier(tierId);
-      this.showSubscriptionForm(response.tier);
-    } catch (error) {
-      this.showAlert('Error loading subscription tier: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Delete a subscription tier
-   */
-  async deleteSubscriptionTier(tierId) {
-    if (!confirm('Are you sure you want to delete this subscription tier? This action cannot be undone.')) {
-      return;
-    }
-
-    try {
-      await this.apiService.deleteSubscriptionTier(tierId);
-      this.showAlert('Subscription tier deleted successfully', 'success');
-      await this.loadSubscriptionTiers();
-      this.renderSubscriptionTable();
-    } catch (error) {
-      this.showAlert('Error deleting subscription tier: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Show an alert message
-   */
-  showAlert(message, type) {
-    const alertContainer = document.getElementById('alert-container');
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
     
-    // Clear previous alerts
-    alertContainer.innerHTML = '';
-    alertContainer.appendChild(alert);
+    /**
+     * Render the subscription tiers
+     */
+    renderSubscriptionTiers() {
+        // Clear the container
+        this.subscriptionTiersContainer.innerHTML = '';
+        
+        // If no tiers, show a message
+        if (this.subscriptionTiers.length === 0) {
+            const message = document.createElement('div');
+            message.className = 'no-tiers-message';
+            message.textContent = 'No subscription tiers found';
+            this.subscriptionTiersContainer.appendChild(message);
+            return;
+        }
+        
+        // Add tiers to the container
+        this.subscriptionTiers.forEach(tier => {
+            const tierCard = document.createElement('div');
+            tierCard.className = 'tier-card';
+            
+            // Create features list
+            const featuresList = tier.features.map(feature => `<li>${feature}</li>`).join('');
+            
+            tierCard.innerHTML = `
+                <div class="tier-header">
+                    <h3>${tier.name}</h3>
+                    <div class="tier-price">$${tier.price.toFixed(2)}</div>
+                </div>
+                <div class="tier-features">
+                    <ul>
+                        ${featuresList}
+                    </ul>
+                </div>
+                <div class="tier-limits">
+                    <div class="limit-item">
+                        <span class="limit-label">Storage</span>
+                        <span class="limit-value">${tier.limits.storage}</span>
+                    </div>
+                    <div class="limit-item">
+                        <span class="limit-label">Message History</span>
+                        <span class="limit-value">${tier.limits.message_history}</span>
+                    </div>
+                    <div class="limit-item">
+                        <span class="limit-label">Group Size</span>
+                        <span class="limit-value">${tier.limits.group_size} people</span>
+                    </div>
+                </div>
+                <div class="tier-actions">
+                    <button class="btn btn-outline btn-edit-tier" data-tier-id="${tier.id}">Edit</button>
+                    <button class="btn btn-danger btn-delete-tier" data-tier-id="${tier.id}" ${tier.id === 'free' ? 'disabled' : ''}>Delete</button>
+                </div>
+            `;
+            
+            // Add event listeners to the buttons
+            tierCard.querySelector('.btn-edit-tier').addEventListener('click', () => this.showEditTierModal(tier.id));
+            tierCard.querySelector('.btn-delete-tier').addEventListener('click', () => this.deleteTier(tier.id));
+            
+            this.subscriptionTiersContainer.appendChild(tierCard);
+        });
+    }
     
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      alert.remove();
-    }, 5000);
-  }
+    /**
+     * Show the add tier modal
+     */
+    showAddTierModal() {
+        this.currentTier = null;
+        this.tierModalTitle.textContent = 'Add New Subscription Tier';
+        this.tierForm.reset();
+        this.tierModal.style.display = 'block';
+    }
+    
+    /**
+     * Show the edit tier modal
+     * @param {string} tierId - Tier ID
+     */
+    async showEditTierModal(tierId) {
+        try {
+            showLoading('Loading tier details...');
+            const response = await this.apiService.getSubscriptionTier(tierId);
+            this.currentTier = response.tier;
+            
+            this.tierModalTitle.textContent = 'Edit Subscription Tier';
+            
+            // Fill the form with tier data
+            document.getElementById('tier-name').value = this.currentTier.name;
+            document.getElementById('tier-price').value = this.currentTier.price;
+            document.getElementById('tier-features').value = this.currentTier.features.join('\n');
+            document.getElementById('tier-storage').value = this.currentTier.limits.storage;
+            document.getElementById('tier-history').value = this.currentTier.limits.message_history;
+            document.getElementById('tier-group-size').value = this.currentTier.limits.group_size;
+            
+            this.tierModal.style.display = 'block';
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error loading tier details: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Hide the tier modal
+     */
+    hideTierModal() {
+        this.tierModal.style.display = 'none';
+    }
+    
+    /**
+     * Handle tier form submission
+     * @param {Event} e - Form submit event
+     */
+    async handleTierFormSubmit(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const name = document.getElementById('tier-name').value;
+        const price = parseFloat(document.getElementById('tier-price').value);
+        const featuresText = document.getElementById('tier-features').value;
+        const storage = document.getElementById('tier-storage').value;
+        const history = document.getElementById('tier-history').value;
+        const groupSize = parseInt(document.getElementById('tier-group-size').value);
+        
+        // Parse features
+        const features = featuresText.split('\n').filter(feature => feature.trim() !== '');
+        
+        // Create tier data
+        const tierData = {
+            name,
+            price,
+            features,
+            limits: {
+                storage,
+                message_history: history,
+                group_size: groupSize
+            }
+        };
+        
+        // If editing, add the ID
+        if (this.currentTier) {
+            tierData.id = this.currentTier.id;
+        }
+        
+        try {
+            showLoading(this.currentTier ? 'Updating tier...' : 'Creating tier...');
+            
+            let response;
+            if (this.currentTier) {
+                // Update existing tier
+                response = await this.apiService.updateSubscriptionTier(this.currentTier.id, tierData);
+                showAlert('Subscription tier updated successfully', 'success');
+            } else {
+                // Create new tier
+                response = await this.apiService.createSubscriptionTier(tierData);
+                showAlert('Subscription tier created successfully', 'success');
+            }
+            
+            // Reload tiers and hide modal
+            await this.loadSubscriptionTiers();
+            this.hideTierModal();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error ${this.currentTier ? 'updating' : 'creating'} subscription tier: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Delete a subscription tier
+     * @param {string} tierId - Tier ID
+     */
+    async deleteTier(tierId) {
+        if (!confirm('Are you sure you want to delete this subscription tier? This action cannot be undone.')) {
+            return;
+        }
+        
+        try {
+            showLoading('Deleting subscription tier...');
+            await this.apiService.deleteSubscriptionTier(tierId);
+            showAlert('Subscription tier deleted successfully', 'success');
+            await this.loadSubscriptionTiers();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error deleting subscription tier: ${error.message}`, 'error');
+        }
+    }
 }

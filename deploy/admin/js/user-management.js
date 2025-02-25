@@ -1,286 +1,304 @@
 /**
- * User Management Component for GhostProtocol Admin Panel
+ * User Management Module for GhostProtocol Admin Panel
  */
 class UserManagement {
-  constructor(apiService) {
-    this.apiService = apiService;
-    this.users = [];
-    this.currentUser = null;
-  }
-
-  /**
-   * Initialize the user management component
-   */
-  async init() {
-    this.bindEvents();
-    await this.loadUsers();
-    this.renderUserTable();
-  }
-
-  /**
-   * Bind event listeners
-   */
-  bindEvents() {
-    // User form submission
-    document.getElementById('user-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      await this.saveUser();
-    });
-
-    // New user button
-    document.getElementById('new-user-btn').addEventListener('click', () => {
-      this.showUserForm();
-    });
-
-    // Close modal button
-    document.querySelectorAll('.close-modal').forEach(button => {
-      button.addEventListener('click', () => {
-        this.hideModals();
-      });
-    });
-  }
-
-  /**
-   * Load users from the API
-   */
-  async loadUsers() {
-    try {
-      const response = await this.apiService.getUsers();
-      this.users = response.users || [];
-      return this.users;
-    } catch (error) {
-      this.showAlert('Error loading users: ' + error.message, 'danger');
-      return [];
+    constructor(apiService) {
+        this.apiService = apiService;
+        this.users = [];
+        this.currentUser = null;
+        
+        // DOM elements
+        this.usersTable = document.getElementById('users-table');
+        this.userModal = document.getElementById('user-modal');
+        this.userForm = document.getElementById('user-form');
+        this.userModalTitle = document.getElementById('user-modal-title');
+        this.addUserBtn = document.getElementById('add-user-btn');
+        this.cancelUserBtn = document.getElementById('cancel-user-btn');
+        this.saveUserBtn = document.getElementById('save-user-btn');
+        this.userSearch = document.getElementById('user-search');
+        this.userFilter = document.getElementById('user-filter');
+        
+        // Initialize
+        this.init();
     }
-  }
-
-  /**
-   * Render the user table
-   */
-  renderUserTable() {
-    const tableBody = document.getElementById('user-table-body');
-    tableBody.innerHTML = '';
-
-    if (this.users.length === 0) {
-      tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No users found</td></tr>';
-      return;
-    }
-
-    this.users.forEach(user => {
-      const row = document.createElement('tr');
-      
-      // Status class
-      let statusClass = '';
-      if (user.status === 'active') {
-        statusClass = 'text-success';
-      } else if (user.status === 'banned') {
-        statusClass = 'text-danger';
-      }
-
-      // Subscription class
-      let subscriptionClass = '';
-      if (user.subscription === 'premium') {
-        subscriptionClass = 'text-primary';
-      } else if (user.subscription === 'business') {
-        subscriptionClass = 'text-success';
-      }
-
-      row.innerHTML = `
-        <td>${user.username}</td>
-        <td>${user.email}</td>
-        <td class="${statusClass}">${user.status}</td>
-        <td class="${subscriptionClass}">${user.subscription}</td>
-        <td>${user.created_at}</td>
-        <td>
-          <button class="btn btn-sm btn-primary edit-user" data-id="${user.id}">Edit</button>
-          ${user.status === 'active' ? 
-            `<button class="btn btn-sm btn-warning ban-user" data-id="${user.id}">Ban</button>` : 
-            `<button class="btn btn-sm btn-success unban-user" data-id="${user.id}">Unban</button>`
-          }
-          <button class="btn btn-sm btn-danger delete-user" data-id="${user.id}">Delete</button>
-        </td>
-      `;
-
-      // Add event listeners to buttons
-      tableBody.appendChild(row);
-    });
-
-    // Add event listeners to buttons after they're added to the DOM
-    document.querySelectorAll('.edit-user').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const userId = e.target.getAttribute('data-id');
-        await this.editUser(userId);
-      });
-    });
-
-    document.querySelectorAll('.ban-user').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const userId = e.target.getAttribute('data-id');
-        await this.banUser(userId);
-      });
-    });
-
-    document.querySelectorAll('.unban-user').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const userId = e.target.getAttribute('data-id');
-        await this.unbanUser(userId);
-      });
-    });
-
-    document.querySelectorAll('.delete-user').forEach(button => {
-      button.addEventListener('click', async (e) => {
-        const userId = e.target.getAttribute('data-id');
-        await this.deleteUser(userId);
-      });
-    });
-  }
-
-  /**
-   * Show the user form modal
-   */
-  showUserForm(user = null) {
-    this.currentUser = user;
-    const form = document.getElementById('user-form');
-    const modal = document.getElementById('user-modal');
-
-    // Reset form
-    form.reset();
-
-    // Set form values if editing a user
-    if (user) {
-      document.getElementById('user-id').value = user.id;
-      document.getElementById('username').value = user.username;
-      document.getElementById('email').value = user.email;
-      document.getElementById('role').value = user.role;
-      document.getElementById('status').value = user.status;
-      document.getElementById('subscription').value = user.subscription;
-      document.getElementById('user-modal-title').textContent = 'Edit User';
-    } else {
-      document.getElementById('user-id').value = '';
-      document.getElementById('user-modal-title').textContent = 'Add New User';
-    }
-
-    // Show modal
-    modal.style.display = 'block';
-  }
-
-  /**
-   * Hide all modals
-   */
-  hideModals() {
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.style.display = 'none';
-    });
-  }
-
-  /**
-   * Save a user (create or update)
-   */
-  async saveUser() {
-    try {
-      const userId = document.getElementById('user-id').value;
-      const userData = {
-        username: document.getElementById('username').value,
-        email: document.getElementById('email').value,
-        role: document.getElementById('role').value,
-        status: document.getElementById('status').value,
-        subscription: document.getElementById('subscription').value
-      };
-
-      let response;
-      if (userId) {
-        // Update existing user
-        response = await this.apiService.updateUser(userId, userData);
-        this.showAlert('User updated successfully', 'success');
-      } else {
-        // Create new user
-        response = await this.apiService.createUser(userData);
-        this.showAlert('User created successfully', 'success');
-      }
-
-      // Hide modal and reload users
-      this.hideModals();
-      await this.loadUsers();
-      this.renderUserTable();
-    } catch (error) {
-      this.showAlert('Error saving user: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Edit a user
-   */
-  async editUser(userId) {
-    try {
-      const response = await this.apiService.getUser(userId);
-      this.showUserForm(response.user);
-    } catch (error) {
-      this.showAlert('Error loading user: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Ban a user
-   */
-  async banUser(userId) {
-    try {
-      await this.apiService.banUser(userId);
-      this.showAlert('User banned successfully', 'success');
-      await this.loadUsers();
-      this.renderUserTable();
-    } catch (error) {
-      this.showAlert('Error banning user: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Unban a user
-   */
-  async unbanUser(userId) {
-    try {
-      await this.apiService.updateUser(userId, { status: 'active' });
-      this.showAlert('User unbanned successfully', 'success');
-      await this.loadUsers();
-      this.renderUserTable();
-    } catch (error) {
-      this.showAlert('Error unbanning user: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Delete a user
-   */
-  async deleteUser(userId) {
-    if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-      return;
-    }
-
-    try {
-      await this.apiService.deleteUser(userId);
-      this.showAlert('User deleted successfully', 'success');
-      await this.loadUsers();
-      this.renderUserTable();
-    } catch (error) {
-      this.showAlert('Error deleting user: ' + error.message, 'danger');
-    }
-  }
-
-  /**
-   * Show an alert message
-   */
-  showAlert(message, type) {
-    const alertContainer = document.getElementById('alert-container');
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
     
-    // Clear previous alerts
-    alertContainer.innerHTML = '';
-    alertContainer.appendChild(alert);
+    /**
+     * Initialize the user management module
+     */
+    init() {
+        // Load users
+        this.loadUsers();
+        
+        // Event listeners
+        this.addUserBtn.addEventListener('click', () => this.showAddUserModal());
+        this.cancelUserBtn.addEventListener('click', () => this.hideUserModal());
+        this.userForm.addEventListener('submit', (e) => this.handleUserFormSubmit(e));
+        this.userSearch.addEventListener('input', () => this.filterUsers());
+        this.userFilter.addEventListener('change', () => this.filterUsers());
+        
+        // Close modal when clicking on the close button or outside the modal
+        document.querySelector('#user-modal .close').addEventListener('click', () => this.hideUserModal());
+        window.addEventListener('click', (e) => {
+            if (e.target === this.userModal) {
+                this.hideUserModal();
+            }
+        });
+    }
     
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      alert.remove();
-    }, 5000);
-  }
+    /**
+     * Load users from the API
+     */
+    async loadUsers() {
+        try {
+            showLoading('Loading users...');
+            const response = await this.apiService.getUsers();
+            this.users = response.users || [];
+            this.renderUsersTable();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error loading users: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Render the users table
+     */
+    renderUsersTable() {
+        // Clear the table body
+        const tbody = this.usersTable.querySelector('tbody');
+        tbody.innerHTML = '';
+        
+        // If no users, show a message
+        if (this.users.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = '<td colspan="7">No users found</td>';
+            tbody.appendChild(tr);
+            return;
+        }
+        
+        // Add users to the table
+        this.users.forEach(user => {
+            const tr = document.createElement('tr');
+            
+            // Format the created date
+            const createdDate = new Date(user.created_at);
+            const formattedDate = createdDate.toLocaleDateString();
+            
+            tr.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td><span class="status-badge ${user.status}">${user.status}</span></td>
+                <td>${user.subscription || 'free'}</td>
+                <td>${formattedDate}</td>
+                <td class="actions">
+                    <button class="btn btn-outline btn-sm btn-edit" data-id="${user.id}">Edit</button>
+                    <button class="btn btn-outline btn-sm btn-ban" data-id="${user.id}" ${user.status === 'banned' ? 'disabled' : ''}>Ban</button>
+                    <button class="btn btn-danger btn-sm btn-delete" data-id="${user.id}">Delete</button>
+                </td>
+            `;
+            
+            // Add event listeners to the buttons
+            tr.querySelector('.btn-edit').addEventListener('click', () => this.showEditUserModal(user.id));
+            tr.querySelector('.btn-ban').addEventListener('click', () => this.banUser(user.id));
+            tr.querySelector('.btn-delete').addEventListener('click', () => this.deleteUser(user.id));
+            
+            tbody.appendChild(tr);
+        });
+    }
+    
+    /**
+     * Filter users based on search and filter
+     */
+    filterUsers() {
+        const searchTerm = this.userSearch.value.toLowerCase();
+        const filterValue = this.userFilter.value;
+        
+        const filteredUsers = this.users.filter(user => {
+            // Filter by search term
+            const matchesSearch = 
+                user.username.toLowerCase().includes(searchTerm) ||
+                user.email.toLowerCase().includes(searchTerm) ||
+                user.id.toLowerCase().includes(searchTerm);
+            
+            // Filter by status/subscription
+            let matchesFilter = true;
+            if (filterValue !== 'all') {
+                if (filterValue === 'active' || filterValue === 'banned') {
+                    matchesFilter = user.status === filterValue;
+                } else if (filterValue === 'premium' || filterValue === 'free') {
+                    matchesFilter = user.subscription === filterValue;
+                }
+            }
+            
+            return matchesSearch && matchesFilter;
+        });
+        
+        // Update the table with filtered users
+        const tbody = this.usersTable.querySelector('tbody');
+        tbody.innerHTML = '';
+        
+        if (filteredUsers.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = '<td colspan="7">No users found</td>';
+            tbody.appendChild(tr);
+            return;
+        }
+        
+        filteredUsers.forEach(user => {
+            const tr = document.createElement('tr');
+            
+            // Format the created date
+            const createdDate = new Date(user.created_at);
+            const formattedDate = createdDate.toLocaleDateString();
+            
+            tr.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td><span class="status-badge ${user.status}">${user.status}</span></td>
+                <td>${user.subscription || 'free'}</td>
+                <td>${formattedDate}</td>
+                <td class="actions">
+                    <button class="btn btn-outline btn-sm btn-edit" data-id="${user.id}">Edit</button>
+                    <button class="btn btn-outline btn-sm btn-ban" data-id="${user.id}" ${user.status === 'banned' ? 'disabled' : ''}>Ban</button>
+                    <button class="btn btn-danger btn-sm btn-delete" data-id="${user.id}">Delete</button>
+                </td>
+            `;
+            
+            // Add event listeners to the buttons
+            tr.querySelector('.btn-edit').addEventListener('click', () => this.showEditUserModal(user.id));
+            tr.querySelector('.btn-ban').addEventListener('click', () => this.banUser(user.id));
+            tr.querySelector('.btn-delete').addEventListener('click', () => this.deleteUser(user.id));
+            
+            tbody.appendChild(tr);
+        });
+    }
+    
+    /**
+     * Show the add user modal
+     */
+    showAddUserModal() {
+        this.currentUser = null;
+        this.userModalTitle.textContent = 'Add New User';
+        this.userForm.reset();
+        this.userModal.style.display = 'block';
+    }
+    
+    /**
+     * Show the edit user modal
+     * @param {string} userId - User ID
+     */
+    async showEditUserModal(userId) {
+        try {
+            showLoading('Loading user details...');
+            const response = await this.apiService.getUser(userId);
+            this.currentUser = response.user;
+            
+            this.userModalTitle.textContent = 'Edit User';
+            
+            // Fill the form with user data
+            document.getElementById('username').value = this.currentUser.username;
+            document.getElementById('email').value = this.currentUser.email;
+            document.getElementById('status').value = this.currentUser.status;
+            document.getElementById('role').value = this.currentUser.role || 'user';
+            document.getElementById('subscription').value = this.currentUser.subscription || 'free';
+            
+            this.userModal.style.display = 'block';
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error loading user details: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Hide the user modal
+     */
+    hideUserModal() {
+        this.userModal.style.display = 'none';
+    }
+    
+    /**
+     * Handle user form submission
+     * @param {Event} e - Form submit event
+     */
+    async handleUserFormSubmit(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const userData = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            status: document.getElementById('status').value,
+            role: document.getElementById('role').value,
+            subscription: document.getElementById('subscription').value
+        };
+        
+        try {
+            showLoading(this.currentUser ? 'Updating user...' : 'Creating user...');
+            
+            let response;
+            if (this.currentUser) {
+                // Update existing user
+                response = await this.apiService.updateUser(this.currentUser.id, userData);
+                showAlert('User updated successfully', 'success');
+            } else {
+                // Create new user
+                response = await this.apiService.createUser(userData);
+                showAlert('User created successfully', 'success');
+            }
+            
+            // Reload users and hide modal
+            await this.loadUsers();
+            this.hideUserModal();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error ${this.currentUser ? 'updating' : 'creating'} user: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Ban a user
+     * @param {string} userId - User ID
+     */
+    async banUser(userId) {
+        if (!confirm('Are you sure you want to ban this user?')) {
+            return;
+        }
+        
+        try {
+            showLoading('Banning user...');
+            await this.apiService.banUser(userId);
+            showAlert('User banned successfully', 'success');
+            await this.loadUsers();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error banning user: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Delete a user
+     * @param {string} userId - User ID
+     */
+    async deleteUser(userId) {
+        if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+            return;
+        }
+        
+        try {
+            showLoading('Deleting user...');
+            await this.apiService.deleteUser(userId);
+            showAlert('User deleted successfully', 'success');
+            await this.loadUsers();
+            hideLoading();
+        } catch (error) {
+            hideLoading();
+            showAlert(`Error deleting user: ${error.message}`, 'error');
+        }
+    }
 }
