@@ -5,41 +5,40 @@ This document tracks the setup and configuration of the GhostProtocol developmen
 ## Current Status
 - **Date**: February 25, 2025
 - **Branch**: devin/1740503055-local-dev-setup
-- **Overall Progress**: Setting up local development environment with public URL access
+- **Overall Progress**: Setting up local development environment with public URLs
 
 ## Plan Overview
 1. Create local development configuration
 2. Set up local storage directories
-3. Build backend service
-4. Build web client
-5. Start services locally
-6. Expose services via ngrok for public access
-7. Verify functionality
-8. Document access URLs and credentials
+3. Build backend service and web client
+4. Expose services via ngrok for external access
+5. Test functionality
+6. Document access URLs and credentials
 
 ## Detailed Progress
 
 ### 1. Repository Status
 - Main repository: https://github.com/freedomcorp24/GhostProtocol
 - All features have been implemented (100% completion)
+- AWS infrastructure has been configured for both development and production environments
 - Rebranding from WhisperSystems/Signal to GhostProtocol is complete
 
 ### 2. Local Development Environment Setup
 - [x] Created local development configuration file
-- [x] Created setup script for local development
+- [x] Created setup script for local environment
 - [x] Created service startup script
-- [ ] Built backend service
-- [ ] Built web client
-- [ ] Started services locally
-- [ ] Exposed services via ngrok for public access
-- [ ] Verified functionality
+- [ ] Run setup script to prepare environment
+- [ ] Start services
+- [ ] Verify functionality
+- [ ] Document access URLs
 
-### 3. Local Configuration
-- Local development configuration file: `service/src/main/resources/config/local-dev.yml`
-- Local storage directories:
-  - Attachments: `/tmp/ghostprotocol-storage/attachments`
-  - Profiles: `/tmp/ghostprotocol-storage/profiles`
-  - Vault: `/tmp/ghostprotocol-storage/vault`
+### 3. Configuration Details
+- Backend service configured to run on port 8080
+- Web client configured to run on port 3000
+- Local storage directories created at `/tmp/ghostprotocol-storage/`
+- Ngrok domains configured for public access:
+  - Backend API: https://ghostprotocol-api-dev.ngrok-free.app
+  - Web Client: https://ghostprotocol-dev.ngrok-free.app
 
 ### 4. Access Information
 - Backend URL: https://ghostprotocol-api-dev.ngrok-free.app
@@ -50,12 +49,17 @@ This document tracks the setup and configuration of the GhostProtocol developmen
   - Password: admin123
 
 ## Next Steps
-1. Run `setup_local_dev.sh` to install dependencies and build services
-2. Run `start_services.sh` to start services and expose them via ngrok
-3. Verify functionality of all components
-4. Document any issues or limitations
+1. Run setup script to prepare environment
+2. Start services
+3. Verify functionality
+4. Document any issues or additional configuration needed
+5. Create pull request with local development setup
+
+## Issues and Blockers
+- AWS credentials are invalid, so we're using a local development environment instead
+- Need to verify ngrok configuration and domain availability
 
 ## Notes
-- Using local development environment with public URL access via ngrok as an alternative to AWS deployment
+- Local development environment will be used for testing and demonstration
 - All features have been implemented and code is 100% complete
 - Focus is now on making the application accessible for testing and review

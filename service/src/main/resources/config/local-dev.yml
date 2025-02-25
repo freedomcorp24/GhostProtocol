@@ -19,7 +19,6 @@ admin:
 
 storage:
   local:
-    baseDir: /tmp/ghostprotocol-storage
-    attachmentsDir: /tmp/ghostprotocol-storage/attachments
-    profilesDir: /tmp/ghostprotocol-storage/profiles
-    vaultDir: /tmp/ghostprotocol-storage/vault
+    attachmentsPath: /tmp/ghostprotocol-storage/attachments
+    profilesPath: /tmp/ghostprotocol-storage/profiles
+    vaultPath: /tmp/ghostprotocol-storage/vault
