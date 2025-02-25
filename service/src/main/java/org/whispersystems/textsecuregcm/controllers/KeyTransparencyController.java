@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.whispersystems.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.ByteString;
@@ -39,17 +39,17 @@ import org.ghostprotocol.keytransparency.client.E164SearchRequest;
 import org.ghostprotocol.keytransparency.client.UsernameHashMonitorRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.textsecuregcm.auth.AuthenticatedDevice;
-import org.whispersystems.textsecuregcm.entities.KeyTransparencyDistinguishedKeyResponse;
-import org.whispersystems.textsecuregcm.entities.KeyTransparencyMonitorRequest;
-import org.whispersystems.textsecuregcm.entities.KeyTransparencyMonitorResponse;
-import org.whispersystems.textsecuregcm.entities.KeyTransparencySearchRequest;
-import org.whispersystems.textsecuregcm.entities.KeyTransparencySearchResponse;
-import org.whispersystems.textsecuregcm.keytransparency.KeyTransparencyServiceClient;
-import org.whispersystems.textsecuregcm.limits.RateLimitedByIp;
-import org.whispersystems.textsecuregcm.limits.RateLimiters;
-import org.whispersystems.textsecuregcm.util.ExceptionUtils;
-import org.whispersystems.websocket.auth.ReadOnly;
+import org.ghostprotocol.service.auth.AuthenticatedDevice;
+import org.ghostprotocol.service.entities.KeyTransparencyDistinguishedKeyResponse;
+import org.ghostprotocol.service.entities.KeyTransparencyMonitorRequest;
+import org.ghostprotocol.service.entities.KeyTransparencyMonitorResponse;
+import org.ghostprotocol.service.entities.KeyTransparencySearchRequest;
+import org.ghostprotocol.service.entities.KeyTransparencySearchResponse;
+import org.ghostprotocol.service.keytransparency.KeyTransparencyServiceClient;
+import org.ghostprotocol.service.limits.RateLimitedByIp;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.websocket.auth.ReadOnly;
 
 @Path("/v1/key-transparency")
 @Tag(name = "KeyTransparency")

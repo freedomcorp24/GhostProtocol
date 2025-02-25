@@ -1,0 +1,49 @@
+# GhostProtocol Development Environment AWS Configuration
+
+aws:
+  region: us-east-1  # Using the same region where we deployed our CloudFormation stack
+  
+  # S3 Bucket Configuration
+  s3:
+    profileBucket: ghostprotocol-dev-profiles
+    vaultStorageBucket: ghostprotocol-dev-vault
+    mediaBucket: ghostprotocol-dev-media
+    attachmentBucket: ghostprotocol-dev-attachments
+  
+  # DynamoDB Table Configuration
+  dynamodb:
+    accountsTable: ghostprotocol-dev-accounts
+    devicesTable: ghostprotocol-dev-devices
+    messagesTable: ghostprotocol-dev-messages
+    groupsTable: ghostprotocol-dev-groups
+    cryptoWalletsTable: ghostprotocol-dev-crypto-wallets
+    storageUsageTable: ghostprotocol-dev-storage-usage
+    adminRolesTable: ghostprotocol-dev-admin-roles
+    vaultItemsTable: ghostprotocol-dev-vault-items
+    subscriptionsTable: ghostprotocol-dev-subscriptions
+  
+  # CloudWatch Configuration
+  cloudwatch:
+    alarmNamePrefix: ghostprotocol-dev
+    namespace: GhostProtocol/Development
+  
+  # SNS Configuration
+  sns:
+    notificationTopic: ghostprotocol-dev-SNSNotificationTopic-fLfS7KHRT6ja
+
+# Security Configuration
+security:
+  encryptionEnabled: true
+  serverSideEncryption: AES256
+
+# Update AWS todo list
+logging:
+  level: DEBUG
+  appenders:
+    - type: console
+      threshold: DEBUG
+    - type: file
+      threshold: INFO
+      currentLogFilename: /var/log/ghostprotocol/service.log
+      archivedLogFilenamePattern: /var/log/ghostprotocol/service-%d.log.gz
+      archivedFileCount: 7

@@ -20,17 +20,15 @@ public class VaultStorageManager {
 
     private final DynamoDbTable<VaultItem> vaultTable;
     private final AmazonS3 s3Client;
-    private final String bucketName;
+    private final String bucketName = "ghostprotocol-dev-vault";
     private final Clock clock;
 
     public VaultStorageManager(
             DynamoDbTable<VaultItem> vaultTable,
             AmazonS3 s3Client, 
-            String bucketName,
             Clock clock) {
         this.vaultTable = vaultTable;
         this.s3Client = s3Client;
-        this.bucketName = bucketName;
         this.clock = clock;
     }
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.whispersystems.textsecuregcm.grpc;
+package org.ghostprotocol.service.grpc;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.ByteString;
@@ -22,14 +22,14 @@ import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.VerificationFailedException;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredentialResponse;
 import org.signal.libsignal.zkgroup.profiles.ServerZkProfileOperations;
-import org.whispersystems.textsecuregcm.auth.UnidentifiedAccessChecksum;
-import org.whispersystems.textsecuregcm.badges.ProfileBadgeConverter;
-import org.whispersystems.textsecuregcm.identity.ServiceIdentifier;
-import org.whispersystems.textsecuregcm.storage.Account;
-import org.whispersystems.textsecuregcm.storage.DeviceCapability;
-import org.whispersystems.textsecuregcm.storage.ProfilesManager;
-import org.whispersystems.textsecuregcm.storage.VersionedProfile;
-import org.whispersystems.textsecuregcm.util.ProfileHelper;
+import org.ghostprotocol.service.auth.UnidentifiedAccessChecksum;
+import org.ghostprotocol.service.badges.ProfileBadgeConverter;
+import org.ghostprotocol.service.identity.ServiceIdentifier;
+import org.ghostprotocol.service.storage.Account;
+import org.ghostprotocol.service.storage.DeviceCapability;
+import org.ghostprotocol.service.storage.ProfilesManager;
+import org.ghostprotocol.service.storage.VersionedProfile;
+import org.ghostprotocol.service.util.ProfileHelper;
 import reactor.core.publisher.Mono;
 
 public class ProfileGrpcHelper {
@@ -63,9 +63,9 @@ public class ProfileGrpcHelper {
   }
 
   @VisibleForTesting
-  static List<Badge> buildBadges(final List<org.whispersystems.textsecuregcm.entities.Badge> badges) {
+  static List<Badge> buildBadges(final List<org.ghostprotocol.service.entities.Badge> badges) {
     final ArrayList<Badge> grpcBadges = new ArrayList<>();
-    for (final org.whispersystems.textsecuregcm.entities.Badge badge : badges) {
+    for (final org.ghostprotocol.service.entities.Badge badge : badges) {
       grpcBadges.add(Badge.newBuilder()
           .setId(badge.getId())
           .setCategory(badge.getCategory())
@@ -88,9 +88,9 @@ public class ProfileGrpcHelper {
         .toList();
   }
 
-  private static List<BadgeSvg> buildBadgeSvgs(final List<org.whispersystems.textsecuregcm.entities.BadgeSvg> badgeSvgs) {
+  private static List<BadgeSvg> buildBadgeSvgs(final List<org.ghostprotocol.service.entities.BadgeSvg> badgeSvgs) {
     ArrayList<BadgeSvg> grpcBadgeSvgs = new ArrayList<>();
-    for (final org.whispersystems.textsecuregcm.entities.BadgeSvg badgeSvg : badgeSvgs) {
+    for (final org.ghostprotocol.service.entities.BadgeSvg badgeSvg : badgeSvgs) {
       grpcBadgeSvgs.add(BadgeSvg.newBuilder()
           .setDark(badgeSvg.getDark())
           .setLight(badgeSvg.getLight())

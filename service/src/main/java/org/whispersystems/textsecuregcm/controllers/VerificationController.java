@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.whispersystems.textsecuregcm.controllers;
+package org.ghostprotocol.service.controllers;
 
-import static org.whispersystems.textsecuregcm.metrics.MetricsUtil.name;
+import static org.ghostprotocol.service.metrics.MetricsUtil.name;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -64,40 +64,40 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.whispersystems.textsecuregcm.captcha.AssessmentResult;
-import org.whispersystems.textsecuregcm.captcha.RegistrationCaptchaManager;
-import org.whispersystems.textsecuregcm.configuration.dynamic.DynamicConfiguration;
-import org.whispersystems.textsecuregcm.entities.CreateVerificationSessionRequest;
-import org.whispersystems.textsecuregcm.entities.RegistrationServiceSession;
-import org.whispersystems.textsecuregcm.entities.SubmitVerificationCodeRequest;
-import org.whispersystems.textsecuregcm.entities.UpdateVerificationSessionRequest;
-import org.whispersystems.textsecuregcm.entities.VerificationCodeRequest;
-import org.whispersystems.textsecuregcm.entities.VerificationSessionResponse;
-import org.whispersystems.textsecuregcm.filters.RemoteAddressFilter;
-import org.whispersystems.textsecuregcm.limits.RateLimiters;
-import org.whispersystems.textsecuregcm.mappers.RegistrationServiceSenderExceptionMapper;
-import org.whispersystems.textsecuregcm.metrics.UserAgentTagUtil;
-import org.whispersystems.textsecuregcm.push.PushNotification;
-import org.whispersystems.textsecuregcm.push.PushNotificationManager;
-import org.whispersystems.textsecuregcm.registration.ClientType;
-import org.whispersystems.textsecuregcm.registration.MessageTransport;
-import org.whispersystems.textsecuregcm.registration.RegistrationFraudException;
-import org.whispersystems.textsecuregcm.registration.RegistrationServiceClient;
-import org.whispersystems.textsecuregcm.registration.RegistrationServiceException;
-import org.whispersystems.textsecuregcm.registration.RegistrationServiceSenderException;
-import org.whispersystems.textsecuregcm.registration.TransportNotAllowedException;
-import org.whispersystems.textsecuregcm.registration.VerificationSession;
-import org.whispersystems.textsecuregcm.spam.RegistrationFraudChecker;
-import org.whispersystems.textsecuregcm.spam.RegistrationFraudChecker.VerificationCheck;
-import org.whispersystems.textsecuregcm.storage.AccountsManager;
-import org.whispersystems.textsecuregcm.storage.DynamicConfigurationManager;
-import org.whispersystems.textsecuregcm.storage.PhoneNumberIdentifiers;
-import org.whispersystems.textsecuregcm.storage.RegistrationRecoveryPasswordsManager;
-import org.whispersystems.textsecuregcm.storage.VerificationSessionManager;
-import org.whispersystems.textsecuregcm.util.ExceptionUtils;
-import org.whispersystems.textsecuregcm.util.ObsoletePhoneNumberFormatException;
-import org.whispersystems.textsecuregcm.util.Pair;
-import org.whispersystems.textsecuregcm.util.Util;
+import org.ghostprotocol.service.captcha.AssessmentResult;
+import org.ghostprotocol.service.captcha.RegistrationCaptchaManager;
+import org.ghostprotocol.service.configuration.dynamic.DynamicConfiguration;
+import org.ghostprotocol.service.entities.CreateVerificationSessionRequest;
+import org.ghostprotocol.service.entities.RegistrationServiceSession;
+import org.ghostprotocol.service.entities.SubmitVerificationCodeRequest;
+import org.ghostprotocol.service.entities.UpdateVerificationSessionRequest;
+import org.ghostprotocol.service.entities.VerificationCodeRequest;
+import org.ghostprotocol.service.entities.VerificationSessionResponse;
+import org.ghostprotocol.service.filters.RemoteAddressFilter;
+import org.ghostprotocol.service.limits.RateLimiters;
+import org.ghostprotocol.service.mappers.RegistrationServiceSenderExceptionMapper;
+import org.ghostprotocol.service.metrics.UserAgentTagUtil;
+import org.ghostprotocol.service.push.PushNotification;
+import org.ghostprotocol.service.push.PushNotificationManager;
+import org.ghostprotocol.service.registration.ClientType;
+import org.ghostprotocol.service.registration.MessageTransport;
+import org.ghostprotocol.service.registration.RegistrationFraudException;
+import org.ghostprotocol.service.registration.RegistrationServiceClient;
+import org.ghostprotocol.service.registration.RegistrationServiceException;
+import org.ghostprotocol.service.registration.RegistrationServiceSenderException;
+import org.ghostprotocol.service.registration.TransportNotAllowedException;
+import org.ghostprotocol.service.registration.VerificationSession;
+import org.ghostprotocol.service.spam.RegistrationFraudChecker;
+import org.ghostprotocol.service.spam.RegistrationFraudChecker.VerificationCheck;
+import org.ghostprotocol.service.storage.AccountsManager;
+import org.ghostprotocol.service.storage.DynamicConfigurationManager;
+import org.ghostprotocol.service.storage.PhoneNumberIdentifiers;
+import org.ghostprotocol.service.storage.RegistrationRecoveryPasswordsManager;
+import org.ghostprotocol.service.storage.VerificationSessionManager;
+import org.ghostprotocol.service.util.ExceptionUtils;
+import org.ghostprotocol.service.util.ObsoletePhoneNumberFormatException;
+import org.ghostprotocol.service.util.Pair;
+import org.ghostprotocol.service.util.Util;
 
 @Path("/v1/verification")
 @io.swagger.v3.oas.annotations.tags.Tag(name = "Verification")
