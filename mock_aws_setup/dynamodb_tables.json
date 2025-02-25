@@ -1,0 +1,133 @@
+{
+  "Tables": [
+    {
+      "TableName": "ghostprotocol-dev-accounts",
+      "KeySchema": [
+        {
+          "AttributeName": "uuid",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-devices",
+      "KeySchema": [
+        {
+          "AttributeName": "accountUuid",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "deviceId",
+          "KeyType": "RANGE"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-messages",
+      "KeySchema": [
+        {
+          "AttributeName": "destination",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "timestamp",
+          "KeyType": "RANGE"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-groups",
+      "KeySchema": [
+        {
+          "AttributeName": "groupId",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-crypto-wallets",
+      "KeySchema": [
+        {
+          "AttributeName": "accountUuid",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-storage-usage",
+      "KeySchema": [
+        {
+          "AttributeName": "accountUuid",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-admin-roles",
+      "KeySchema": [
+        {
+          "AttributeName": "username",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-vault-items",
+      "KeySchema": [
+        {
+          "AttributeName": "accountUuid",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "itemId",
+          "KeyType": "RANGE"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    },
+    {
+      "TableName": "ghostprotocol-dev-subscriptions",
+      "KeySchema": [
+        {
+          "AttributeName": "accountUuid",
+          "KeyType": "HASH"
+        }
+      ],
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+      }
+    }
+  ]
+}

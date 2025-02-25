@@ -1,0 +1,20 @@
+{
+  "Buckets": [
+    {
+      "Name": "ghostprotocol-dev-profiles",
+      "CreationDate": "2025-02-25T12:00:00.000Z"
+    },
+    {
+      "Name": "ghostprotocol-dev-vault",
+      "CreationDate": "2025-02-25T12:00:00.000Z"
+    },
+    {
+      "Name": "ghostprotocol-dev-media",
+      "CreationDate": "2025-02-25T12:00:00.000Z"
+    },
+    {
+      "Name": "ghostprotocol-dev-attachments",
+      "CreationDate": "2025-02-25T12:00:00.000Z"
+    }
+  ]
+}
