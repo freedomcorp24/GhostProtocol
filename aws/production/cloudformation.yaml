@@ -1,0 +1,361 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'GhostProtocol Development Environment Resources'
+
+Resources:
+  # S3 Buckets
+  ProfileBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ghostprotocol-prod-profiles
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - '*'
+            MaxAge: 3600
+
+  VaultStorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ghostprotocol-prod-vault
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - '*'
+            MaxAge: 3600
+
+  MediaStorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ghostprotocol-prod-media
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - '*'
+            MaxAge: 3600
+
+  AttachmentStorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ghostprotocol-prod-attachments
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - '*'
+            MaxAge: 3600
+
+  # DynamoDB Tables
+  AccountsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-accounts
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  DevicesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-devices
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: deviceId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: accountId
+          KeyType: HASH
+        - AttributeName: deviceId
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  MessagesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-messages
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: accountId
+          AttributeType: S
+        - AttributeName: messageId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: accountId
+          KeyType: HASH
+        - AttributeName: messageId
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  GroupsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-groups
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  CryptoWalletsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-crypto-wallets
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  StorageUsageTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-storage-usage
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  AdminRolesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-admin-roles
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  VaultItemsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-vault-items
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: itemId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: itemId
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  SubscriptionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostprotocol-prod-subscriptions
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  # IAM Role for GhostProtocol Service
+  GhostProtocolServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+
+  # CloudWatch Alarms
+  CPUUtilizationAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Alarm if CPU exceeds 80% for 5 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 80
+      ComparisonOperator: GreaterThanThreshold
+      AlarmActions:
+        - !Ref SNSNotificationTopic
+
+  # SNS Topic for Notifications
+  SNSNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: GhostProtocolDevAlerts
+
+Outputs:
+  ProfileBucketName:
+    Description: Name of the S3 bucket for profile data
+    Value: !Ref ProfileBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-ProfileBucketName"
+
+  VaultStorageBucketName:
+    Description: Name of the S3 bucket for vault storage
+    Value: !Ref VaultStorageBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-VaultStorageBucketName"
+
+  MediaStorageBucketName:
+    Description: Name of the S3 bucket for media storage
+    Value: !Ref MediaStorageBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-MediaStorageBucketName"
+
+  AttachmentStorageBucketName:
+    Description: Name of the S3 bucket for attachment storage
+    Value: !Ref AttachmentStorageBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-AttachmentStorageBucketName"
+
+  AccountsTableName:
+    Description: Name of the DynamoDB table for accounts
+    Value: !Ref AccountsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-AccountsTableName"
+
+  DevicesTableName:
+    Description: Name of the DynamoDB table for devices
+    Value: !Ref DevicesTable
+    Export:
+      Name: !Sub "${AWS::StackName}-DevicesTableName"
+
+  MessagesTableName:
+    Description: Name of the DynamoDB table for messages
+    Value: !Ref MessagesTable
+    Export:
+      Name: !Sub "${AWS::StackName}-MessagesTableName"
+
+  GroupsTableName:
+    Description: Name of the DynamoDB table for groups
+    Value: !Ref GroupsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-GroupsTableName"
+
+  CryptoWalletsTableName:
+    Description: Name of the DynamoDB table for crypto wallets
+    Value: !Ref CryptoWalletsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-CryptoWalletsTableName"
+
+  StorageUsageTableName:
+    Description: Name of the DynamoDB table for storage usage
+    Value: !Ref StorageUsageTable
+    Export:
+      Name: !Sub "${AWS::StackName}-StorageUsageTableName"
+
+  AdminRolesTableName:
+    Description: Name of the DynamoDB table for admin roles
+    Value: !Ref AdminRolesTable
+    Export:
+      Name: !Sub "${AWS::StackName}-AdminRolesTableName"
+
+  VaultItemsTableName:
+    Description: Name of the DynamoDB table for vault items
+    Value: !Ref VaultItemsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-VaultItemsTableName"
+
+  SubscriptionsTableName:
+    Description: Name of the DynamoDB table for subscriptions
+    Value: !Ref SubscriptionsTable
+    Export:
+      Name: !Sub "${AWS::StackName}-SubscriptionsTableName"
+
+  SNSNotificationTopicARN:
+    Description: ARN of the SNS topic for notifications
+    Value: !Ref SNSNotificationTopic
+    Export:
+      Name: !Sub "${AWS::StackName}-SNSNotificationTopicARN"
