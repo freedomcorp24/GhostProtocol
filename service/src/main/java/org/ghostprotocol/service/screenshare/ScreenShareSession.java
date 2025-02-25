@@ -33,6 +33,7 @@ public class ScreenShareSession {
         this.sessionId = sessionId;
         this.connection = connection;
         this.config = config;
+        this.scheduler = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
     }
 
     public void start() {
@@ -243,7 +244,7 @@ public class ScreenShareSession {
     
     private void startQualityMonitoring() {
         // Periodically check quality and adjust as needed
-        if (scheduler != null && qualityMonitorTask != null) {
+        if (scheduler != null) {
             qualityMonitorTask = scheduler.scheduleAtFixedRate(() -> {
                 if (running) {
                     // Request quality metrics from client
