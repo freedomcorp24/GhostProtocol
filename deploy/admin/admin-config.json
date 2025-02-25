@@ -1,0 +1,10 @@
+{
+  "apiEndpoint": "http://54.123.45.67/api",
+  "features": {
+    "userManagement": true,
+    "analytics": true,
+    "contentModeration": true,
+    "monitoring": true
+  },
+  "environment": "development"
+}

@@ -63,11 +63,14 @@ Current completion: 100%
 
 ### AWS Infrastructure
 - [x] Development environment
-- [x] Production environment
-- [x] S3 buckets for profiles, vault storage, media, and attachments
-- [x] DynamoDB tables for accounts, devices, messages, groups, crypto wallets, storage usage, admin roles, vault items, and subscriptions
-- [x] CloudWatch monitoring and alerts
-- [x] IAM roles and permissions
+  - [x] S3 buckets for profiles, vault storage, media, and attachments
+  - [x] DynamoDB tables for accounts, devices, messages, groups, crypto wallets, storage usage, admin roles, vault items, and subscriptions
+  - [x] EC2 instance for hosting the application
+  - [x] CloudWatch monitoring and alerts
+  - [x] IAM roles and permissions
+  - [x] Deployment scripts
+  - [x] Monitoring scripts
+- [x] Production environment (configuration prepared)
 
 ### Rebranding
 - [x] WhisperSystems references replaced with GhostProtocol

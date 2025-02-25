@@ -1,0 +1,13 @@
+[Unit]
+Description=GhostProtocol Backend Service
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/GhostProtocol/deploy/backend
+ExecStart=/home/ubuntu/GhostProtocol/deploy/backend/start-backend.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

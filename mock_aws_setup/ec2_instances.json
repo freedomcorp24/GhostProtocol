@@ -1,0 +1,22 @@
+{
+  "Reservations": [
+    {
+      "Instances": [
+        {
+          "InstanceId": "i-0123456789abcdef0",
+          "InstanceType": "t2.medium",
+          "State": {
+            "Name": "running"
+          },
+          "PublicIpAddress": "54.123.45.67",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "ghostprotocol-dev-instance"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

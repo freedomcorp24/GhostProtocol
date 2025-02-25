@@ -1,0 +1,24 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+database:
+  driverClass: org.h2.Driver
+  url: jdbc:h2:mem:ghostprotocol;DB_CLOSE_DELAY=-1
+
+messaging:
+  domain: ghostprotocol-api-dev.ngrok-free.app
+
+admin:
+  email: admin@ghostprotocol.org
+  password: admin123
+
+storage:
+  local:
+    attachmentsPath: /tmp/ghostprotocol-storage/attachments
+    profilesPath: /tmp/ghostprotocol-storage/profiles
+    vaultPath: /tmp/ghostprotocol-storage/vault
