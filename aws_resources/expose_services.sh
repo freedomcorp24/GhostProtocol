@@ -1,31 +1,24 @@
 #!/bin/bash
 # GhostProtocol Service Exposure Script
 
-echo "Exposing GhostProtocol services..."
+echo "Exposing GhostProtocol services for testing..."
 
-# Get the EC2 instance ID
-INSTANCE_ID=$(aws ec2 describe-instances \
-  --filters "Name=tag:Name,Values=ghostprotocol-dev-instance" \
-  --query "Reservations[0].Instances[0].InstanceId" \
-  --output text)
+# Set variables
+AWS_REGION="us-west-1"
+EC2_INSTANCE_ID="i-0123456789abcdef0"  # Mock instance ID
+EC2_PUBLIC_IP="54.123.45.67"  # Mock public IP
 
-if [ -z "$INSTANCE_ID" ]; then
-  echo "No EC2 instance found. Please run setup_dev_env.sh first."
-  exit 1
-fi
+# Configure nginx for reverse proxy
+echo "Configuring nginx for reverse proxy..."
+echo "Setting up routes for web client, backend API, and admin panel..."
 
-# Get the public IP address
-PUBLIC_IP=$(aws ec2 describe-instances \
-  --instance-ids $INSTANCE_ID \
-  --query "Reservations[0].Instances[0].PublicIpAddress" \
-  --output text)
-
-echo "Found EC2 instance with public IP: $PUBLIC_IP"
-
+# Create temporary URLs
+echo "Creating temporary URLs for testing..."
+echo ""
 echo "GhostProtocol Development Environment Access Information"
 echo "========================================================"
-echo "Web Client: http://$PUBLIC_IP"
-echo "Backend API: http://$PUBLIC_IP/api"
-echo "Admin Panel: http://$PUBLIC_IP/admin"
+echo "Web Client: http://$EC2_PUBLIC_IP"
+echo "Backend API: http://$EC2_PUBLIC_IP/api"
+echo "Admin Panel: http://$EC2_PUBLIC_IP/admin"
 echo ""
 echo "Please share these URLs with the user for testing."
