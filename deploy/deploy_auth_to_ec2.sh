@@ -1,130 +1,45 @@
 #!/bin/bash
 
-# Deploy the authentication API to the EC2 instance
-echo "Deploying authentication API to EC2 instance..."
+# Set the EC2 instance IP address
+EC2_IP="54.215.16.4"
 
 # Create a deployment package
-mkdir -p deploy/tmp/simple_api/api/v1
-cp -r simple_api/app.py deploy/tmp/simple_api/
-cp -r simple_api/setup_users.py deploy/tmp/simple_api/
-cp -r simple_api/api/users.py deploy/tmp/simple_api/api/
-cp -r simple_api/api/v1/auth_custom.py deploy/tmp/simple_api/api/v1/
-cp -r simple_api/api/subscriptions.py deploy/tmp/simple_api/api/
-cp -r simple_api/api/vault.py deploy/tmp/simple_api/api/
-cp -r simple_api/api/analytics.py deploy/tmp/simple_api/api/
-
-# Create a systemd service file
-cat > deploy/tmp/ghostprotocol-api.service << 'SERVICEEOF'
-[Unit]
-Description=GhostProtocol API Service
-After=network.target
-
-[Service]
-User=ubuntu
-WorkingDirectory=/home/ubuntu/ghostprotocol/simple_api
-ExecStart=/usr/bin/python3 app.py
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-SERVICEEOF
-
-# Create a deployment script
-cat > deploy/tmp/deploy.sh << 'DEPLOYEOF'
-#!/bin/bash
-
-# Stop the API service if it's running
-sudo systemctl stop ghostprotocol-api || true
-
-# Create directory structure
-mkdir -p /home/ubuntu/ghostprotocol/simple_api/api/v1
-mkdir -p /home/ubuntu/ghostprotocol/simple_api/static/data
-
-# Copy the API files
-cp -r simple_api/* /home/ubuntu/ghostprotocol/simple_api/
-
-# Install dependencies
-sudo apt-get update
-sudo apt-get install -y python3-pip
-pip3 install pyjwt
-
-# Initialize users data
-cd /home/ubuntu/ghostprotocol/simple_api
-python3 setup_users.py
-
-# Install and start the service
-sudo cp ghostprotocol-api.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable ghostprotocol-api
-sudo systemctl start ghostprotocol-api
-sudo systemctl status ghostprotocol-api
-
-# Update nginx configuration
-sudo tee /etc/nginx/sites-available/ghostprotocol << 'NGINXEOF'
-server {
-    listen 80 default_server;
-    server_name _;
-    
-    # Enable debug logging
-    error_log /var/log/nginx/ghostprotocol-error.log debug;
-    access_log /var/log/nginx/ghostprotocol-access.log;
-
-    # Web client
-    location / {
-        root /usr/share/nginx/html/web;
-        index index.html;
-        try_files $uri $uri/ /index.html;
-    }
-
-    # API endpoints
-    location /api/ {
-        proxy_pass http://localhost:8080/;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-    }
-
-    # Admin panel
-    location /admin/ {
-        alias /usr/share/nginx/html/admin/;
-        index index.html;
-        try_files $uri $uri/ /admin/index.html;
-    }
-}
-NGINXEOF
-
-sudo ln -sf /etc/nginx/sites-available/ghostprotocol /etc/nginx/sites-enabled/
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo nginx -t && sudo systemctl restart nginx
-
-echo "Deployment completed successfully."
-DEPLOYEOF
-
-chmod +x deploy/tmp/deploy.sh
+echo "Creating deployment package..."
+mkdir -p deploy/auth_system
+cp -r simple_api deploy/auth_system/
+cp -r web/src/components/auth deploy/auth_system/
+cp -r web/src/services/api.js deploy/auth_system/
 
 # Create a tar file
-cd deploy/tmp
-tar -czf ../auth_deployment.tar.gz *
-cd ../..
+tar -czf auth_deployment.tar.gz -C deploy auth_system
 
-# Copy to EC2 instance
-scp -i ~/.ssh/ghostprotocol.pem deploy/auth_deployment.tar.gz ubuntu@54.215.16.4:/home/ubuntu/
+# Copy the deployment package to the EC2 instance
+echo "Copying deployment package to EC2 instance..."
+scp auth_deployment.tar.gz ec2-user@$EC2_IP:/tmp/
 
-# Extract and deploy on EC2
-ssh -i ~/.ssh/ghostprotocol.pem ubuntu@54.215.16.4 "mkdir -p ~/deployment && \
-    tar -xzf auth_deployment.tar.gz -C ~/deployment && \
-    cd ~/deployment && \
-    chmod +x deploy.sh && \
-    ./deploy.sh"
+# SSH into the EC2 instance and deploy the authentication system
+echo "Deploying authentication system on EC2 instance..."
+ssh ec2-user@$EC2_IP << 'ENDSSH'
+# Extract the deployment package
+mkdir -p /tmp/auth_system
+tar -xzf /tmp/auth_deployment.tar.gz -C /tmp
+
+# Copy the files to the appropriate locations
+sudo cp -r /tmp/auth_system/simple_api/* /var/www/ghostprotocol/api/
+sudo cp -r /tmp/auth_system/auth/* /var/www/ghostprotocol/web/src/components/
+sudo cp -r /tmp/auth_system/api.js /var/www/ghostprotocol/web/src/services/
+
+# Restart the services
+sudo systemctl restart nginx
+sudo systemctl restart ghostprotocol-api
+sudo systemctl restart ghostprotocol-web
 
 # Clean up
-rm -rf deploy/tmp
-rm -f deploy/auth_deployment.tar.gz
+rm -rf /tmp/auth_deployment.tar.gz /tmp/auth_system
+ENDSSH
 
-echo "Authentication API deployment completed."
+echo "Deployment complete!"
+echo "Authentication system is now accessible at:"
+echo "- Web client: http://$EC2_IP/"
+echo "- API: http://$EC2_IP/api"
+echo "- Admin panel: http://$EC2_IP/admin"
