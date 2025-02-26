@@ -1,3 +1,10 @@
+# Commands to fix the API server on the EC2 instance
+
+# Create necessary directories
+mkdir -p ~/ghostprotocol/simple_api/static/data
+
+# Create the app.py file
+cat > ~/ghostprotocol/simple_api/app.py << 'EOL'
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -198,3 +205,106 @@ async def get_current_user(authorization: Optional[str] = Header(None)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+EOL
+
+# Create the setup_users.py script
+cat > ~/ghostprotocol/simple_api/setup_users.py << 'EOL'
+import json
+import os
+import hashlib
+import datetime
+
+# Create the data directory if it doesn't exist
+os.makedirs('static/data', exist_ok=True)
+
+# Create default admin user
+default_users = {
+    "users": [
+        {
+            "id": "1",
+            "username": "admin",
+            "password_hash": hashlib.sha256("admin123".encode()).hexdigest(),
+            "role": "super_admin",
+            "created_at": datetime.datetime.now().isoformat(),
+            "status": "active",
+            "premium": True,
+            "subscription_tier": "enterprise",
+            "storage_used": 0,
+            "storage_limit": 100000000000  # 100GB
+        }
+    ]
+}
+
+# Save to users.json
+with open('static/data/users.json', 'w') as f:
+    json.dump(default_users, f, indent=2)
+
+print("Users data initialized successfully.")
+EOL
+
+# Install required packages
+pip3 install fastapi uvicorn pyjwt
+
+# Run the setup_users.py script
+cd ~/ghostprotocol/simple_api
+python3 setup_users.py
+
+# Create a systemd service file for the API server
+cat > /tmp/ghostprotocol-api.service << 'EOL'
+[Unit]
+Description=GhostProtocol API Server
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/ghostprotocol/simple_api
+ExecStart=/usr/bin/python3 -m uvicorn app:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ghostprotocol-api
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Install the systemd service
+sudo mv /tmp/ghostprotocol-api.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable ghostprotocol-api
+sudo systemctl restart ghostprotocol-api
+
+# Update nginx configuration to proxy API requests
+cat > /tmp/ghostprotocol-nginx.conf << 'EOL'
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        root /home/ubuntu/ghostprotocol/web/public;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://localhost:8000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /admin/ {
+        root /home/ubuntu/ghostprotocol/web/public;
+        index admin.html;
+        try_files $uri $uri/ /admin.html;
+    }
+}
+EOL
+
+# Install the nginx configuration
+sudo mv /tmp/ghostprotocol-nginx.conf /etc/nginx/sites-available/ghostprotocol
+sudo ln -sf /etc/nginx/sites-available/ghostprotocol /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
