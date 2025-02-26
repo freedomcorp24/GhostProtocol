@@ -1,23 +1,27 @@
 #!/bin/bash
 
-echo "Deploying authentication system to EC2 instance at 54.215.16.4"
+# Deploy the authentication system locally
+echo "Deploying authentication system locally..."
 
-# Create necessary directories
-ssh ubuntu@54.215.16.4 "mkdir -p ~/ghostprotocol/simple_api/static/data"
+# Create the data directory for user storage
+mkdir -p ~/GhostProtocol/simple_api/static/data
 
-# Copy the API server files
-scp -r simple_api/app.py ubuntu@54.215.16.4:~/ghostprotocol/simple_api/
+# Install dependencies
+pip3 install fastapi uvicorn pyjwt python-multipart
 
-# Copy the setup_users.py script
-scp simple_api/setup_users.py ubuntu@54.215.16.4:~/ghostprotocol/simple_api/
+# Initialize the users data
+cd ~/GhostProtocol/simple_api
+python3 setup_users.py
 
-# Run the setup_users.py script on the EC2 instance
-ssh ubuntu@54.215.16.4 "cd ~/ghostprotocol/simple_api && python3 setup_users.py"
-
-# Install required packages
-ssh ubuntu@54.215.16.4 "pip3 install fastapi uvicorn pyjwt"
-
-# Restart the API server
-ssh ubuntu@54.215.16.4 "sudo systemctl restart ghostprotocol-api"
+# Start the FastAPI server in the background using uvicorn
+cd ~/GhostProtocol/simple_api
+nohup python3 -m uvicorn app:app --host 0.0.0.0 --port 5000 > api_server.log 2>&1 &
+echo $! > api_server.pid
 
 echo "Authentication system deployed successfully!"
+echo "API server running on port 5000"
+echo "API endpoints:"
+echo "- GET  /api/ - API info"
+echo "- POST /api/auth/login - Login endpoint"
+echo "- POST /api/auth/signup - Signup endpoint"
+echo "- GET  /api/auth/me - Get current user info"
