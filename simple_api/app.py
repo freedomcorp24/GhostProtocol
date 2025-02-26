@@ -19,10 +19,11 @@ from api.subscriptions import (
     update_user_subscription
 )
 from api.vault import (
-    get_user_vault, get_vault_item, create_vault_item, update_vault_item, delete_vault_item
+    get_user_vault_items as get_user_vault, get_vault_item, create_vault_item, update_vault_item, delete_vault_item
 )
 from api.analytics import (
-    get_user_analytics, get_message_analytics, get_subscription_analytics,
+    get_user_stats as get_user_analytics, get_message_stats as get_message_analytics, 
+    get_subscription_stats as get_subscription_analytics,
     get_system_health, get_dashboard_stats
 )
 
@@ -45,7 +46,18 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
         return json.loads(body) if body else {}
     
     def _send_response(self, data, status_code=200):
-        self._set_headers(int(status_code) if isinstance(status_code, str) else status_code)
+        # Handle tuple responses (data, status_code)
+        if isinstance(data, tuple) and len(data) == 2:
+            data, status_code = data
+        
+        # Convert status_code to int if it's a string
+        if isinstance(status_code, str):
+            try:
+                status_code = int(status_code)
+            except ValueError:
+                status_code = 200
+                
+        self._set_headers(status_code)
         self.wfile.write(json.dumps(data).encode())
     
     def do_OPTIONS(self):
@@ -115,22 +127,19 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
                 self._send_response(get_users())
             elif user_match:
                 user_id = user_match.group(1)
-                response, status_code = get_user(user_id)
-                self._send_response(response, status_code)
+                self._send_response(get_user(user_id))
             elif user_vault_match:
                 user_id = user_vault_match.group(1)
                 self._send_response(get_user_vault(user_id))
             elif vault_item_match:
                 user_id = vault_item_match.group(1)
                 item_id = vault_item_match.group(2)
-                response, status_code = get_vault_item(user_id, item_id)
-                self._send_response(response, status_code)
+                self._send_response(get_vault_item(user_id, item_id))
             elif subscriptions_match:
                 self._send_response(get_subscription_tiers())
             elif subscription_match:
                 tier_id = subscription_match.group(1)
-                response, status_code = get_subscription_tier(tier_id)
-                self._send_response(response, status_code)
+                self._send_response(get_subscription_tier(tier_id))
             elif user_subscription_match:
                 user_id = user_subscription_match.group(1)
                 self._send_response(get_user_subscription(user_id))
@@ -145,8 +154,7 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
             elif analytics_dashboard_match:
                 self._send_response(get_dashboard_stats())
             elif auth_me_match:
-                response, status_code = get_current_user(self.headers)
-                self._send_response(response, status_code)
+                self._send_response(get_current_user(self.headers))
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
@@ -171,21 +179,16 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
             subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
             
             if users_match:
-                response, status_code = create_user(data)
-                self._send_response(response, status_code)
+                self._send_response(create_user(data))
             elif user_vault_match:
                 user_id = user_vault_match.group(1)
-                response, status_code = create_vault_item(user_id, data)
-                self._send_response(response, status_code)
+                self._send_response(create_vault_item(user_id, data))
             elif subscriptions_match:
-                response, status_code = create_subscription_tier(data)
-                self._send_response(response, status_code)
+                self._send_response(create_subscription_tier(data))
             elif auth_signup_match:
-                response, status_code = signup(data)
-                self._send_response(response, status_code)
+                self._send_response(signup(data))
             elif auth_login_match:
-                response, status_code = login(data)
-                self._send_response(response, status_code)
+                self._send_response(login(data))
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
@@ -208,21 +211,17 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
             
             if user_match:
                 user_id = user_match.group(1)
-                response, status_code = update_user(user_id, data)
-                self._send_response(response, status_code)
+                self._send_response(update_user(user_id, data))
             elif vault_item_match:
                 user_id = vault_item_match.group(1)
                 item_id = vault_item_match.group(2)
-                response, status_code = update_vault_item(user_id, item_id, data)
-                self._send_response(response, status_code)
+                self._send_response(update_vault_item(user_id, item_id, data))
             elif subscription_match:
                 tier_id = subscription_match.group(1)
-                response, status_code = update_subscription_tier(tier_id, data)
-                self._send_response(response, status_code)
+                self._send_response(update_subscription_tier(tier_id, data))
             elif user_subscription_match:
                 user_id = user_subscription_match.group(1)
-                response, status_code = update_user_subscription(user_id, data)
-                self._send_response(response, status_code)
+                self._send_response(update_user_subscription(user_id, data))
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
@@ -243,17 +242,14 @@ class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
             
             if user_match:
                 user_id = user_match.group(1)
-                response, status_code = delete_user(user_id)
-                self._send_response(response, status_code)
+                self._send_response(delete_user(user_id))
             elif vault_item_match:
                 user_id = vault_item_match.group(1)
                 item_id = vault_item_match.group(2)
-                response, status_code = delete_vault_item(user_id, item_id)
-                self._send_response(response, status_code)
+                self._send_response(delete_vault_item(user_id, item_id))
             elif subscription_match:
                 tier_id = subscription_match.group(1)
-                response, status_code = delete_subscription_tier(tier_id)
-                self._send_response(response, status_code)
+                self._send_response(delete_subscription_tier(tier_id))
             else:
                 self._send_response({"error": "Endpoint not found"}, 404)
         except Exception as e:
