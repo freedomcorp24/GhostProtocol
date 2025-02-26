@@ -141,6 +141,7 @@ def get_current_user(headers):
     token = auth_header.split(' ')[1]
     
     try:
+        # Fix: Use the correct algorithm and options for decoding
         payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
         users_data = load_users()
         
@@ -162,3 +163,5 @@ def get_current_user(headers):
         return {"error": "Token has expired"}, 401
     except jwt.InvalidTokenError:
         return {"error": "Invalid token"}, 401
+    except Exception as e:
+        return {"error": f"Error decoding token: {str(e)}"}, 401
