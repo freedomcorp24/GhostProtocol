@@ -1,10 +1,17 @@
 {
-  "apiEndpoint": "http://54.123.45.67/api",
-  "features": {
-    "userManagement": true,
-    "analytics": true,
-    "contentModeration": true,
-    "monitoring": true
-  },
-  "environment": "development"
+  "apiEndpoint": "http://54.215.16.4/api",
+  "adminRoles": [
+    {
+      "role": "super_admin",
+      "permissions": ["manage_users", "manage_subscriptions", "manage_tiers", "view_analytics", "manage_admins"]
+    },
+    {
+      "role": "admin",
+      "permissions": ["manage_users", "manage_subscriptions", "view_analytics"]
+    },
+    {
+      "role": "support",
+      "permissions": ["view_users", "view_subscriptions"]
+    }
+  ]
 }
