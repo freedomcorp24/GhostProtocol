@@ -4,10 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GhostProtocol - Login</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .error-message {
+            background-color: #ffebee;
+            color: #d32f2f;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+        .login-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .login-button:hover {
+            background-color: #43a047;
+        }
+        .login-button:disabled {
+            background-color: #a5d6a7;
+            cursor: not-allowed;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .signup-link a {
+            color: #2196f3;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script src="js/bundle.js"></script>
+    <div class="login-container">
+        <h2>Login to GhostProtocol</h2>
+        
+        <div id="error-message" class="error-message"></div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    required
+                />
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                />
+            </div>
+            
+            <button type="submit" class="login-button" id="login-button">Login</button>
+        </form>
+        
+        <div class="signup-link">
+            Don't have an account? <a href="/signup.html">Sign up</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const loginButton = document.getElementById('login-button');
+            
+            // Validate form
+            if (!username || !password) {
+                errorMessage.textContent = 'Username and password are required';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Disable button and show loading state
+            loginButton.disabled = true;
+            loginButton.textContent = 'Logging in...';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Call the login API
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to log in');
+                }
+                
+                // Store token in localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                // Redirect based on user role
+                if (data.user.role === 'admin' || data.user.role === 'super_admin') {
+                    window.location.href = '/admin';
+                } else {
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                errorMessage.textContent = err.message || 'Failed to log in. Please try again.';
+                errorMessage.style.display = 'block';
+            } finally {
+                // Re-enable button
+                loginButton.disabled = false;
+                loginButton.textContent = 'Login';
+            }
+        });
+    </script>
 </body>
 </html>
