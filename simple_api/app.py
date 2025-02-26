@@ -197,4 +197,5 @@ async def get_current_user(authorization: Optional[str] = Header(None)):
 # Run the application
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Change port from 8000 to 5000 to match nginx configuration
+    uvicorn.run(app, host="0.0.0.0", port=5000)
