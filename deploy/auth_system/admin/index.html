@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostProtocol Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .login-form {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        .dashboard {
+            display: none;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .user-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .user-list th, .user-list td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .user-list th {
+            background-color: #f2f2f2;
+        }
+        .user-actions button {
+            margin-right: 5px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: white;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" id="login-form">
+        <h2>Admin Login</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <button id="login-btn">Login</button>
+        <div class="error-message" id="login-error"></div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <header>
+            <h1>GhostProtocol Admin Panel</h1>
+            <div>
+                <span id="admin-username"></span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="tabs">
+                <div class="tab active" data-tab="users">Users</div>
+                <div class="tab" data-tab="subscriptions">Subscriptions</div>
+                <div class="tab" data-tab="analytics">Analytics</div>
+                <div class="tab" data-tab="settings">Settings</div>
+            </div>
+
+            <div class="tab-content active" id="users-tab">
+                <div class="dashboard-header">
+                    <h2>User Management</h2>
+                    <button id="add-user-btn">Add User</button>
+                </div>
+                <div class="card">
+                    <table class="user-list" id="user-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Subscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- User data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="subscriptions-tab">
+                <h2>Subscription Management</h2>
+                <div class="card">
+                    <h3>Subscription Tiers</h3>
+                    <table class="user-list" id="subscription-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Storage Limit</th>
+                                <th>Features</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Subscription data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="analytics-tab">
+                <h2>Analytics Dashboard</h2>
+                <div class="card">
+                    <h3>User Statistics</h3>
+                    <div id="user-stats">
+                        <!-- User statistics will be populated here -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Message Statistics</h3>
+                    <div id="message-stats">
+                        <!-- Message statistics will be populated here -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Subscription Statistics</h3>
+                    <div id="subscription-stats">
+                        <!-- Subscription statistics will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="settings-tab">
+                <h2>System Settings</h2>
+                <div class="card">
+                    <h3>General Settings</h3>
+                    <div id="general-settings">
+                        <!-- General settings will be populated here -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Security Settings</h3>
+                    <div id="security-settings">
+                        <!-- Security settings will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API endpoint
+        const API_URL = 'http://localhost:8080';
+
+        // DOM elements
+        const loginForm = document.getElementById('login-form');
+        const dashboard = document.getElementById('dashboard');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginError = document.getElementById('login-error');
+        const adminUsername = document.getElementById('admin-username');
+        const userList = document.getElementById('user-list').querySelector('tbody');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Check if user is already logged in
+        const token = localStorage.getItem('adminToken');
+        if (token) {
+            fetchCurrentUser(token);
+        }
+
+        // Login button click event
+        loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            if (!username || !password) {
+                loginError.textContent = 'Please enter both username and password';
+                return;
+            }
+
+            loginAdmin(username, password);
+        });
+
+        // Logout button click event
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminUser');
+            showLoginForm();
+        });
+
+        // Tab click event
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and tab contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding tab content
+                tab.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+                
+                // Load data for the selected tab
+                if (tabId === 'users') {
+                    loadUsers();
+                } else if (tabId === 'subscriptions') {
+                    loadSubscriptions();
+                } else if (tabId === 'analytics') {
+                    loadAnalytics();
+                }
+            });
+        });
+
+        // Login admin user
+        async function loginAdmin(username, password) {
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.user.role === 'super_admin' || data.user.role === 'admin') {
+                        localStorage.setItem('adminToken', data.token);
+                        localStorage.setItem('adminUser', JSON.stringify(data.user));
+                        showDashboard(data.user);
+                        loadUsers();
+                    } else {
+                        loginError.textContent = 'You do not have admin privileges';
+                    }
+                } else {
+                    loginError.textContent = data.error || 'Invalid username or password';
+                }
+            } catch (error) {
+                loginError.textContent = 'An error occurred. Please try again.';
+                console.error('Login error:', error);
+            }
+        }
+
+        // Fetch current user
+        async function fetchCurrentUser(token) {
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.role === 'super_admin' || data.role === 'admin') {
+                        localStorage.setItem('adminUser', JSON.stringify(data));
+                        showDashboard(data);
+                        loadUsers();
+                    } else {
+                        showLoginForm();
+                    }
+                } else {
+                    showLoginForm();
+                }
+            } catch (error) {
+                showLoginForm();
+                console.error('Fetch current user error:', error);
+            }
+        }
+
+        // Load users
+        async function loadUsers() {
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`${API_URL}/api/users`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const users = await response.json();
+
+                // Clear user list
+                userList.innerHTML = '';
+
+                // Populate user list
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.role}</td>
+                        <td>${user.status}</td>
+                        <td>${user.subscription_tier}</td>
+                        <td class="user-actions">
+                            <button class="edit-user" data-id="${user.id}">Edit</button>
+                            <button class="ban-user" data-id="${user.id}">Ban</button>
+                            <button class="delete-user" data-id="${user.id}">Delete</button>
+                        </td>
+                    `;
+                    userList.appendChild(row);
+                });
+
+                // Add event listeners to user action buttons
+                document.querySelectorAll('.edit-user').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const userId = btn.getAttribute('data-id');
+                        editUser(userId);
+                    });
+                });
+
+                document.querySelectorAll('.ban-user').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const userId = btn.getAttribute('data-id');
+                        banUser(userId);
+                    });
+                });
+
+                document.querySelectorAll('.delete-user').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const userId = btn.getAttribute('data-id');
+                        deleteUser(userId);
+                    });
+                });
+            } catch (error) {
+                console.error('Load users error:', error);
+            }
+        }
+
+        // Load subscriptions
+        function loadSubscriptions() {
+            // Implementation for loading subscriptions
+            console.log('Loading subscriptions...');
+        }
+
+        // Load analytics
+        function loadAnalytics() {
+            // Implementation for loading analytics
+            console.log('Loading analytics...');
+        }
+
+        // Edit user
+        function editUser(userId) {
+            // Implementation for editing user
+            console.log('Editing user:', userId);
+        }
+
+        // Ban user
+        async function banUser(userId) {
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`${API_URL}/api/users/${userId}/ban`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    loadUsers();
+                } else {
+                    console.error('Ban user error:', await response.json());
+                }
+            } catch (error) {
+                console.error('Ban user error:', error);
+            }
+        }
+
+        // Delete user
+        async function deleteUser(userId) {
+            try {
+                const token = localStorage.getItem('adminToken');
+                const response = await fetch(`${API_URL}/api/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    loadUsers();
+                } else {
+                    console.error('Delete user error:', await response.json());
+                }
+            } catch (error) {
+                console.error('Delete user error:', error);
+            }
+        }
+
+        // Show login form
+        function showLoginForm() {
+            loginForm.style.display = 'block';
+            dashboard.style.display = 'none';
+            loginError.textContent = '';
+            usernameInput.value = '';
+            passwordInput.value = '';
+        }
+
+        // Show dashboard
+        function showDashboard(user) {
+            loginForm.style.display = 'none';
+            dashboard.style.display = 'block';
+            adminUsername.textContent = `${user.username} (${user.role})`;
+        }
+    </script>
+</body>
+</html>
