@@ -174,7 +174,7 @@
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Failed to sign up');
+                    throw new Error(data.detail || 'Failed to sign up');
                 }
                 
                 // Store token in localStorage
