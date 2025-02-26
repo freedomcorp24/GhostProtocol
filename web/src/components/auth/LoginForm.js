@@ -8,7 +8,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isAdminLogin, setIsAdminLogin] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -40,14 +39,9 @@ const LoginForm = () => {
     }
   };
 
-  const toggleAdminLogin = () => {
-    setIsAdminLogin(!isAdminLogin);
-    setError('');
-  };
-
   return (
     <div className="login-container">
-      <h2>{isAdminLogin ? 'Admin Login' : 'Login to GhostProtocol'}</h2>
+      <h2>Login to GhostProtocol</h2>
       
       {error && <div className="error-message">{error}</div>}
       
@@ -77,35 +71,13 @@ const LoginForm = () => {
         </div>
         
         <button type="submit" className="login-button" disabled={loading}>
-          {loading ? 'Logging in...' : isAdminLogin ? 'Admin Login' : 'Login'}
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
       
-      {!isAdminLogin && (
-        <div className="signup-link">
-          Don't have an account? <a href="/signup">Sign up</a>
-        </div>
-      )}
-      
-      <div className="admin-login-option">
-        <p>{isAdminLogin ? 'Not an admin?' : 'Admin access?'}</p>
-        <button className="admin-login-link" onClick={toggleAdminLogin}>
-          {isAdminLogin ? 'Switch to User Login' : 'Switch to Admin Login'}
-        </button>
+      <div className="signup-link">
+        Don't have an account? <a href="/signup">Sign up</a>
       </div>
-      
-      {isAdminLogin && (
-        <div className="admin-features">
-          <h3>Admin Features</h3>
-          <ul>
-            <li>User Management</li>
-            <li>Subscription Control</li>
-            <li>Content Moderation</li>
-            <li>System Analytics</li>
-            <li>Master Admin Controls</li>
-          </ul>
-        </div>
-      )}
     </div>
   );
 };
