@@ -1,0 +1,16 @@
+[Unit]
+Description=GhostProtocol API Server
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/ghostprotocol/simple_api
+ExecStart=/usr/bin/python3 -m uvicorn app:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ghostprotocol-api
+
+[Install]
+WantedBy=multi-user.target

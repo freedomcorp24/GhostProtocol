@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "super_admin",
+      "created_at": "2023-01-01T00:00:00",
+      "status": "active",
+      "premium": true,
+      "subscription_tier": "enterprise",
+      "storage_used": 0,
+      "storage_limit": 100000000000
+    },
+    {
+      "id": "0c11602f-41e7-4670-9222-76c556c404e1",
+      "username": "testuser3",
+      "password_hash": "9f735e0df9a1ddc702bf0a1a7b83033f9f7153a00c29de82cedadc9957289b05",
+      "role": "user",
+      "created_at": "2025-02-26T00:17:19.609964",
+      "status": "active",
+      "premium": false,
+      "subscription_tier": "free",
+      "storage_used": 0,
+      "storage_limit": 10000000000
+    },
+    {
+      "id": "3a369cd6-4538-4e7c-8f9c-78fc945f0136",
+      "username": "testuser4",
+      "password_hash": "9f735e0df9a1ddc702bf0a1a7b83033f9f7153a00c29de82cedadc9957289b05",
+      "role": "user",
+      "created_at": "2025-02-26T00:20:00.580868",
+      "status": "active",
+      "premium": false,
+      "subscription_tier": "free",
+      "storage_used": 0,
+      "storage_limit": 10000000000
+    }
+  ]
+}
