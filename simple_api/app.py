@@ -1,265 +1,195 @@
-import http.server
-import socketserver
-import json
-import re
+from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import os
-import sys
+import json
+import hashlib
+import jwt
+import datetime
+import uuid
+from typing import Optional
 
-# Add the current directory to the path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Create FastAPI app
+app = FastAPI(title="GhostProtocol API")
 
-# Import API modules
-from api.v1.auth_custom import signup, login, get_current_user
-from api.users import (
-    get_users, get_user, create_user, update_user, delete_user, ban_user
-)
-from api.subscriptions import (
-    get_subscription_tiers, get_subscription_tier, create_subscription_tier,
-    update_subscription_tier, delete_subscription_tier, get_user_subscription,
-    update_user_subscription
-)
-from api.vault import (
-    get_user_vault_items as get_user_vault, get_vault_item, create_vault_item, update_vault_item, delete_vault_item
-)
-from api.analytics import (
-    get_user_stats as get_user_analytics, get_message_stats as get_message_analytics, 
-    get_subscription_stats as get_subscription_analytics,
-    get_system_health, get_dashboard_stats
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# Define the port
-PORT = 8080
+# Secret key for JWT token generation
+SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'ghostprotocol-dev-secret')
 
-# Create the HTTP request handler
-class GhostProtocolHandler(http.server.BaseHTTPRequestHandler):
-    def _set_headers(self, status_code=200):
-        self.send_response(status_code)
-        self.send_header('Content-type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        self.end_headers()
+# Models
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class UserSignup(BaseModel):
+    username: str
+    password: str
+
+# Helper function to load users data
+def load_users():
+    try:
+        os.makedirs('static/data', exist_ok=True)
+        with open('static/data/users.json', 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # Initialize with default admin user
+        default_users = {
+            "users": [
+                {
+                    "id": "1",
+                    "username": "admin",
+                    "password_hash": hashlib.sha256("admin123".encode()).hexdigest(),
+                    "role": "super_admin",
+                    "created_at": datetime.datetime.now().isoformat(),
+                    "status": "active",
+                    "premium": True,
+                    "subscription_tier": "enterprise",
+                    "storage_used": 0,
+                    "storage_limit": 100000000000  # 100GB
+                }
+            ]
+        }
+        save_users(default_users)
+        return default_users
+
+# Helper function to save users data
+def save_users(users_data):
+    os.makedirs('static/data', exist_ok=True)
+    with open('static/data/users.json', 'w') as f:
+        json.dump(users_data, f, indent=2)
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Health check endpoint
+@app.get("/healthz")
+def health_check():
+    return {"status": "ok"}
+
+# API routes
+@app.post("/auth/signup")
+async def signup(user: UserSignup):
+    users_data = load_users()
     
-    def _get_request_body(self):
-        content_length = int(self.headers.get('Content-Length', 0))
-        body = self.rfile.read(content_length).decode('utf-8')
-        return json.loads(body) if body else {}
+    # Check if username already exists
+    for existing_user in users_data['users']:
+        if existing_user['username'] == user.username:
+            raise HTTPException(status_code=400, detail="Username already exists")
     
-    def _send_response(self, data, status_code=200):
-        # Handle tuple responses (data, status_code)
-        if isinstance(data, tuple) and len(data) == 2:
-            data, status_code = data
+    # Create new user
+    user_id = str(uuid.uuid4())
+    password_hash = hashlib.sha256(user.password.encode()).hexdigest()
+    
+    new_user = {
+        "id": user_id,
+        "username": user.username,
+        "password_hash": password_hash,
+        "role": "user",
+        "created_at": datetime.datetime.now().isoformat(),
+        "status": "active",
+        "premium": False,
+        "subscription_tier": "free",
+        "storage_used": 0,
+        "storage_limit": 10000000000  # 10GB for free users
+    }
+    
+    users_data['users'].append(new_user)
+    save_users(users_data)
+    
+    # Generate JWT token
+    token = jwt.encode({
+        'user_id': user_id,
+        'username': user.username,
+        'role': 'user',
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+    }, SECRET_KEY, algorithm='HS256')
+    
+    return {
+        "message": "User created successfully",
+        "user": {
+            "id": user_id,
+            "username": user.username,
+            "role": "user",
+            "subscription_tier": "free"
+        },
+        "token": token
+    }
+
+@app.post("/auth/login")
+async def login(user: UserLogin):
+    users_data = load_users()
+    
+    # Check credentials
+    password_hash = hashlib.sha256(user.password.encode()).hexdigest()
+    
+    for existing_user in users_data['users']:
+        if existing_user['username'] == user.username and existing_user['password_hash'] == password_hash:
+            # Check if user is banned
+            if existing_user['status'] == 'banned':
+                raise HTTPException(status_code=403, detail="Account is banned")
+            
+            # Generate JWT token
+            token = jwt.encode({
+                'user_id': existing_user['id'],
+                'username': existing_user['username'],
+                'role': existing_user['role'],
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+            }, SECRET_KEY, algorithm='HS256')
+            
+            return {
+                "message": "Login successful",
+                "user": {
+                    "id": existing_user['id'],
+                    "username": existing_user['username'],
+                    "role": existing_user['role'],
+                    "subscription_tier": existing_user['subscription_tier']
+                },
+                "token": token
+            }
+    
+    raise HTTPException(status_code=401, detail="Invalid username or password")
+
+@app.get("/auth/me")
+async def get_current_user(authorization: Optional[str] = Header(None)):
+    if not authorization or not authorization.startswith('Bearer '):
+        raise HTTPException(status_code=401, detail="Authorization header is required")
+    
+    token = authorization.split(' ')[1]
+    
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+        users_data = load_users()
         
-        # Convert status_code to int if it's a string
-        if isinstance(status_code, str):
-            try:
-                status_code = int(status_code)
-            except ValueError:
-                status_code = 200
-                
-        self._set_headers(status_code)
-        self.wfile.write(json.dumps(data).encode())
-    
-    def do_OPTIONS(self):
-        self._set_headers()
-    
-    def do_GET(self):
-        try:
-            path = self.path
-            
-            # Root endpoint
-            if path == '/':
-                self._send_response({
-                    "message": "GhostProtocol API",
-                    "version": "1.0.0",
-                    "endpoints": [
-                        "/health",
-                        "/api/users",
-                        "/api/users/{id}",
-                        "/api/subscriptions",
-                        "/api/subscriptions/{id}",
-                        "/api/users/{id}/subscription",
-                        "/api/users/{id}/vault",
-                        "/api/users/{id}/vault/{item_id}",
-                        "/api/analytics/users",
-                        "/api/analytics/messages",
-                        "/api/analytics/subscriptions",
-                        "/api/analytics/system",
-                        "/api/analytics/dashboard",
-                        "/api/auth/signup",
-                        "/api/auth/login",
-                        "/api/auth/me"
-                    ]
-                })
-                return
-            
-            # Health check endpoint
-            if path == '/health':
-                self._send_response({"status": "ok"})
-                return
-            
-            # User endpoints
-            users_match = re.match(r'^/api/users/?$', path)
-            user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-            
-            # Vault endpoints
-            user_vault_match = re.match(r'^/api/users/([^/]+)/vault/?$', path)
-            vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
-            
-            # Subscription endpoints
-            subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
-            subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
-            user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
-            
-            # Auth endpoints
-            auth_signup_match = re.match(r'^/api/auth/signup/?$', path)
-            auth_login_match = re.match(r'^/api/auth/login/?$', path)
-            auth_me_match = re.match(r'^/api/auth/me/?$', path)
-            
-            # Analytics endpoints
-            analytics_users_match = re.match(r'^/api/analytics/users/?$', path)
-            analytics_messages_match = re.match(r'^/api/analytics/messages/?$', path)
-            analytics_subscriptions_match = re.match(r'^/api/analytics/subscriptions/?$', path)
-            analytics_system_match = re.match(r'^/api/analytics/system/?$', path)
-            analytics_dashboard_match = re.match(r'^/api/analytics/dashboard/?$', path)
-            
-            if users_match:
-                self._send_response(get_users())
-            elif user_match:
-                user_id = user_match.group(1)
-                self._send_response(get_user(user_id))
-            elif user_vault_match:
-                user_id = user_vault_match.group(1)
-                self._send_response(get_user_vault(user_id))
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                self._send_response(get_vault_item(user_id, item_id))
-            elif subscriptions_match:
-                self._send_response(get_subscription_tiers())
-            elif subscription_match:
-                tier_id = subscription_match.group(1)
-                self._send_response(get_subscription_tier(tier_id))
-            elif user_subscription_match:
-                user_id = user_subscription_match.group(1)
-                self._send_response(get_user_subscription(user_id))
-            elif analytics_users_match:
-                self._send_response(get_user_analytics())
-            elif analytics_messages_match:
-                self._send_response(get_message_analytics())
-            elif analytics_subscriptions_match:
-                self._send_response(get_subscription_analytics())
-            elif analytics_system_match:
-                self._send_response(get_system_health())
-            elif analytics_dashboard_match:
-                self._send_response(get_dashboard_stats())
-            elif auth_me_match:
-                self._send_response(get_current_user(self.headers))
-            else:
-                self._send_response({"error": "Endpoint not found"}, 404)
-        except Exception as e:
-            self._send_response({"error": str(e)}, 500)
-    
-    def do_POST(self):
-        try:
-            path = self.path
-            data = self._get_request_body()
-            
-            # User endpoints
-            users_match = re.match(r'^/api/users/?$', path)
-            
-            # Vault endpoints
-            user_vault_match = re.match(r'^/api/users/([^/]+)/vault/?$', path)
-            
-            # Auth endpoints
-            auth_signup_match = re.match(r'^/api/auth/signup/?$', path)
-            auth_login_match = re.match(r'^/api/auth/login/?$', path)
-            
-            # Subscription endpoints
-            subscriptions_match = re.match(r'^/api/subscriptions/?$', path)
-            
-            if users_match:
-                self._send_response(create_user(data))
-            elif user_vault_match:
-                user_id = user_vault_match.group(1)
-                self._send_response(create_vault_item(user_id, data))
-            elif subscriptions_match:
-                self._send_response(create_subscription_tier(data))
-            elif auth_signup_match:
-                self._send_response(signup(data))
-            elif auth_login_match:
-                self._send_response(login(data))
-            else:
-                self._send_response({"error": "Endpoint not found"}, 404)
-        except Exception as e:
-            self._send_response({"error": str(e)}, 500)
-    
-    def do_PUT(self):
-        try:
-            path = self.path
-            data = self._get_request_body()
-            
-            # User endpoints
-            user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-            
-            # Vault endpoints
-            vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
-            
-            # Subscription endpoints
-            subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
-            user_subscription_match = re.match(r'^/api/users/([^/]+)/subscription/?$', path)
-            
-            if user_match:
-                user_id = user_match.group(1)
-                self._send_response(update_user(user_id, data))
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                self._send_response(update_vault_item(user_id, item_id, data))
-            elif subscription_match:
-                tier_id = subscription_match.group(1)
-                self._send_response(update_subscription_tier(tier_id, data))
-            elif user_subscription_match:
-                user_id = user_subscription_match.group(1)
-                self._send_response(update_user_subscription(user_id, data))
-            else:
-                self._send_response({"error": "Endpoint not found"}, 404)
-        except Exception as e:
-            self._send_response({"error": str(e)}, 500)
-    
-    def do_DELETE(self):
-        try:
-            path = self.path
-            
-            # User endpoints
-            user_match = re.match(r'^/api/users/([^/]+)/?$', path)
-            
-            # Vault endpoints
-            vault_item_match = re.match(r'^/api/users/([^/]+)/vault/([^/]+)/?$', path)
-            
-            # Subscription endpoints
-            subscription_match = re.match(r'^/api/subscriptions/([^/]+)/?$', path)
-            
-            if user_match:
-                user_id = user_match.group(1)
-                self._send_response(delete_user(user_id))
-            elif vault_item_match:
-                user_id = vault_item_match.group(1)
-                item_id = vault_item_match.group(2)
-                self._send_response(delete_vault_item(user_id, item_id))
-            elif subscription_match:
-                tier_id = subscription_match.group(1)
-                self._send_response(delete_subscription_tier(tier_id))
-            else:
-                self._send_response({"error": "Endpoint not found"}, 404)
-        except Exception as e:
-            self._send_response({"error": str(e)}, 500)
+        for user in users_data['users']:
+            if user['id'] == payload['user_id']:
+                return {
+                    "id": user['id'],
+                    "username": user['username'],
+                    "role": user['role'],
+                    "status": user['status'],
+                    "premium": user['premium'],
+                    "subscription_tier": user['subscription_tier'],
+                    "storage_used": user['storage_used'],
+                    "storage_limit": user['storage_limit']
+                }
+        
+        raise HTTPException(status_code=404, detail="User not found")
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
-# Create the HTTP server
-def run_server():
-    print(f"Starting GhostProtocol API server on port {PORT}...")
-    httpd = socketserver.TCPServer(("", PORT), GhostProtocolHandler)
-    httpd.serve_forever()
-
+# Run the application
 if __name__ == "__main__":
-    run_server()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,6 +1,7 @@
 import json
 import os
 import hashlib
+import datetime
 
 # Create the data directory if it doesn't exist
 os.makedirs('static/data', exist_ok=True)
@@ -13,7 +14,7 @@ default_users = {
             "username": "admin",
             "password_hash": hashlib.sha256("admin123".encode()).hexdigest(),
             "role": "super_admin",
-            "created_at": "2023-01-01T00:00:00",
+            "created_at": datetime.datetime.now().isoformat(),
             "status": "active",
             "premium": True,
             "subscription_tier": "enterprise",
