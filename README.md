@@ -32,6 +32,7 @@ GhostProtocol is a secure messaging platform built on Signal's native Java/Maven
 - [Deploy Service Only](scripts/deployment/deploy_service_only.sh)
 - [Deploy Signal Server](scripts/deployment/deploy_signal_server.sh)
 - [Create GhostProtocol JAR](scripts/deployment/create_ghost_protocol_jar.sh)
+- [Create Test JAR](scripts/deployment/create_test_jar.sh)
 
 ### Testing Scripts
 
@@ -40,6 +41,10 @@ GhostProtocol is a secure messaging platform built on Signal's native Java/Maven
 - [Test Android App](scripts/testing/test_android_app.sh)
 - [Verify Feature Parity](scripts/testing/verify_feature_parity.sh)
 - [Test Mobile Apps](scripts/testing/test_mobile_apps.sh)
+
+### Utility Scripts
+
+- [Start Signal Server](scripts/utils/start_signal_server.sh)
 
 ## Test URLs
 
