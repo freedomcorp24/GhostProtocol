@@ -1,0 +1,26 @@
+{
+  "server": {
+    "port": 8080,
+    "host": "0.0.0.0",
+    "adminPort": 8081,
+    "adminHost": "0.0.0.0"
+  },
+  "database": {
+    "url": "jdbc:postgresql://localhost:5432/ghostprotocol",
+    "user": "ghostprotocol",
+    "password": "ghostprotocol"
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
+  "aws": {
+    "region": "us-east-1",
+    "s3Bucket": "ghostprotocol-test"
+  },
+  "ghostProtocol": {
+    "authSecret": "test-auth-secret",
+    "adminUsername": "admin",
+    "adminPassword": "admin"
+  }
+}
