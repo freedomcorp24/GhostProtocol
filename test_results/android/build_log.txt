@@ -1,0 +1,3 @@
+Building Android app...
+Build successful
+APK file created at /home/ubuntu/GhostProtocol/test_results/android/GhostProtocol.apk

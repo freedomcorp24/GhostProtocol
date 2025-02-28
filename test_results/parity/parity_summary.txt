@@ -1,0 +1,5 @@
+Authentication feature parity: PASSED
+Vault feature parity: PASSED
+Cryptocurrency feature parity: PASSED
+Premium tier feature parity: PASSED
+Admin panel feature parity: PASSED

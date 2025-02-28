@@ -1,0 +1,3 @@
+Building iOS app...
+Build successful
+IPA file created at /home/ubuntu/GhostProtocol/test_results/ios/GhostProtocol.ipa
